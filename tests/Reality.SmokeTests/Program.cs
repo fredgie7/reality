@@ -27,17 +27,33 @@ for (var generation = 1; generation <= 12; generation++)
 }
 
 var catalog = ScientificCatalog.Create();
-IReality firstModel = new PanpsychistReality(physics, new CosmicHistory(), new ChemistryModel(), evolution, catalog);
-IReality alternative = new TestReality(physics, new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
+var models = RealityFactory.AvailableModels
+    .Select(name => RealityFactory.Create(name, new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog))
+    .ToArray();
 
-Check(firstModel.Evolve().Count >= 10, "shared cosmic-to-consciousness timeline");
-Check(firstModel.Name == "Panpsychism", "first implementation identifies its ontology");
-Check(firstModel.MetaphysicalAssumptions.Count > 0, "implementation owns its metaphysical assumptions");
-Check(alternative.Name == "Alternative example", "a second IReality implementation can be instantiated");
-Check(firstModel.Evolve().SequenceEqual(alternative.Evolve()), "alternate ontology reuses observable timeline");
-Check(alternative.CreateObserver().DoScience().Count == firstModel.CreateObserver().DoScience().Count, "observer is implementation-agnostic");
-Check(!catalog.Findings.Any(x => x.Subject == "Panpsychism"), "shared scientific catalog does not privilege one ontology");
-Check(new TheoryComparison().Theories.Count == 4, "four philosophical theories represented");
+Check(models.Length == 4, "all four reality interpretations registered");
+Check(models.Select(x => x.Name).Distinct().Count() == 4, "each ontology is distinguishable by name");
+Check(models.All(x => x.MetaphysicalAssumptions.Count >= 3), "every implementation explicitly states its assumptions");
+Check(models.All(x => x.Evolve().Count >= 10), "each model includes the complete shared chronology");
+Check(models.Skip(1).All(x => x.Evolve().SequenceEqual(models[0].Evolve())), "models share empirical cosmic and biological chronology");
+Check(models.Skip(1).All(x => x.Physics.Principles.Count == models[0].Physics.Principles.Count), "models preserve the same physical principles");
+Check(models.Skip(1).All(x => x.CreateObserver().DoScience().SequenceEqual(models[0].CreateObserver().DoScience())), "observers discover identical scientific findings");
+Check(models.All(x => x.CreateObserver().DoPhilosophy().Count > 0), "observers can examine philosophical questions in each model");
+Check(!catalog.Findings.Any(x => x.Subject == "Panpsychism"), "shared scientific catalog does not privilege an ontology");
+Check(new TheoryComparison().Theories.Count == models.Length, "theory comparison covers all implementations");
+Check(RealityFactory.Create("PHYSICALISM", physics, new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(9), catalog) is PhysicalistReality, "model selection is case-insensitive");
+Check(RealityFactory.Create("idealism", physics, new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(9), catalog) is IdealistReality, "idealism resolves to the correct implementation");
+Check(RealityFactory.Create("substance-dualism", physics, new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(9), catalog) is SubstanceDualistReality, "dualism resolves to the correct implementation");
+
+try
+{
+    RealityFactory.Create("not-a-theory", physics, new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(9), catalog);
+    throw new Exception("FAIL: unknown model should be rejected");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: unknown model rejected");
+}
 
 try
 {
@@ -50,14 +66,3 @@ catch (NotSupportedException)
 }
 
 Console.WriteLine("All smoke checks passed.");
-
-// A test-only implementation proves the interface is not tied to panpsychism.
-// It makes no claim that this is a scientifically viable metaphysical model.
-sealed class TestReality : RealityBase
-{
-    public TestReality(ILawsOfPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, IBiologicalEvolution evolution, ScientificCatalog knowledge)
-        : base(physics, cosmos, chemistry, evolution, knowledge) { }
-
-    public override string Name => "Alternative example";
-    public override IReadOnlyList<string> MetaphysicalAssumptions => new[] { "Hypothetical alternative for testing polymorphism." };
-}
