@@ -1,5 +1,3 @@
-using Reality.Philosophy;
-
 namespace Reality.Consciousness;
 
 public interface IExperience
@@ -10,11 +8,6 @@ public interface IExperience
 public interface IUnifiedConsciousness : IExperience
 {
     string Reflect();
-}
-
-public sealed record FundamentalExperience(string FirstPersonDescription) : IExperience
-{
-    // This is a hypothetical object under panpsychism, not a detected entity.
 }
 
 public sealed class HumanConsciousness : IUnifiedConsciousness
@@ -46,21 +39,10 @@ public sealed class HumanConsciousness : IUnifiedConsciousness
         "Are physical laws governing rules or descriptions?",
         "Is subjective experience fundamental, emergent, or something else?",
         "What could count as evidence for different metaphysical accounts?",
-        "How could multiple minimal experiences form a single subject?",
+        "How can experience be unified, and does the answer depend on an ontology?",
         "Can an observer fully model the system that produced it?"
     };
 
     public string UnderstandReality() =>
-        $"{Reflect()} I can test {_world.Physics.Principles.Count} summarized physical principles, but not inspect reality's source.";
-}
-
-public static class CombinationProblem
-{
-    public static IUnifiedConsciousness Combine(IEnumerable<IExperience> experiences)
-    {
-        ArgumentNullException.ThrowIfNull(experiences);
-        // TODO: Discover the actual implementation, IF combination is possible.
-        // Merely aggregating objects cannot establish a unified subjective subject.
-        throw new NotSupportedException("Combination problem unresolved: source code unavailable.");
-    }
+        $"{Reflect()} I can investigate {_world.Physics.Principles.Count} summarized physical principles, but not inspect reality's source.";
 }

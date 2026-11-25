@@ -1,16 +1,22 @@
 using Reality;
 using Reality.Biology;
-using Reality.Consciousness;
+using Reality.Implementations;
 using Reality.Philosophy;
 using Reality.Physics;
 
 var knowledge = ScientificCatalog.Create();
-var world = new PanpsychistReality(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
+
+// Swap this instance for another IReality implementation as we explore alternatives.
+// Common physical, evolutionary and observer models are not tied to panpsychism.
+IReality world = new PanpsychistReality(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
 
 Console.WriteLine("REALITY :: production diagnostics");
 Console.WriteLine("Source code: unavailable | Observer: running inside observed system");
-Console.WriteLine();
+Console.WriteLine($"Selected interpretation: {world.Name} (philosophical hypothesis)");
+foreach (var assumption in world.MetaphysicalAssumptions)
+    Console.WriteLine($"ASSUMPTION: {assumption}");
 
+Console.WriteLine();
 foreach (var stage in world.Evolve())
     Console.WriteLine($"[{stage.Domain}] {stage.Description}");
 
@@ -38,4 +44,4 @@ for (var generation = 0; generation < 8; generation++)
 
 Console.WriteLine();
 Console.WriteLine($"FIRST PERSON: {observer.Experience()}");
-Console.WriteLine("COMBINATION PROBLEM: unresolved — no implementation invented.");
+Console.WriteLine("The nature of reality is still under investigation.");
