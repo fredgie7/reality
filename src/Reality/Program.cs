@@ -4,11 +4,23 @@ using Reality.Implementations;
 using Reality.Philosophy;
 using Reality.Physics;
 
+var model = args.Length == 0 ? "panpsychism" : args[0];
 var knowledge = ScientificCatalog.Create();
 
-// Swap this instance for another IReality implementation as we explore alternatives.
-// Common physical, evolutionary and observer models are not tied to panpsychism.
-IReality world = new PanpsychistReality(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
+// All models share the same scientific framework and observer abstractions.
+// The selected implementation changes only the proposed ontology.
+IReality world;
+try
+{
+    world = RealityFactory.Create(model, new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
+}
+catch (ArgumentException exception)
+{
+    Console.Error.WriteLine(exception.Message);
+    Console.Error.WriteLine($"Usage: dotnet run --project src/Reality/Reality.csproj -- [{string.Join("|", RealityFactory.AvailableModels)}]");
+    Environment.ExitCode = 1;
+    return;
+}
 
 Console.WriteLine("REALITY :: production diagnostics");
 Console.WriteLine("Source code: unavailable | Observer: running inside observed system");

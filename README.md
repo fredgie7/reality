@@ -4,51 +4,66 @@
 
 **Reality** is an open-ended C# 12 / .NET 8 project for exploring **what reality is, how it behaves, and how different philosophical accounts might explain its underlying nature**.
 
-It is deliberately **not committed to any single ontology**. We begin with `PanpsychistReality`, but this is just the *first proposed implementation* of `IReality`. Future implementations might explore physicalism, idealism, dualism, neutral monism, or entirely different frameworks. No one of them is presumed true because it happens to be the one we instantiate.
+The architecture is **not committed to a single ontology**. Four candidate interpretations now implement `IReality`: `PanpsychistReality`, `PhysicalistReality`, `IdealistReality`, and `SubstanceDualistReality`. They are *conceptual models*, not demonstrated descriptions of the source code of existence.
 
-The code is an **educational, philosophical and scientific analogy**, not a literal universe simulator, a theory of everything or evidence for a particular metaphysical position.
+This project is an educational analogy, not a numerical simulation, a theory of everything, or evidence in favor of any particular metaphysical position.
+
+## Run
+
+Requires .NET 8 SDK and no third-party dependencies.
+
+```bash
+dotnet run --project src/Reality/Reality.csproj
+dotnet run --project src/Reality/Reality.csproj -- physicalism
+dotnet run --project src/Reality/Reality.csproj -- idealism
+dotnet run --project src/Reality/Reality.csproj -- substance-dualism
+dotnet run --project tests/Reality.SmokeTests/Reality.SmokeTests.csproj
+```
+
+Running without an argument starts with panpsychism, our original example. Pass a model slug to select a different interpretation. Unknown model names are rejected with the available options.
 
 ## The idea
 
 ```csharp
-IReality reality = new PanpsychistReality(physics, cosmos, chemistry, evolution, knowledge);
+IReality reality = RealityFactory.Create("idealism", physics, cosmos, chemistry, evolution, knowledge);
 
-// Physics describes what the system demonstrably does.
-// The implementation represents a possible explanation of what it is.
-// TODO: Discover which implementation, if any, corresponds to reality.
+// The publicly observable world is unchanged by our choice of interpretation.
+// Each implementation supplies an alternative set of metaphysical assumptions.
+// TODO: Determine which interpretation, if any, describes reality.
 ```
 
-The important distinction is between **observable scientific models**, which any viable interpretation must address, and **metaphysical assumptions**, which belong to each interpretation. A different `IReality` is not a different set of established observations.
+The universe is already running in production. The source code is unavailable. Our code models ways of asking what its implementation might be.
 
-## Getting started
+## Candidate implementations
 
-Requires the .NET 8 SDK; there are no third-party dependencies.
+| Implementation | Proposal | An unresolved question |
+| --- | --- | --- |
+| `PanpsychistReality` | Experience is fundamental and widespread | How (or whether) simpler experiential aspects relate to unified subjects |
+| `PhysicalistReality` | The mental is physical or wholly fixed by physical facts | How physical processes account for subjective experience |
+| `IdealistReality` | Mind or experience is metaphysically fundamental | How a stable, shared physical world is explained |
+| `SubstanceDualistReality` | Mental and physical substances are ontologically distinct | Whether and how mental and physical substances interact |
 
-```bash
-dotnet run --project src/Reality/Reality.csproj
-dotnet run --project tests/Reality.SmokeTests/Reality.SmokeTests.csproj
-```
-
-The console currently selects `PanpsychistReality` in `Program.cs`, solely as our starting example.
+These are **broad families of views**, not exhaustive definitions. For example, physicalism has reductive and nonreductive variants, and idealism has multiple distinct formulations. Each class includes TODOs about its own unresolved questions; none is presented as established science.
 
 ## Architecture
 
 | Component | Responsibility |
 | --- | --- |
-| `IReality` | General contract for any candidate explanation of reality |
-| `RealityBase` | Reusable, ontology-independent physics, cosmic chronology, evolution and observer setup |
-| `Implementations/PanpsychistReality.cs` | First candidate ontology; all panpsychist assumptions live here |
-| `Implementations/Panpsychism/CombinationProblem.cs` | Unresolved question specific to panpsychist interpretations |
-| `ILawsOfPhysics` / `KnownPhysics` | Representative physical principles and outstanding scientific problems |
-| `CosmicHistory` / `ChemistryModel` | Illustrative timeline from cosmology through chemistry |
-| `IBiologicalEvolution` / `DarwinianEvolution` | Seeded toy model of inherited traits, selection, mutation and drift |
-| `INervousSystem` / `HumanConsciousness` | Simplified cognition and an observer exploring its own origin |
-| `ITheoryOfConsciousness` / `TheoryComparison` | Comparison of philosophical positions without endorsing one |
-| `ScientificCatalog` | Shared observational and scientific claims with explicit epistemic status |
+| `IReality` | Common contract for any candidate explanation of reality |
+| `RealityBase` | Shared, ontology-independent cosmology, physics, evolution and observer construction |
+| `Implementations/*Reality.cs` | Four interchangeable candidate ontologies |
+| `RealityFactory` | Explicit registry and selection of the candidate implementations |
+| `Implementations/Panpsychism/CombinationProblem.cs` | Panpsychism-specific open problem |
+| `ILawsOfPhysics` / `KnownPhysics` | Representative physical principles and open problems |
+| `CosmicHistory` / `ChemistryModel` | Simplified conceptual progression of cosmic history |
+| `IBiologicalEvolution` / `DarwinianEvolution` | Seeded toy evolution with inheritance, selection, drift and mutation |
+| `INervousSystem` / `HumanConsciousness` | Simplified cognition and first-person reflection |
+| `ITheoryOfConsciousness` / `TheoryComparison` | Side-by-side philosophy comparison |
+| `ScientificCatalog` | Scientific findings and explicit epistemic status |
 
-## How to add another reality
+## Add an implementation
 
-Create a class implementing `IReality`. In most cases, derive from `RealityBase` to reuse common scientific models, then provide your interpretation's own `Name` and `MetaphysicalAssumptions`. For example:
+Create a class that implements `IReality` (usually by extending `RealityBase`), define its `Name` and `MetaphysicalAssumptions`, then register it in `RealityFactory.AvailableModels` and `RealityFactory.Create`. Add it to `TheoryComparison` when appropriate and verify it with the smoke checks.
 
 ```csharp
 public sealed class AnotherReality : RealityBase
@@ -56,43 +71,26 @@ public sealed class AnotherReality : RealityBase
     public AnotherReality(ILawsOfPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, IBiologicalEvolution evolution, ScientificCatalog knowledge)
         : base(physics, cosmos, chemistry, evolution, knowledge) { }
 
-    public override string Name => "Another proposed reality";
+    public override string Name => "Another hypothesis";
     public override IReadOnlyList<string> MetaphysicalAssumptions => new[]
     {
-        "An explicitly labeled philosophical assumption to investigate."
+        "An explicitly labeled assumption to examine."
     };
 }
 ```
 
-Then assign an instance of that class to the `IReality` variable in `Program.cs`. This changes the interpretation without changing the underlying empirical chronology. No additional implementation has been asserted as true or fully modeled.
+## Scientific and philosophical limits
 
-## What is established, and what isn't?
-
-- Physics and evolutionary biology are empirically supported scientific frameworks. The methods in this project are conceptual summaries rather than numerical implementations.
-- Biological evolution acts on heritable variation across generations; it has no predetermined direction. Our fixed-size toy model is not a genome, ecology, speciation or origin-of-life simulation.
-- The origin of life predates the biological evolution of already-reproducing populations and is an independent research question.
-- Human neural processes are empirically investigated; the metaphysics of subjective experience remains controversial.
-- Panpsychism, physicalism, idealism and dualism are philosophical positions, **not confirmed runtime classes**. They differ in commitments and should be evaluated critically.
-- Physical conservation laws have contextual requirements; e.g., global energy need not be well-defined in arbitrary curved spacetime.
-
-## Open questions
-
-- Quantum gravity, quantum measurement, dark matter, dark energy and abiogenesis
-- What subjective experience is and how it relates to neural activity
-- Whether mind is fundamental, emergent, dual, or described by an as-yet-unimagined ontology
-- Which assumptions have empirical consequences, and which might be observationally indistinguishable
-- Whether physical laws govern reality or simply describe regularities
-- Whether any observer inside the system can completely understand it
-- For panpsychism specifically: whether minimal experience exists and, if so, how unified subjects could arise
-
-## Engineering philosophy
-
-**Prefer composition over ontological inheritance.** `IReality` *has* an `ILawsOfPhysics` dependency rather than deriving from it. The science modules should not make philosophical decisions. The ontology modules should not rewrite established observations to suit their hypotheses.
-
-Keep uncertain ideas visibly uncertain. A `TODO` is a question, not a scientific discovery.
+- The physical and biological models are educational summaries, not numerical simulations of the universe or biology.
+- The four implementations reuse the same observable scientific timeline. Selecting an ontology does **not** change the experimentally established results.
+- Panpsychism, physicalism, idealism and dualism are philosophical views, not empirically confirmed runtime implementations.
+- The evolution example is a simplistic inherited-trait model, not a real genome or ecosystem.
+- Subjective consciousness, quantum gravity, dark matter, dark energy, and abiogenesis include substantial unanswered questions of different kinds.
+- The panpsychist combination problem is deliberately unresolved; combining C# objects would not demonstrate unified subjective experience.
+- Conservation laws in curved spacetime require care; global energy conservation is not always defined.
 
 ## Verification
 
-A package-free smoke-check project validates physics boundary cases, basic evolutionary invariants, the shared chronology, and **substitutability of two independent `IReality` implementations**. GitHub Actions builds and runs the smoke checks for pull requests.
+Package-free smoke checks test the four implementations' substitutability, their shared observable chronology, the theory registry, invalid model handling, physics boundaries, toy evolution invariants, and the explicitly unresolved combination problem. GitHub Actions builds the .NET 8 project and runs the checks on pull requests.
 
-The universe is running in production. We have good API documentation for many behaviors. We're still debating the architecture — and the source code is unavailable.
+**Physics describes the API. Philosophy questions the architecture. Consciousness is the runtime asking how the runtime works.**
