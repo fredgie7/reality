@@ -6,6 +6,7 @@ using Reality.Implementations;
 using Reality.Implementations.Panpsychism;
 using Reality.Philosophy;
 using Reality.Physics;
+using Reality.Physics.Holography;
 
 static void Check(bool condition, string description)
 {
@@ -78,6 +79,34 @@ try
 catch (NotSupportedException)
 {
     Console.WriteLine("PASS: panpsychist combination problem remains unresolved");
+}
+
+
+var duality = new CelestialHolography();
+Check(!duality.IsCompleteDualityEstablished, "complete celestial duality remains unresolved");
+Check(duality.Bulk is FourDimensionalScatteringDescription, "bulk scattering description present");
+Check(duality.Boundary is CelestialConformalDescription, "celestial description present");
+var energySamples = new[] { new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) };
+Check(Math.Abs(duality.DemonstrateEnergyMellinTransform(energySamples, 1).ApproximateValue - 2) < 1e-10, "toy Mellin transform for Delta 1");
+Check(Math.Abs(duality.DemonstrateEnergyMellinTransform(energySamples, 2).ApproximateValue - 4) < 1e-10, "toy Mellin transform for Delta 2");
+Check(models.All(model => new PhysicalDescriptionStudy().Summarize(model, duality).Contains(model.Name)), "physical representations independent of ontology");
+try
+{
+    duality.DemonstrateEnergyMellinTransform(new[] { new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(1, 1) }, 1);
+    throw new Exception("FAIL: out-of-order samples accepted");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: unordered samples rejected");
+}
+try
+{
+    duality.ReconstructFullBulk();
+    throw new Exception("FAIL: unsupported full reconstruction succeeded");
+}
+catch (NotSupportedException)
+{
+    Console.WriteLine("PASS: full reconstruction explicitly unresolved");
 }
 
 Console.WriteLine("All smoke checks passed.");

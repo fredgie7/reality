@@ -4,6 +4,7 @@ using Reality.Culture;
 using Reality.Implementations;
 using Reality.Philosophy;
 using Reality.Physics;
+using Reality.Physics.Holography;
 
 var model = args.Length == 0 ? "panpsychism" : args[0];
 var knowledge = ScientificCatalog.Create();
@@ -39,6 +40,18 @@ Console.WriteLine($"EMERGENCE: {pattern.ActiveComponents} active nodes, {pattern
 var transmission = world.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) }, 2);
 Console.WriteLine($"CULTURE: knowledge spreads from {transmission.InitialKnowledgeHolders} to {transmission.FinalKnowledgeHolders} learners.");
 Console.WriteLine($"NEUROSCIENCE: {world.NervousSystem.Learn("a new observation")}");
+
+Console.WriteLine();
+IHolographicDuality celestial = new CelestialHolography();
+Console.WriteLine($"CELESTIAL: {new PhysicalDescriptionStudy().Summarize(world, celestial)}");
+Console.WriteLine($"RESEARCH: {celestial.ExplainRelationship()}");
+var mellinDemo = celestial.DemonstrateEnergyMellinTransform(new[]
+{
+    new EnergyAmplitudeSample(1, 1),
+    new EnergyAmplitudeSample(2, 1),
+    new EnergyAmplitudeSample(3, 1)
+}, conformalDimension: 1);
+Console.WriteLine($"TOY MELLIN INTEGRAL: {mellinDemo.ApproximateValue:F2} (not a full celestial correlator)");
 
 Console.WriteLine();
 var observer = world.CreateObserver();
