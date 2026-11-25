@@ -16,8 +16,14 @@ public enum EvidenceStatus
 public sealed record Finding(string Subject, string Description, EvidenceStatus Confidence);
 public sealed record Event(string Domain, string Description);
 
+/// <summary>
+/// A possible implementation of reality. Shared observable models are dependencies;
+/// metaphysical assumptions belong to the implementation, not this contract.
+/// </summary>
 public interface IReality
 {
+    string Name { get; }
+    IReadOnlyList<string> MetaphysicalAssumptions { get; }
     ILawsOfPhysics Physics { get; }
     IBiologicalEvolution Evolution { get; }
     IReadOnlyList<Event> Evolve();
@@ -42,19 +48,21 @@ public sealed class ScientificCatalog
         new Finding("Origin of life", "Abiogenesis pathways remain active research.", EvidenceStatus.ActiveResearch),
         new Finding("Evolution", "Mutation, selection, drift and gene flow change populations over generations.", EvidenceStatus.EstablishedModel),
         new Finding("Neural correlates", "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
-        new Finding("Subjective experience", "Why experience accompanies physical processes remains debated.", EvidenceStatus.OpenQuestion),
-        new Finding("Panpsychism", "Experience is proposed to be fundamental and widespread.", EvidenceStatus.PhilosophicalHypothesis),
-        new Finding("Combination problem", "How minimal subjects could constitute a unified subject remains unresolved.", EvidenceStatus.OpenQuestion)
+        new Finding("Subjective experience", "Why experience accompanies physical processes remains debated.", EvidenceStatus.OpenQuestion)
     });
 }
 
-public sealed class PanpsychistReality : IReality
+/// <summary>
+/// Reusable physical chronology and observer construction. Does not choose an ontology.
+/// Subclasses supply their own metaphysical hypotheses without replacing shared science.
+/// </summary>
+public abstract class RealityBase : IReality
 {
     private readonly CosmicHistory _cosmos;
     private readonly ChemistryModel _chemistry;
     private readonly ScientificCatalog _knowledge;
 
-    public PanpsychistReality(ILawsOfPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, IBiologicalEvolution evolution, ScientificCatalog knowledge)
+    protected RealityBase(ILawsOfPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, IBiologicalEvolution evolution, ScientificCatalog knowledge)
     {
         Physics = physics;
         _cosmos = cosmos;
@@ -63,13 +71,15 @@ public sealed class PanpsychistReality : IReality
         _knowledge = knowledge;
     }
 
+    public abstract string Name { get; }
+    public abstract IReadOnlyList<string> MetaphysicalAssumptions { get; }
     public ILawsOfPhysics Physics { get; }
     public IBiologicalEvolution Evolution { get; }
 
-    public IReadOnlyList<Event> Evolve()
+    public virtual IReadOnlyList<Event> Evolve()
     {
-        // Conceptual chronology, NOT a numerical universe simulation.
-        // Processes overlap, and biological evolution begins only after replicating life exists.
+        // Conceptual chronology, NOT a numerical simulation.
+        // The observable history does not change merely because we change metaphysics.
         return _cosmos.Events.Concat(_chemistry.Events)
             .Concat(new[]
             {
@@ -80,9 +90,5 @@ public sealed class PanpsychistReality : IReality
             }).ToArray();
     }
 
-    public HumanConsciousness CreateObserver() => new(this, _knowledge, new NervousSystem());
-
-    // Panpsychism is the SELECTED philosophical model, not an empirical result.
-    // TODO: Determine whether fundamental experience exists.
-    // TODO: Discover how separate experiences could constitute one subject.
+    public virtual HumanConsciousness CreateObserver() => new(this, _knowledge, new NervousSystem());
 }
