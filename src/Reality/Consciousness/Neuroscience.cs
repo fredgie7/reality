@@ -1,18 +1,8 @@
 namespace Reality.Consciousness;
 
-public interface INervousSystem
-{
-    Perception Perceive(string stimulus);
-    string Remember(string memory);
-    string Feel(double arousal);
-    string Predict(string observation);
-    string Learn(string experience);
-    string ChooseBehavior(string predictedOutcome);
-}
-
 public sealed record Perception(string Stimulus, string Representation);
 
-public sealed class NervousSystem : INervousSystem
+public sealed class NervousSystem
 {
     private readonly List<string> _memories = new();
 

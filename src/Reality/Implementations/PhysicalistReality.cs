@@ -1,6 +1,3 @@
-using Reality.Biology;
-using Reality.Physics;
-
 namespace Reality.Implementations;
 
 /// <summary>
@@ -10,9 +7,6 @@ namespace Reality.Implementations;
 /// </summary>
 public sealed class PhysicalistReality : RealityBase
 {
-    public PhysicalistReality(ILawsOfPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, IBiologicalEvolution evolution, ScientificCatalog knowledge)
-        : base(physics, cosmos, chemistry, evolution, knowledge) { }
-
     public override string Name => "Physicalism";
 
     public override IReadOnlyList<string> MetaphysicalAssumptions { get; } = new[]

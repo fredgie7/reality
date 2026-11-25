@@ -1,6 +1,3 @@
-using Reality.Biology;
-using Reality.Physics;
-
 namespace Reality.Implementations;
 
 /// <summary>
@@ -9,9 +6,6 @@ namespace Reality.Implementations;
 /// </summary>
 public sealed class PanpsychistReality : RealityBase
 {
-    public PanpsychistReality(ILawsOfPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, IBiologicalEvolution evolution, ScientificCatalog knowledge)
-        : base(physics, cosmos, chemistry, evolution, knowledge) { }
-
     public override string Name => "Panpsychism";
 
     public override IReadOnlyList<string> MetaphysicalAssumptions { get; } = new[]

@@ -8,11 +8,12 @@ using Reality.Physics.Holography;
 
 var model = args.Length == 0 ? "panpsychism" : args[0];
 var knowledge = ScientificCatalog.Create();
+var observed = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
 
 IReality world;
 try
 {
-    world = RealityFactory.Create(model, new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
+    world = RealityFactory.Create(model);
 }
 catch (ArgumentException exception)
 {
@@ -29,17 +30,17 @@ foreach (var assumption in world.MetaphysicalAssumptions)
     Console.WriteLine($"ASSUMPTION: {assumption}");
 
 Console.WriteLine();
-foreach (var stage in world.Evolve())
+foreach (var stage in observed.DescribeHistory())
     Console.WriteLine($"[{stage.Domain}] {stage.Description}");
 
 Console.WriteLine();
-Console.WriteLine($"GENETICS: DNA coding strand ATGGGT -> RNA {world.Genetics.Transcribe("ATGGGT")} -> illustrative peptide {world.Genetics.Translate("AUGGGU")}");
-Console.WriteLine($"SPACETIME: light takes {world.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1} second to travel one light-second.");
-var pattern = world.Emergence.Analyze(new[] { true, true, false, true });
+Console.WriteLine($"GENETICS: DNA coding strand ATGGGT -> RNA {observed.Genetics.Transcribe("ATGGGT")} -> illustrative peptide {observed.Genetics.Translate("AUGGGU")}");
+Console.WriteLine($"SPACETIME: light takes {observed.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1} second to travel one light-second.");
+var pattern = observed.Emergence.Analyze(new[] { true, true, false, true });
 Console.WriteLine($"EMERGENCE: {pattern.ActiveComponents} active nodes, {pattern.AdjacentActivePairs} connected active pair(s).");
-var transmission = world.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) }, 2);
+var transmission = observed.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) }, 2);
 Console.WriteLine($"CULTURE: knowledge spreads from {transmission.InitialKnowledgeHolders} to {transmission.FinalKnowledgeHolders} learners.");
-Console.WriteLine($"NEUROSCIENCE: {world.NervousSystem.Learn("a new observation")}");
+Console.WriteLine($"NEUROSCIENCE: {observed.NervousSystem.Learn("a new observation")}");
 
 Console.WriteLine();
 var celestial = new CelestialHolography();
@@ -55,7 +56,7 @@ var mellinDemo = celestial.DemonstrateEnergyMellinTransform(new[]
 Console.WriteLine($"TOY MELLIN INTEGRAL: {mellinDemo.ApproximateValue:F2} (not a full celestial correlator)");
 
 Console.WriteLine();
-var observer = world.CreateObserver();
+var observer = observed.CreateObserver();
 foreach (var finding in observer.DoScience().Take(8))
     Console.WriteLine($"SCIENCE [{finding.Confidence}]: {finding.Subject} — {finding.Description}");
 
@@ -72,7 +73,7 @@ Console.WriteLine();
 var population = Population.Create(size: 60, seed: 42);
 for (var generation = 0; generation < 8; generation++)
 {
-    var report = world.Evolution.Advance(population, environmentOptimum: 0.7);
+    var report = observed.Evolution.Advance(population, environmentOptimum: 0.7);
     Console.WriteLine($"EVOLUTION: generation {report.Generation}, population {report.PopulationSize}, mean trait {report.MeanTrait:F3}");
 }
 

@@ -4,7 +4,7 @@
 
 **Reality** is an open-ended C# 12 / .NET 8 project for exploring **what reality is, how it behaves, and how different philosophical accounts might explain its underlying nature**.
 
-Its architecture is **not committed to any ontology**. Four implementations of `IReality` currently represent panpsychism, physicalism, idealism, and substance dualism. These are competing hypotheses, not confirmed implementations of existence.
+Its architecture is **not committed to any ontology**. Scientific models of our observed universe are composed separately rather than required by the root ontology interface. Four implementations of `IReality` currently represent panpsychism, physicalism, idealism, and substance dualism. These are competing hypotheses, not confirmed implementations of existence.
 
 This is an educational analogy, not a comprehensive physical, biological, or sociological simulator.
 
@@ -25,17 +25,25 @@ Without arguments, the console selects panpsychism as the historical starting ex
 ## Architecture
 
 ```text
-IReality
-  └── RealityBase (shared scientific and educational subsystems)
-        ├── ILawsOfPhysics / ISpacetime
-        ├── IGenetics / IBiologicalEvolution
-        ├── INervousSystem / IUnifiedConsciousness
-        ├── IEmergence
-        └── ICulturalEvolution
+IReality                       (minimal philosophical contract)
+  ├── PanpsychistReality
+  ├── PhysicalistReality
+  ├── IdealistReality
+  └── SubstanceDualistReality
 
-Candidate implementations (share the above models):
-  PanpsychistReality | PhysicalistReality | IdealistReality | SubstanceDualistReality
+ObservedUniverse               (separate shared scientific study)
+  ├── KnownPhysics + Spacetime
+  ├── Genetics + DarwinianEvolution
+  ├── NervousSystem + HumanConsciousness
+  ├── EmergenceModel
+  ├── CulturalEvolution
+  └── ScientificCatalog
+
+IHolographicDuality            (independent physical-description research)
+  └── CelestialHolography
 ```
+
+`IReality` contains only a model's **name and explicit metaphysical assumptions**. It does not require physics, spacetime, genetics, biology, observers, or a timeline. `ObservedUniverse` separately composes the models used to investigate our empirically observed universe; all four candidate ontologies can be compared with that same observational model without inheriting scientific requirements.
 
 The science modules describe **observable regularities and illustrative mechanisms**. The candidate reality classes contain **metaphysical assumptions** about what underlies them. Switching models must not silently change the observations.
 
@@ -50,19 +58,20 @@ The science modules describe **observable regularities and illustrative mechanis
 | `ICulturalEvolution` | Stepwise diffusion of an idea across neighboring learners | Does not model real social networks, institutions or innovation |
 | `IBiologicalEvolution` | Seeded trait inheritance with selection, mutation and drift | Not a genome, ecosystem, speciation or origin-of-life model |
 
-The new subsystems are accessible on `IReality` and instantiated by `RealityBase`, so every candidate ontology uses the same interfaces.
+These are deliberately **concrete educational models** composed by `ObservedUniverse`, not an artificial set of one-implementation interfaces. New contracts should be introduced only when multiple meaningful implementations share a substitutable behavior.
 
 ## Quick examples
 
 ```csharp
-IReality reality = RealityFactory.Create("physicalism", physics, cosmos, chemistry, evolution, knowledge);
+IReality reality = RealityFactory.Create("physicalism");
+var observed = new ObservedUniverse(physics, cosmos, chemistry, evolution, knowledge);
 
-string rna = reality.Genetics.Transcribe("ATGGGT");
-string protein = reality.Genetics.Translate(rna);   // MG (illustrative codon table)
-double properSeconds = reality.Spacetime.ProperTimeForMovingClock(10, KnownPhysics.SpeedOfLight * 0.6);
-var connectivity = reality.Emergence.Analyze(new[] { true, true, false });
-var diffusion = reality.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false) }, 1);
-string learning = reality.NervousSystem.Learn("something observed");
+string rna = observed.Genetics.Transcribe("ATGGGT");
+string protein = observed.Genetics.Translate(rna);   // MG (illustrative codon table)
+double properSeconds = observed.Spacetime.ProperTimeForMovingClock(10, KnownPhysics.SpeedOfLight * 0.6);
+var connectivity = observed.Emergence.Analyze(new[] { true, true, false });
+var diffusion = observed.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false) }, 1);
+string learning = observed.NervousSystem.Learn("something observed");
 ```
 
 ## Celestial holography: where does it fit?
@@ -89,7 +98,7 @@ IReality                        Candidate ontology
 The two `IPhysicalDescription` classes describe different mathematical viewpoints on certain scattering observables, **not two different universes**. `IHolographicDuality` represents a proposed relationship. `PhysicalDescriptionStudy` can study that correspondence alongside **any** `IReality` without modifying the ontology:
 
 ```csharp
-IReality reality = RealityFactory.Create("idealism", physics, cosmos, chemistry, evolution, knowledge);
+IReality reality = RealityFactory.Create("idealism");
 IHolographicDuality duality = new CelestialHolography();
 Console.WriteLine(new PhysicalDescriptionStudy().Summarize(reality, duality));
 ```
@@ -167,6 +176,16 @@ Panpsychism-specific questions remain inside `Implementations/Panpsychism/`. Add
 
 ## Verification
 
-The dependency-free smoke-check console project validates the five subsystems, scientific invariants and candidate ontology substitutability. GitHub Actions builds and runs checks on feature-branch pushes and pull requests.
+The dependency-free smoke-check console project validates the scientific modules, ontology substitutability, and the ability to implement `IReality` without constructing any scientific models. GitHub Actions builds and runs checks on feature-branch pushes and pull requests.
 
 **The universe runs in production. We're a subsystem reverse-engineering its behavior while trying to discover its architecture. Source code unavailable.**
+
+## Interface design: only shared capabilities
+
+We removed toy-specific interfaces `IBiologicalEvolution`, `IGenetics`, `INervousSystem`, `IEmergence`, `ICulturalEvolution`, `ISpacetime`, and the unimplemented `IEvolutionaryProcesses`. Their concrete educational implementations and runnable demonstrations remain.
+
+We retained `ILawsOfPhysics` for the common description of physical principles, but moved the `KnownPhysics`-specific local speed-of-light check off that interface. `IPhysicalDescription` and `IHolographicDuality` remain general descriptions, while `IExperience` and `IUnifiedConsciousness` capture distinct first-person/reflection capabilities. `ITheoryOfConsciousness` remains a descriptive theory contract.
+
+No interface is required merely because a concrete class exists. A further interface should represent a demonstrated need for polymorphism, not the current toy implementation's public API.
+
+The observable universe is the subject of our study, not the definition of all conceivable realities. TODO: Discover the actual implementation.
