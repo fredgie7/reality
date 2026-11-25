@@ -65,6 +65,77 @@ var diffusion = reality.Culture.Transmit(new[] { new CulturalLearner("A", true),
 string learning = reality.NervousSystem.Learn("something observed");
 ```
 
+## Celestial holography: where does it fit?
+
+The physics research program known as **celestial holography** does **not** constitute a fifth `IReality` implementation. Our existing ontologies (panpsychism, physicalism, idealism, substance dualism) concern what fundamentally exists; celestial holography concerns how **asymptotically flat scattering data** may be represented in a conformal basis.
+
+```text
+IReality                        Candidate ontology
+  ├── PanpsychistReality
+  ├── PhysicalistReality
+  ├── IdealistReality
+  └── SubstanceDualistReality
+            |
+            v
+   Shared observable physics and scientific models
+            |
+            +-- IPhysicalDescription: FourDimensionalScatteringDescription
+            |                     |
+            |              IHolographicDuality
+            |                     |
+            +-- IPhysicalDescription: CelestialConformalDescription
+```
+
+The two `IPhysicalDescription` classes describe different mathematical viewpoints on certain scattering observables, **not two different universes**. `IHolographicDuality` represents a proposed relationship. `PhysicalDescriptionStudy` can study that correspondence alongside **any** `IReality` without modifying the ontology:
+
+```csharp
+IReality reality = RealityFactory.Create("idealism", physics, cosmos, chemistry, evolution, knowledge);
+IHolographicDuality duality = new CelestialHolography();
+Console.WriteLine(new PhysicalDescriptionStudy().Summarize(reality, duality));
+```
+
+### Interface design: capabilities, not implementations
+
+`IHolographicDuality` is deliberately small. It exposes only the **name**, the two `IPhysicalDescription` viewpoints, the correspondence's research status, open questions, and a plain-language relationship description. No celestial-specific types or numeric methods appear in the interface.
+
+```csharp
+public interface IHolographicDuality
+{
+    string Name { get; }
+    IPhysicalDescription Bulk { get; }
+    IPhysicalDescription Boundary { get; }
+    bool IsCompleteDualityEstablished { get; }
+    IReadOnlyList<string> OpenQuestions { get; }
+    string ExplainRelationship();
+}
+```
+
+`CelestialHolography` independently adds `DemonstrateEnergyMellinTransform` and `ReconstructFullBulk` as **concrete-class capabilities**. Future AdS/CFT, dS/CFT, Kerr/CFT, JT gravity or higher-spin models will not have to fake celestial Mellin data or implement unsupported bulk-reconstruction methods merely to satisfy a shared contract. If genuinely common operations emerge later, we can introduce separate capability interfaces instead of expanding this one prematurely.
+
+The numerical example intentionally computes **only** a trapezoidal, finite-energy, real-weight Mellin integral for toy scalar amplitude samples:
+
+```csharp
+var samples = new[]
+{
+    new EnergyAmplitudeSample(1, 1),
+    new EnergyAmplitudeSample(2, 1),
+    new EnergyAmplitudeSample(3, 1)
+};
+var result = duality.DemonstrateEnergyMellinTransform(samples, conformalDimension: 1);
+// result.ApproximateValue == 2: integral of constant 1 over [1, 3].
+```
+
+This is **not** a multi-particle celestial scattering amplitude, a complete two-dimensional conformal field theory, or a proof of holographic quantum gravity. `ReconstructFullBulk()` deliberately throws `NotSupportedException`: full reconstruction remains an open research problem. The simplified transformation is a demonstrator for the Mellin *mathematical operation*, not a claimed derivation of the complete dictionary.
+
+### Research background
+
+- Pasterski, Shao, and Strominger (2017), [Flat space amplitudes and conformal symmetry of the celestial sphere](https://doi.org/10.1103/PhysRevD.96.065026).
+- [Celestial holography: An asymptotic symmetry perspective](https://doi.org/10.1016/j.physrep.2024.04.003) (Physics Reports, 2024).
+- Sleight and Taronna (2024), [Celestial Holography Revisited](https://doi.org/10.1103/PhysRevLett.133.241601).
+- [Topics in celestial holography: A bottom-up perspective](https://doi.org/10.1016/j.physrep.2026.08.001) (Physics Reports, 2026).
+
+**Our analogy:** `IReality` asks what the underlying implementation *is*. `IPhysicalDescription` asks how measurable behavior is mathematically *represented*. `IHolographicDuality` asks when two representations may encode corresponding information. A useful change of basis does not select an ontology.
+
 ## Candidate interpretations
 
 | Implementation | Core proposal | Unresolved challenge |

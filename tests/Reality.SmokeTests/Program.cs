@@ -6,6 +6,7 @@ using Reality.Implementations;
 using Reality.Implementations.Panpsychism;
 using Reality.Philosophy;
 using Reality.Physics;
+using Reality.Physics.Holography;
 
 static void Check(bool condition, string description)
 {
@@ -78,6 +79,39 @@ try
 catch (NotSupportedException)
 {
     Console.WriteLine("PASS: panpsychist combination problem remains unresolved");
+}
+
+
+IHolographicDuality duality = new CelestialHolography();
+var celestial = new CelestialHolography();
+Check(duality.Name == "Celestial holography", "generic duality exposes theory name");
+Check(duality.OpenQuestions.Count > 0, "generic duality exposes open problems");
+Check(!duality.IsCompleteDualityEstablished, "complete celestial duality remains unresolved");
+Check(typeof(IHolographicDuality).GetMethods().All(x => !x.GetParameters().Any(p => p.ParameterType == typeof(EnergyAmplitudeSample) || p.ParameterType == typeof(IReadOnlyList<EnergyAmplitudeSample>))), "generic interface has no celestial data types");
+Check(typeof(IHolographicDuality).GetMethods().All(x => x.Name != nameof(CelestialHolography.ReconstructFullBulk)), "generic interface does not impose bulk reconstruction");
+Check(duality.Bulk is FourDimensionalScatteringDescription, "bulk scattering description present");
+Check(duality.Boundary is CelestialConformalDescription, "celestial description present");
+var energySamples = new[] { new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) };
+Check(Math.Abs(celestial.DemonstrateEnergyMellinTransform(energySamples, 1).ApproximateValue - 2) < 1e-10, "toy Mellin transform for Delta 1");
+Check(Math.Abs(celestial.DemonstrateEnergyMellinTransform(energySamples, 2).ApproximateValue - 4) < 1e-10, "toy Mellin transform for Delta 2");
+Check(models.All(model => new PhysicalDescriptionStudy().Summarize(model, duality).Contains(model.Name)), "physical representations independent of ontology");
+try
+{
+    celestial.DemonstrateEnergyMellinTransform(new[] { new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(1, 1) }, 1);
+    throw new Exception("FAIL: out-of-order samples accepted");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: unordered samples rejected");
+}
+try
+{
+    celestial.ReconstructFullBulk();
+    throw new Exception("FAIL: unsupported full reconstruction succeeded");
+}
+catch (NotSupportedException)
+{
+    Console.WriteLine("PASS: full reconstruction explicitly unresolved");
 }
 
 Console.WriteLine("All smoke checks passed.");
