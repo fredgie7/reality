@@ -1,5 +1,6 @@
 using Reality;
 using Reality.Biology;
+using Reality.Culture;
 using Reality.Implementations;
 using Reality.Philosophy;
 using Reality.Physics;
@@ -7,8 +8,6 @@ using Reality.Physics;
 var model = args.Length == 0 ? "panpsychism" : args[0];
 var knowledge = ScientificCatalog.Create();
 
-// All models share the same scientific framework and observer abstractions.
-// The selected implementation changes only the proposed ontology.
 IReality world;
 try
 {
@@ -31,6 +30,15 @@ foreach (var assumption in world.MetaphysicalAssumptions)
 Console.WriteLine();
 foreach (var stage in world.Evolve())
     Console.WriteLine($"[{stage.Domain}] {stage.Description}");
+
+Console.WriteLine();
+Console.WriteLine($"GENETICS: DNA coding strand ATGGGT -> RNA {world.Genetics.Transcribe("ATGGGT")} -> illustrative peptide {world.Genetics.Translate("AUGGGU")}");
+Console.WriteLine($"SPACETIME: light takes {world.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1} second to travel one light-second.");
+var pattern = world.Emergence.Analyze(new[] { true, true, false, true });
+Console.WriteLine($"EMERGENCE: {pattern.ActiveComponents} active nodes, {pattern.AdjacentActivePairs} connected active pair(s).");
+var transmission = world.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) }, 2);
+Console.WriteLine($"CULTURE: knowledge spreads from {transmission.InitialKnowledgeHolders} to {transmission.FinalKnowledgeHolders} learners.");
+Console.WriteLine($"NEUROSCIENCE: {world.NervousSystem.Learn("a new observation")}");
 
 Console.WriteLine();
 var observer = world.CreateObserver();

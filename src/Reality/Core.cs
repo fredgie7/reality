@@ -1,5 +1,7 @@
 using Reality.Biology;
 using Reality.Consciousness;
+using Reality.Culture;
+using Reality.Emergence;
 using Reality.Physics;
 
 namespace Reality;
@@ -25,7 +27,12 @@ public interface IReality
     string Name { get; }
     IReadOnlyList<string> MetaphysicalAssumptions { get; }
     ILawsOfPhysics Physics { get; }
+    ISpacetime Spacetime { get; }
     IBiologicalEvolution Evolution { get; }
+    IGenetics Genetics { get; }
+    IEmergence Emergence { get; }
+    ICulturalEvolution Culture { get; }
+    INervousSystem NervousSystem { get; }
     IReadOnlyList<Event> Evolve();
     HumanConsciousness CreateObserver();
 }
@@ -47,14 +54,16 @@ public sealed class ScientificCatalog
         new Finding("Dark energy", "Expansion accelerates; the responsible physics is unsettled.", EvidenceStatus.ActiveResearch),
         new Finding("Origin of life", "Abiogenesis pathways remain active research.", EvidenceStatus.ActiveResearch),
         new Finding("Evolution", "Mutation, selection, drift and gene flow change populations over generations.", EvidenceStatus.EstablishedModel),
+        new Finding("Genetics", "DNA replication, transcription and inheritance transmit genetic information.", EvidenceStatus.EstablishedModel),
+        new Finding("Spacetime", "Relativity describes physical intervals, causal structure and time dilation.", EvidenceStatus.EstablishedModel),
+        new Finding("Cultural transmission", "Humans can pass on learned information socially.", EvidenceStatus.Observed),
         new Finding("Neural correlates", "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
         new Finding("Subjective experience", "Why experience accompanies physical processes remains debated.", EvidenceStatus.OpenQuestion)
     });
 }
 
 /// <summary>
-/// Reusable physical chronology and observer construction. Does not choose an ontology.
-/// Subclasses supply their own metaphysical hypotheses without replacing shared science.
+/// Reusable observable models, independent of the selected ontology.
 /// </summary>
 public abstract class RealityBase : IReality
 {
@@ -69,26 +78,39 @@ public abstract class RealityBase : IReality
         _chemistry = chemistry;
         Evolution = evolution;
         _knowledge = knowledge;
+        Spacetime = new Spacetime();
+        Genetics = new Genetics();
+        Emergence = new EmergenceModel();
+        Culture = new CulturalEvolution();
+        NervousSystem = new NervousSystem();
     }
 
     public abstract string Name { get; }
     public abstract IReadOnlyList<string> MetaphysicalAssumptions { get; }
     public ILawsOfPhysics Physics { get; }
+    public ISpacetime Spacetime { get; }
     public IBiologicalEvolution Evolution { get; }
+    public IGenetics Genetics { get; }
+    public IEmergence Emergence { get; }
+    public ICulturalEvolution Culture { get; }
+    public INervousSystem NervousSystem { get; }
 
     public virtual IReadOnlyList<Event> Evolve()
     {
         // Conceptual chronology, NOT a numerical simulation.
-        // The observable history does not change merely because we change metaphysics.
+        // Some processes overlap; changing metaphysics does not change empirical history.
         return _cosmos.Events.Concat(_chemistry.Events)
             .Concat(new[]
             {
                 new Event("Biology", "Origin of replicating life: unresolved history; evolution requires heredity."),
+                new Event("Genetics", "Heritable genetic information propagates through cellular machinery, with variation."),
                 new Event("Evolution", "Populations diversify through mutation, selection, drift and gene flow."),
+                new Event("Emergence", "Interactions among components give rise to collective properties."),
                 new Event("Neuroscience", "Some lineages evolve nervous systems supporting learning and cognition."),
+                new Event("Culture", "Social learning transmits knowledge beyond genetic inheritance."),
                 new Event("Consciousness", "Human observers begin modeling the system that produced them.")
             }).ToArray();
     }
 
-    public virtual HumanConsciousness CreateObserver() => new(this, _knowledge, new NervousSystem());
+    public virtual HumanConsciousness CreateObserver() => new(this, _knowledge, NervousSystem);
 }

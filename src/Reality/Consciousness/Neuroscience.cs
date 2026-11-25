@@ -6,6 +6,8 @@ public interface INervousSystem
     string Remember(string memory);
     string Feel(double arousal);
     string Predict(string observation);
+    string Learn(string experience);
+    string ChooseBehavior(string predictedOutcome);
 }
 
 public sealed record Perception(string Stimulus, string Representation);
@@ -15,6 +17,7 @@ public sealed class NervousSystem : INervousSystem
     private readonly List<string> _memories = new();
 
     public Perception Perceive(string stimulus) => new(stimulus, $"Neural representation of: {stimulus}");
+
     public string Remember(string memory)
     {
         _memories.Add(memory);
@@ -30,7 +33,10 @@ public sealed class NervousSystem : INervousSystem
     };
 
     public string Predict(string observation) => $"Prediction updated from observed evidence: {observation}";
+    public string Learn(string experience) => Remember($"Learned from {experience}");
+    public string ChooseBehavior(string predictedOutcome) => $"Illustrative behavior selected based on {predictedOutcome}";
 
-    // Describes a pedagogical information-processing abstraction.
-    // It does NOT implement brains or explain phenomenal experience.
+    // This is a conceptual API, not a biologically valid neural network.
+    // TODO: Neural plasticity, synapses, reward learning, sensorimotor control.
+    // TODO: Explain neural correlates without assuming a theory of consciousness.
 }
