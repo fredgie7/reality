@@ -94,6 +94,24 @@ IHolographicDuality duality = new CelestialHolography();
 Console.WriteLine(new PhysicalDescriptionStudy().Summarize(reality, duality));
 ```
 
+### Interface design: capabilities, not implementations
+
+`IHolographicDuality` is deliberately small. It exposes only the **name**, the two `IPhysicalDescription` viewpoints, the correspondence's research status, open questions, and a plain-language relationship description. No celestial-specific types or numeric methods appear in the interface.
+
+```csharp
+public interface IHolographicDuality
+{
+    string Name { get; }
+    IPhysicalDescription Bulk { get; }
+    IPhysicalDescription Boundary { get; }
+    bool IsCompleteDualityEstablished { get; }
+    IReadOnlyList<string> OpenQuestions { get; }
+    string ExplainRelationship();
+}
+```
+
+`CelestialHolography` independently adds `DemonstrateEnergyMellinTransform` and `ReconstructFullBulk` as **concrete-class capabilities**. Future AdS/CFT, dS/CFT, Kerr/CFT, JT gravity or higher-spin models will not have to fake celestial Mellin data or implement unsupported bulk-reconstruction methods merely to satisfy a shared contract. If genuinely common operations emerge later, we can introduce separate capability interfaces instead of expanding this one prematurely.
+
 The numerical example intentionally computes **only** a trapezoidal, finite-energy, real-weight Mellin integral for toy scalar amplitude samples:
 
 ```csharp

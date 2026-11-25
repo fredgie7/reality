@@ -12,10 +12,20 @@ public sealed class CelestialHolography : IHolographicDuality
     public IPhysicalDescription Boundary { get; } = new CelestialConformalDescription();
     public bool IsCompleteDualityEstablished => false;
 
+    public string Name => "Celestial holography";
+
+    public IReadOnlyList<string> OpenQuestions { get; } = new[]
+    {
+        "Can a complete holographic dictionary for asymptotically flat quantum gravity be constructed?",
+        "Under what assumptions, if any, can the 4D bulk be fully reconstructed from celestial data?",
+        "How are infrared, distributional and nonperturbative questions resolved?"
+    };
+
     public string ExplainRelationship() =>
         "Scattering data in a 4D momentum basis may be recast in a celestial conformal basis. " +
         "A complete 2D dual of flat-space quantum gravity has not been established.";
 
+    // Specialized toy calculation: deliberately not required by IHolographicDuality.
     public CelestialTransformResult DemonstrateEnergyMellinTransform(IReadOnlyList<EnergyAmplitudeSample> samples, double conformalDimension)
     {
         ArgumentNullException.ThrowIfNull(samples);
@@ -47,6 +57,7 @@ public sealed class CelestialHolography : IHolographicDuality
         return new CelestialTransformResult(conformalDimension, integral, samples[0].Energy, samples[^1].Energy);
     }
 
+    // Specialized operation: deliberately not required by IHolographicDuality.
     public void ReconstructFullBulk()
     {
         // TODO: Establish a complete celestial dictionary and bulk reconstruction.

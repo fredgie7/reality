@@ -42,9 +42,10 @@ Console.WriteLine($"CULTURE: knowledge spreads from {transmission.InitialKnowled
 Console.WriteLine($"NEUROSCIENCE: {world.NervousSystem.Learn("a new observation")}");
 
 Console.WriteLine();
-IHolographicDuality celestial = new CelestialHolography();
-Console.WriteLine($"CELESTIAL: {new PhysicalDescriptionStudy().Summarize(world, celestial)}");
-Console.WriteLine($"RESEARCH: {celestial.ExplainRelationship()}");
+var celestial = new CelestialHolography();
+IHolographicDuality duality = celestial;
+Console.WriteLine($"CELESTIAL: {new PhysicalDescriptionStudy().Summarize(world, duality)}");
+Console.WriteLine($"RESEARCH: {duality.ExplainRelationship()}");
 var mellinDemo = celestial.DemonstrateEnergyMellinTransform(new[]
 {
     new EnergyAmplitudeSample(1, 1),

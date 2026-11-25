@@ -1,13 +1,16 @@
 namespace Reality.Physics.Holography;
 
-// A research-level proposed relationship between physical descriptions.
-// Not an IReality implementation.
+/// <summary>
+/// Shared metadata describing a proposed correspondence between two physical
+/// descriptions. Individual theories own their specialized calculations,
+/// dictionaries, reconstruction procedures, and open mathematical problems.
+/// </summary>
 public interface IHolographicDuality
 {
+    string Name { get; }
     IPhysicalDescription Bulk { get; }
     IPhysicalDescription Boundary { get; }
     bool IsCompleteDualityEstablished { get; }
+    IReadOnlyList<string> OpenQuestions { get; }
     string ExplainRelationship();
-    CelestialTransformResult DemonstrateEnergyMellinTransform(IReadOnlyList<EnergyAmplitudeSample> samples, double conformalDimension);
-    void ReconstructFullBulk();
 }
