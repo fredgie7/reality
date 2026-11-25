@@ -4,16 +4,7 @@ namespace Reality.Biology;
 /// Illustrative information flow: DNA replication, transcription, translation,
 /// inheritance, and mutation. These strings are not a cellular simulation.
 /// </summary>
-public interface IGenetics
-{
-    string Replicate(string dna);
-    string Transcribe(string dna);
-    string Translate(string rna);
-    string Inherit(string maternalDna, string paternalDna, int crossoverIndex);
-    string Mutate(string dna, int position, char replacement);
-}
-
-public sealed class Genetics : IGenetics
+public sealed class Genetics
 {
     private const string Bases = "ACGT";
 

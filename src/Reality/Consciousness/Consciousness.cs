@@ -1,3 +1,5 @@
+using Reality.Physics;
+
 namespace Reality.Consciousness;
 
 public interface IExperience
@@ -12,13 +14,13 @@ public interface IUnifiedConsciousness : IExperience
 
 public sealed class HumanConsciousness : IUnifiedConsciousness
 {
-    private readonly IReality _world;
+    private readonly KnownPhysics _physics;
     private readonly ScientificCatalog _catalog;
-    private readonly INervousSystem _nervousSystem;
+    private readonly NervousSystem _nervousSystem;
 
-    internal HumanConsciousness(IReality world, ScientificCatalog catalog, INervousSystem nervousSystem)
+    internal HumanConsciousness(KnownPhysics physics, ScientificCatalog catalog, NervousSystem nervousSystem)
     {
-        _world = world;
+        _physics = physics;
         _catalog = catalog;
         _nervousSystem = nervousSystem;
     }
@@ -44,5 +46,5 @@ public sealed class HumanConsciousness : IUnifiedConsciousness
     };
 
     public string UnderstandReality() =>
-        $"{Reflect()} I can investigate {_world.Physics.Principles.Count} summarized physical principles, but not inspect reality's source.";
+        $"{Reflect()} I can investigate {_physics.Principles.Count} summarized physical principles, but not inspect reality's source.";
 }

@@ -10,7 +10,7 @@ public interface IHolographicDuality
     string Name { get; }
     IPhysicalDescription Bulk { get; }
     IPhysicalDescription Boundary { get; }
-    bool IsCompleteDualityEstablished { get; }
+    HolographicCorrespondenceStatus CorrespondenceStatus { get; }
     IReadOnlyList<string> OpenQuestions { get; }
     string ExplainRelationship();
 }

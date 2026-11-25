@@ -3,7 +3,6 @@ namespace Reality.Physics;
 public interface ILawsOfPhysics
 {
     IReadOnlyList<PhysicalPrinciple> Principles { get; }
-    bool IsLocallyCausalSignal(double speedMetersPerSecond);
 }
 
 public sealed record PhysicalPrinciple(string Name, string Explanation, string OpenProblem);

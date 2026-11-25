@@ -1,10 +1,5 @@
 namespace Reality.Biology;
 
-public interface IBiologicalEvolution
-{
-    EvolutionReport Advance(Population population, double environmentOptimum);
-}
-
 public sealed record EvolutionReport(int Generation, int PopulationSize, double MeanTrait);
 
 // A simple inherited quantitative trait is NOT a model of genomes, species or real ecosystems.
@@ -37,7 +32,7 @@ public sealed class Population
     }
 }
 
-public sealed class DarwinianEvolution : IBiologicalEvolution
+public sealed class DarwinianEvolution
 {
     private readonly Random _random;
 
@@ -84,13 +79,3 @@ public sealed class DarwinianEvolution : IBiologicalEvolution
     }
 }
 
-// Not every evolutionary mechanism belongs in the toy simulator.
-public interface IEvolutionaryProcesses
-{
-    void Mutation();
-    void NaturalSelection();
-    void GeneticDrift();
-    void GeneFlow();
-    void Speciation();
-    void Extinction();
-}

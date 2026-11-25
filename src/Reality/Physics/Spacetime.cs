@@ -1,18 +1,11 @@
 namespace Reality.Physics;
 
-public interface ISpacetime
-{
-    double LightTravelSeconds(double distanceMeters);
-    double ProperTimeForMovingClock(double coordinateSeconds, double speedMetersPerSecond);
-    double SchwarzschildRadiusMeters(double massKilograms);
-}
-
 /// <summary>
 /// Flat-spacetime special relativity for constant relative speed, plus the
 /// Schwarzschild radius for an ideal nonrotating uncharged mass.
 /// No cosmological or general-relativistic spacetime solver is implied.
 /// </summary>
-public sealed class Spacetime : ISpacetime
+public sealed class Spacetime
 {
     public double LightTravelSeconds(double distanceMeters)
     {
