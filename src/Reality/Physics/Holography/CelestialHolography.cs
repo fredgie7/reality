@@ -10,7 +10,9 @@ public sealed class CelestialHolography : IHolographicDuality
 {
     public IPhysicalDescription Bulk { get; } = new FourDimensionalScatteringDescription();
     public IPhysicalDescription Boundary { get; } = new CelestialConformalDescription();
-    public bool IsCompleteDualityEstablished => false;
+    // Some celestial-basis scattering results are established, but a complete
+    // flat-space gravitational dual remains an open research question.
+    public HolographicCorrespondenceStatus CorrespondenceStatus => HolographicCorrespondenceStatus.PartialResults;
 
     public string Name => "Celestial holography";
 

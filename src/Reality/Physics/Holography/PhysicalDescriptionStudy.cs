@@ -1,16 +1,16 @@
 namespace Reality.Physics.Holography;
 
 /// <summary>
-/// Relates a mathematical-description study to any IReality implementation
-/// WITHOUT making the proposed holographic duality part of the ontology.
+/// Compares mathematical descriptions without selecting or requiring an ontology.
 /// </summary>
 public sealed class PhysicalDescriptionStudy
 {
-    public string Summarize(IReality reality, IHolographicDuality duality)
+    public string Summarize(IHolographicDuality duality)
     {
-        ArgumentNullException.ThrowIfNull(reality);
         ArgumentNullException.ThrowIfNull(duality);
-        return $"Within {reality.Name}, compare {duality.Bulk.Name} with {duality.Boundary.Name}. " +
-            $"Descriptions do not choose the ontology. Complete duality established: {duality.IsCompleteDualityEstablished}.";
+
+        return $"{duality.Name}: compare {duality.Bulk.Name} with {duality.Boundary.Name}. " +
+            $"Correspondence status: {duality.CorrespondenceStatus}. " +
+            "A physical correspondence does not by itself determine the underlying ontology.";
     }
 }

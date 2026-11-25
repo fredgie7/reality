@@ -51,12 +51,12 @@ The science modules describe **observable regularities and illustrative mechanis
 
 | Contract | Educational capability | Important limitation |
 | --- | --- | --- |
-| `IGenetics` | Replication, transcription, limited translation, recombination and point mutation | Tiny example codon dictionary; excludes most real cellular biology |
-| `INervousSystem` | Perception, memory, learning, prediction, emotional arousal and behavioral decisions | String-based conceptual model, not a neural simulation |
-| `IEmergence` | Detects a collective property in a small interacting system | Does not establish strong emergence or explain phenomenal experience |
-| `ISpacetime` | Light-travel time, constant-speed special-relativistic time dilation, Schwarzschild radius | No general-purpose metric or cosmological solver |
-| `ICulturalEvolution` | Stepwise diffusion of an idea across neighboring learners | Does not model real social networks, institutions or innovation |
-| `IBiologicalEvolution` | Seeded trait inheritance with selection, mutation and drift | Not a genome, ecosystem, speciation or origin-of-life model |
+| `Genetics` | Replication, transcription, limited translation, recombination and point mutation | Tiny example codon dictionary; excludes most real cellular biology |
+| `NervousSystem` | Perception, memory, learning, prediction, emotional arousal and behavioral decisions | String-based conceptual model, not a neural simulation |
+| `EmergenceModel` | Detects a collective property in a small interacting system | Does not establish strong emergence or explain phenomenal experience |
+| `Spacetime` | Light-travel time, constant-speed special-relativistic time dilation, Schwarzschild radius | No general-purpose metric or cosmological solver |
+| `CulturalEvolution` | Stepwise diffusion of an idea across neighboring learners | Does not model real social networks, institutions or innovation |
+| `DarwinianEvolution` | Seeded trait inheritance with selection, mutation and drift | Not a genome, ecosystem, speciation or origin-of-life model |
 
 These are deliberately **concrete educational models** composed by `ObservedUniverse`, not an artificial set of one-implementation interfaces. New contracts should be introduced only when multiple meaningful implementations share a substitutable behavior.
 
@@ -79,33 +79,33 @@ string learning = observed.NervousSystem.Learn("something observed");
 The physics research program known as **celestial holography** does **not** constitute a fifth `IReality` implementation. Our existing ontologies (panpsychism, physicalism, idealism, substance dualism) concern what fundamentally exists; celestial holography concerns how **asymptotically flat scattering data** may be represented in a conformal basis.
 
 ```text
-IReality                        Candidate ontology
+IReality                               Independent candidate ontologies
   ├── PanpsychistReality
   ├── PhysicalistReality
   ├── IdealistReality
   └── SubstanceDualistReality
-            |
-            v
-   Shared observable physics and scientific models
-            |
-            +-- IPhysicalDescription: FourDimensionalScatteringDescription
-            |                     |
-            |              IHolographicDuality
-            |                     |
-            +-- IPhysicalDescription: CelestialConformalDescription
+
+ObservedUniverse                       Observable science (independent of ontology)
+  └── Physics, chemistry, evolution, neuroscience, ...
+
+IHolographicDuality                    Study of mathematical correspondences
+  └── CelestialHolography
+        ├── Bulk: IPhysicalDescription (4D scattering)
+        └── Boundary: IPhysicalDescription (celestial conformal basis)
+
+PhysicalDescriptionStudy              Depends only on IHolographicDuality
 ```
 
-The two `IPhysicalDescription` classes describe different mathematical viewpoints on certain scattering observables, **not two different universes**. `IHolographicDuality` represents a proposed relationship. `PhysicalDescriptionStudy` can study that correspondence alongside **any** `IReality` without modifying the ontology:
+The two `IPhysicalDescription` classes describe different mathematical viewpoints on certain scattering observables, **not two different universes**. `IHolographicDuality` represents a proposed relationship. `PhysicalDescriptionStudy` studies that correspondence **without depending on** an `IReality` implementation:
 
 ```csharp
-IReality reality = RealityFactory.Create("idealism");
 IHolographicDuality duality = new CelestialHolography();
-Console.WriteLine(new PhysicalDescriptionStudy().Summarize(reality, duality));
+Console.WriteLine(new PhysicalDescriptionStudy().Summarize(duality));
 ```
 
 ### Interface design: capabilities, not implementations
 
-`IHolographicDuality` is deliberately small. It exposes only the **name**, the two `IPhysicalDescription` viewpoints, the correspondence's research status, open questions, and a plain-language relationship description. No celestial-specific types or numeric methods appear in the interface.
+`IHolographicDuality` is deliberately small. It exposes only the **name**, the two `IPhysicalDescription` viewpoints, a qualified correspondence status, open questions, and a plain-language relationship description. No celestial-specific types or numeric methods appear in the interface.
 
 ```csharp
 public interface IHolographicDuality
@@ -113,7 +113,7 @@ public interface IHolographicDuality
     string Name { get; }
     IPhysicalDescription Bulk { get; }
     IPhysicalDescription Boundary { get; }
-    bool IsCompleteDualityEstablished { get; }
+    HolographicCorrespondenceStatus CorrespondenceStatus { get; }
     IReadOnlyList<string> OpenQuestions { get; }
     string ExplainRelationship();
 }
@@ -124,15 +124,18 @@ public interface IHolographicDuality
 The numerical example intentionally computes **only** a trapezoidal, finite-energy, real-weight Mellin integral for toy scalar amplitude samples:
 
 ```csharp
+var celestial = new CelestialHolography();
 var samples = new[]
 {
     new EnergyAmplitudeSample(1, 1),
     new EnergyAmplitudeSample(2, 1),
     new EnergyAmplitudeSample(3, 1)
 };
-var result = duality.DemonstrateEnergyMellinTransform(samples, conformalDimension: 1);
+var result = celestial.DemonstrateEnergyMellinTransform(samples, conformalDimension: 1);
 // result.ApproximateValue == 2: integral of constant 1 over [1, 3].
 ```
+
+The correspondence status uses the reusable `HolographicCorrespondenceStatus` enum (`Conjectural`, `PartialResults`, `EstablishedInSpecifiedModels`) instead of a misleading complete/incomplete Boolean. The status refers to the **proposed bulk/boundary correspondence as scoped in its documentation**, not to every constituent calculation or to a metaphysical truth claim. Celestial holography currently reports `PartialResults`; its established conformal-basis calculations do not amount to a complete flat-space gravity dual.
 
 This is **not** a multi-particle celestial scattering amplitude, a complete two-dimensional conformal field theory, or a proof of holographic quantum gravity. `ReconstructFullBulk()` deliberately throws `NotSupportedException`: full reconstruction remains an open research problem. The simplified transformation is a demonstrator for the Mellin *mathematical operation*, not a claimed derivation of the complete dictionary.
 
@@ -143,7 +146,7 @@ This is **not** a multi-particle celestial scattering amplitude, a complete two-
 - Sleight and Taronna (2024), [Celestial Holography Revisited](https://doi.org/10.1103/PhysRevLett.133.241601).
 - [Topics in celestial holography: A bottom-up perspective](https://doi.org/10.1016/j.physrep.2026.08.001) (Physics Reports, 2026).
 
-**Our analogy:** `IReality` asks what the underlying implementation *is*. `IPhysicalDescription` asks how measurable behavior is mathematically *represented*. `IHolographicDuality` asks when two representations may encode corresponding information. A useful change of basis does not select an ontology.
+**Our analogy:** `IReality` describes competing claims about what fundamentally exists. `ObservedUniverse` models our observations. `IPhysicalDescription` expresses mathematical representations of physical behavior. `IHolographicDuality` examines proposed correspondences between representations. `PhysicalDescriptionStudy` depends only on the correspondence, not an ontology. A useful change of basis does not reveal reality's source code.
 
 ## Candidate interpretations
 

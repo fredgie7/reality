@@ -45,7 +45,7 @@ Console.WriteLine($"NEUROSCIENCE: {observed.NervousSystem.Learn("a new observati
 Console.WriteLine();
 var celestial = new CelestialHolography();
 IHolographicDuality duality = celestial;
-Console.WriteLine($"CELESTIAL: {new PhysicalDescriptionStudy().Summarize(world, duality)}");
+Console.WriteLine($"CELESTIAL: {new PhysicalDescriptionStudy().Summarize(duality)}");
 Console.WriteLine($"RESEARCH: {duality.ExplainRelationship()}");
 var mellinDemo = celestial.DemonstrateEnergyMellinTransform(new[]
 {
