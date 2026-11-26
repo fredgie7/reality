@@ -111,6 +111,12 @@ Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same 
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
 Check(typeof(IObservableUniverse).GetMethod("CreateObserver")?.ReturnType == typeof(IObserver), "Core observer contract does not depend on scientific implementation");
+Check(typeof(IExperience).IsAssignableFrom(typeof(IUnifiedConsciousness)), "unified experience still derives from experience");
+Check(typeof(IUnifiedConsciousness).GetMethod("Reflect") is null, "unified experience does not require reflection");
+Check(typeof(IObserver).GetMethod("Reflect") is not null, "reflection belongs to the observer contract");
+var humanObserver = universe.CreateObserver();
+Check(humanObserver is IUnifiedConsciousness, "illustrative human observer may model unified experience");
+Check(humanObserver.Reflect().Contains("observer"), "human observer retains reflective behavior");
 Check(typeof(IReality).Namespace == "Reality.Core.Ontology", "reality interface follows ontology folder namespace");
 Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation", "observable interface follows observation interfaces namespace");
 Check(typeof(ObservedUniverse).Namespace == "Reality.Science.Observation", "observable model follows observation folder namespace");
