@@ -7,6 +7,11 @@ using Reality.Science.Physics;
 
 namespace Reality.Science.Consciousness;
 
+/// <summary>
+/// An illustrative human observer with both first-person experience and
+/// reflective capabilities. The interface combination does not explain
+/// phenomenal unity or establish that reflection is required for experience.
+/// </summary>
 public sealed class HumanConsciousness : IUnifiedConsciousness, IObserver
 {
     private readonly KnownPhysics _physics;
@@ -20,6 +25,7 @@ public sealed class HumanConsciousness : IUnifiedConsciousness, IObserver
         _nervousSystem = nervousSystem;
     }
 
+    // Experiential description belongs to IExperience; reflection belongs to IObserver.
     public string FirstPersonDescription => "Something it is like to experience; known firsthand, not reduced to this string.";
     public string Experience() => FirstPersonDescription;
     public string Reflect() => "I am a model-building observer embedded within the reality I study.";
