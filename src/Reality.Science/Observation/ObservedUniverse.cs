@@ -1,6 +1,5 @@
 using Reality.Core.Epistemology;
 using Reality.Core.Observation;
-using Reality.Core.Observation;
 using Reality.Science.Biology;
 using Reality.Science.Consciousness;
 using Reality.Science.Culture;

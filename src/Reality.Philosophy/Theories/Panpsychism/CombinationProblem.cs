@@ -1,5 +1,4 @@
 using Reality.Core.Consciousness;
-using Reality.Core.Ontology;
 
 
 namespace Reality.Philosophy.Theories.Panpsychism;

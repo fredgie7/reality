@@ -1,5 +1,4 @@
 using Reality.Core.Epistemology;
-using Reality.Core.Observation;
 
 namespace Reality.Core.Observation;
 
