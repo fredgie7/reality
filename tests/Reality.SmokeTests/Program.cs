@@ -44,6 +44,20 @@ Check(new CulturalEvolution().Transmit(new[] { new CulturalLearner("A", true), n
 Check(new NervousSystem().Learn("observation").Contains("Learned from observation"), "nervous system");
 
 var catalog = ScientificCatalog.Create();
+Check(catalog.Investigations.Count == 3, "catalog includes explicit epistemic investigations");
+Check(catalog.GetInvestigation("dark MATTER")?.FindingSubject == "Dark matter", "investigation lookup is case-insensitive");
+Check(catalog.GetInvestigation("General relativity") is null, "missing evidence trail is not fabricated");
+Check(catalog.Investigations.All(i => i.Observations.Count > 0 && i.Assumptions.Count > 0 && i.Alternatives.Count > 0 && i.PotentialTests.Count > 0), "investigations expose evidence, inference, assumptions, alternatives and tests");
+Check(catalog.Investigations.All(i => i.SourceStatus.Contains("not yet attached")), "unverified study provenance is explicitly disclosed");
+try
+{
+    _ = new ScientificCatalog(new[] { new Finding("Known", "A test", EvidenceStatus.Observed) }, new[] { new ScientificInvestigation("Unknown", new[] { "obs" }, "inference", new[] { "assumption" }, new[] { "alternative" }, new[] { "test" }, "no provenance") });
+    throw new Exception("FAIL: orphaned investigation accepted");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: orphaned investigation rejected");
+}
 IObservableUniverse universe = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
 IObservableUniverse second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
 Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same observable history regardless of theory");

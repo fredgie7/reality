@@ -3,8 +3,29 @@ namespace Reality;
 public sealed class ScientificCatalog
 {
     private readonly IReadOnlyList<Finding> _findings;
-    public ScientificCatalog(IEnumerable<Finding> findings) => _findings = findings.ToArray();
+    private readonly IReadOnlyList<ScientificInvestigation> _investigations;
+
+    public ScientificCatalog(IEnumerable<Finding> findings, IEnumerable<ScientificInvestigation>? investigations = null)
+    {
+        ArgumentNullException.ThrowIfNull(findings);
+        _findings = Array.AsReadOnly(findings.ToArray());
+        _investigations = Array.AsReadOnly((investigations ?? Array.Empty<ScientificInvestigation>()).ToArray());
+
+        var subjects = _findings.Select(f => f.Subject).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        if (_investigations.Any(i => !subjects.Contains(i.FindingSubject)))
+            throw new ArgumentException("Every investigation must reference an existing finding.", nameof(investigations));
+        if (_investigations.Select(i => i.FindingSubject).Distinct(StringComparer.OrdinalIgnoreCase).Count() != _investigations.Count)
+            throw new ArgumentException("An investigation may only appear once per finding.", nameof(investigations));
+    }
+
     public IReadOnlyList<Finding> Findings => _findings;
+    public IReadOnlyList<ScientificInvestigation> Investigations => _investigations;
+
+    public ScientificInvestigation? GetInvestigation(string findingSubject)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(findingSubject);
+        return _investigations.FirstOrDefault(i => i.FindingSubject.Equals(findingSubject, StringComparison.OrdinalIgnoreCase));
+    }
 
     public static ScientificCatalog Create() => new(new[]
     {
@@ -22,5 +43,32 @@ public sealed class ScientificCatalog
         new Finding("Cultural transmission", "Humans can pass on learned information socially.", EvidenceStatus.Observed),
         new Finding("Neural correlates", "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
         new Finding("Subjective experience", "Why experience accompanies physical processes remains debated.", EvidenceStatus.OpenQuestion)
+    }, new[]
+    {
+        new ScientificInvestigation(
+            "Cosmic expansion",
+            new[] { "Light from distant galaxies often displays systematic redshift correlated with distance.", "Multiple cosmological observations provide independent constraints on expansion history." },
+            "An expanding-universe model quantitatively accounts for these patterns.",
+            new[] { "The chosen physical model connects measured redshift to cosmological scale and distance estimates." },
+            new[] { "Alternative explanations of redshift and different cosmological models must be compared against the full body of observations." },
+            new[] { "Test predictions against independent distance measurements and the cosmic microwave background." },
+            "Curated conceptual summary; primary studies and dataset provenance not yet attached."),
+        new ScientificInvestigation(
+            "Dark matter",
+            new[] { "Galactic rotation, gravitational lensing, and structure formation exhibit gravitational effects not explained by visible matter alone under standard models." },
+            "Additional nonluminous mass is one leading explanation within current cosmological models.",
+            new[] { "Gravitational dynamics are interpreted using a specified theory of gravity and estimated distributions of ordinary matter." },
+            new[] { "Modified-gravity approaches are investigated, though they face constraints across multiple observational scales." },
+            new[] { "Compare predicted lensing, structure formation, laboratory searches, and cosmological data across competing models." },
+            "Curated conceptual summary; primary studies and dataset provenance not yet attached."),
+        new ScientificInvestigation(
+            "Neural correlates",
+            new[] { "Brain activity and reported or behaviorally indicated conscious states covary in reproducible experimental settings." },
+            "Certain neural processes are associated with conscious states; correlation alone does not settle metaphysical identity or causation.",
+            new[] { "Behavioral reports and experimental tasks are imperfect proxies for phenomenal experience." },
+            new[] { "Competing neural mechanisms and philosophical interpretations may fit the same correlational data." },
+            new[] { "Compare preregistered predictions across neural models using interventions and independent measurements." },
+            "Curated conceptual summary; primary studies and dataset provenance not yet attached.")
     });
+
 }

@@ -25,7 +25,7 @@ ITheoryOfReality (philosophical accounts, never instances of IReality)
   └── SubstanceDualistTheory
 
 TheoryCatalog → TheoryComparisonService → TheoryAssessment
-ScientificCatalog → Findings + EvidenceStatus
+ScientificCatalog → Findings + EvidenceStatus + ScientificInvestigation
 ```
 
 The project's C# **file convention is strict**: every class, interface, enum and record gets its own file. Interfaces are separated into their domain's `Interfaces` folder, such as `Philosophy/Interfaces/ITheoryOfReality.cs` or `Physics/Holography/Interfaces/IHolographicDuality.cs`. Namespaces follow domains and are not unnecessarily deepened for the interface folder.
@@ -42,11 +42,13 @@ dotnet run --project src/Reality/Reality.csproj -- "Substance dualism"
 dotnet run --project tests/Reality.SmokeTests/Reality.SmokeTests.csproj
 ```
 
-Without arguments, every registered theory is examined against the **same** scientific findings. Selecting a theory never changes physical observations.
+Without arguments, every registered theory is examined against the **same** scientific findings. When the console is launched interactively (for example by double-clicking the executable), it prompts **Press Enter to exit** after printing the results; redirected runs and CI do not block. Selecting a theory never changes physical observations.
 
 ## Evidence is not interpretation
 
 - `Finding` and `EvidenceStatus` summarize scientific models, observations, open problems and active research.
+- `ScientificInvestigation` connects a selected catalog finding to observations, an inference, working assumptions, competing explanations, potential discriminating tests and source/provenance status. These are **conceptual example research trails**, not original studies or automatically verified evidence.
+- The current three examples (cosmic expansion, dark matter, and neural correlates) explicitly disclose that primary-study and dataset provenance has not yet been attached. No citations or measurement data are invented. Other findings remain without a trail until they're researched.
 - `Assumption` is something a philosophical theory proposes.
 - `Explanation` links an interpretive claim to the subject of an actual scientific finding; this link is **not a demonstration that the theory explains it successfully**.
 - `OpenQuestion` names a limitation or a question not yet resolved.
