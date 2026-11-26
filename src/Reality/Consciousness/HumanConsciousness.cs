@@ -27,15 +27,14 @@ public sealed class HumanConsciousness : IUnifiedConsciousness
         return _catalog.Findings;
     }
 
-    public IReadOnlyList<string> DoPhilosophy() => new[]
-    {
+    public IReadOnlyList<string> DoPhilosophy() => [
         "Why does anything exist?",
         "Are physical laws governing rules or descriptions?",
         "Is subjective experience fundamental, emergent, or something else?",
         "What could count as evidence for different metaphysical accounts?",
         "How can experience be unified, and does the answer depend on an ontology?",
         "Can an observer fully model the system that produced it?"
-    };
+    ];
 
     public string UnderstandReality() =>
         $"{Reflect()} I can investigate {_physics.Principles.Count} summarized physical principles, but not inspect reality's source.";
