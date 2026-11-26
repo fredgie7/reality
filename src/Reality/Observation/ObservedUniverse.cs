@@ -13,40 +13,26 @@ namespace Reality.Observation;
 /// of existence. Toy educational models remain concrete until a genuine
 /// common abstraction is needed.
 /// </summary>
-public sealed class ObservedUniverse : IObservableUniverse
+public sealed class ObservedUniverse(KnownPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, DarwinianEvolution evolution, ScientificCatalog knowledge) : IObservableUniverse
 {
-    private readonly CosmicHistory _cosmos;
-    private readonly ChemistryModel _chemistry;
+    private readonly CosmicHistory _cosmos = cosmos;
+    private readonly ChemistryModel _chemistry = chemistry;
 
-    public ObservedUniverse(KnownPhysics physics, CosmicHistory cosmos, ChemistryModel chemistry, DarwinianEvolution evolution, ScientificCatalog knowledge)
-    {
-        Physics = physics;
-        _cosmos = cosmos;
-        _chemistry = chemistry;
-        Evolution = evolution;
-        Knowledge = knowledge;
-        Spacetime = new Spacetime();
-        Genetics = new Genetics();
-        Emergence = new EmergenceModel();
-        Culture = new CulturalEvolution();
-        NervousSystem = new NervousSystem();
-    }
-
-    public KnownPhysics Physics { get; }
-    public Spacetime Spacetime { get; }
-    public DarwinianEvolution Evolution { get; }
-    public Genetics Genetics { get; }
-    public EmergenceModel Emergence { get; }
-    public CulturalEvolution Culture { get; }
-    public NervousSystem NervousSystem { get; }
-    public ScientificCatalog Knowledge { get; }
+    public KnownPhysics Physics { get; } = physics;
+    public Spacetime Spacetime { get; } = new();
+    public DarwinianEvolution Evolution { get; } = evolution;
+    public Genetics Genetics { get; } = new();
+    public EmergenceModel Emergence { get; } = new();
+    public CulturalEvolution Culture { get; } = new();
+    public NervousSystem NervousSystem { get; } = new();
+    public ScientificCatalog Knowledge { get; } = knowledge;
 
     public IReadOnlyList<Event> DescribeHistory()
     {
         // Conceptual chronology, not a numerical simulation or causal proof.
         return _cosmos.Events.Concat(_chemistry.Events)
-            .Concat(new[]
-            {
+            .Concat(
+            [
                 new Event("Biology", "Origin of replicating life: unresolved history; evolution requires heredity."),
                 new Event("Genetics", "Heritable genetic information propagates through cellular machinery, with variation."),
                 new Event("Evolution", "Populations diversify through mutation, selection, drift and gene flow."),
@@ -54,7 +40,7 @@ public sealed class ObservedUniverse : IObservableUniverse
                 new Event("Neuroscience", "Some lineages evolve nervous systems supporting learning and cognition."),
                 new Event("Culture", "Social learning transmits knowledge beyond genetic inheritance."),
                 new Event("Consciousness", "Human observers begin modeling the system that produced them.")
-            }).ToArray();
+            ]).ToArray();
     }
 
     public HumanConsciousness CreateObserver() => new(Physics, Knowledge, NervousSystem);

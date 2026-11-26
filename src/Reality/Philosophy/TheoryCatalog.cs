@@ -8,13 +8,12 @@ namespace Reality.Philosophy;
 /// </summary>
 public static class TheoryCatalog
 {
-    public static IReadOnlyList<ITheoryOfReality> All { get; } = new ITheoryOfReality[]
-    {
+    public static IReadOnlyList<ITheoryOfReality> All { get; } = [
         new PanpsychistTheory(),
         new PhysicalistTheory(),
         new IdealistTheory(),
         new SubstanceDualistTheory()
-    };
+    ];
 
     public static ITheoryOfReality Find(string name)
     {

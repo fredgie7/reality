@@ -9,7 +9,7 @@ public sealed class ScientificCatalog
     {
         ArgumentNullException.ThrowIfNull(findings);
         _findings = Array.AsReadOnly(findings.ToArray());
-        _investigations = Array.AsReadOnly((investigations ?? Array.Empty<ScientificInvestigation>()).ToArray());
+        _investigations = Array.AsReadOnly((investigations ?? []).ToArray());
 
         var subjects = _findings.Select(f => f.Subject).ToHashSet(StringComparer.OrdinalIgnoreCase);
         if (_investigations.Any(i => !subjects.Contains(i.FindingSubject)))
@@ -27,8 +27,7 @@ public sealed class ScientificCatalog
         return _investigations.FirstOrDefault(i => i.FindingSubject.Equals(findingSubject, StringComparison.OrdinalIgnoreCase));
     }
 
-    public static ScientificCatalog Create() => new(new[]
-    {
+    public static ScientificCatalog Create() => new([
         new Finding("General relativity", "Describes gravity through spacetime geometry.", EvidenceStatus.EstablishedModel),
         new Finding("Quantum mechanics", "Highly predictive framework for microscopic phenomena.", EvidenceStatus.EstablishedModel),
         new Finding("Standard Model", "Describes known elementary particles and electromagnetic, weak and strong interactions.", EvidenceStatus.EstablishedModel),
@@ -43,32 +42,31 @@ public sealed class ScientificCatalog
         new Finding("Cultural transmission", "Humans can pass on learned information socially.", EvidenceStatus.Observed),
         new Finding("Neural correlates", "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
         new Finding("Subjective experience", "Why experience accompanies physical processes remains debated.", EvidenceStatus.OpenQuestion)
-    }, new[]
-    {
+    ], [
         new ScientificInvestigation(
             "Cosmic expansion",
-            new[] { "Light from distant galaxies often displays systematic redshift correlated with distance.", "Multiple cosmological observations provide independent constraints on expansion history." },
+            [ "Light from distant galaxies often displays systematic redshift correlated with distance.", "Multiple cosmological observations provide independent constraints on expansion history." ],
             "An expanding-universe model quantitatively accounts for these patterns.",
-            new[] { "The chosen physical model connects measured redshift to cosmological scale and distance estimates." },
-            new[] { "Alternative explanations of redshift and different cosmological models must be compared against the full body of observations." },
-            new[] { "Test predictions against independent distance measurements and the cosmic microwave background." },
+            [ "The chosen physical model connects measured redshift to cosmological scale and distance estimates." ],
+            [ "Alternative explanations of redshift and different cosmological models must be compared against the full body of observations." ],
+            [ "Test predictions against independent distance measurements and the cosmic microwave background." ],
             "Curated conceptual summary; primary studies and dataset provenance not yet attached."),
         new ScientificInvestigation(
             "Dark matter",
-            new[] { "Galactic rotation, gravitational lensing, and structure formation exhibit gravitational effects not explained by visible matter alone under standard models." },
+            [ "Galactic rotation, gravitational lensing, and structure formation exhibit gravitational effects not explained by visible matter alone under standard models." ],
             "Additional nonluminous mass is one leading explanation within current cosmological models.",
-            new[] { "Gravitational dynamics are interpreted using a specified theory of gravity and estimated distributions of ordinary matter." },
-            new[] { "Modified-gravity approaches are investigated, though they face constraints across multiple observational scales." },
-            new[] { "Compare predicted lensing, structure formation, laboratory searches, and cosmological data across competing models." },
+            [ "Gravitational dynamics are interpreted using a specified theory of gravity and estimated distributions of ordinary matter." ],
+            [ "Modified-gravity approaches are investigated, though they face constraints across multiple observational scales." ],
+            [ "Compare predicted lensing, structure formation, laboratory searches, and cosmological data across competing models." ],
             "Curated conceptual summary; primary studies and dataset provenance not yet attached."),
         new ScientificInvestigation(
             "Neural correlates",
-            new[] { "Brain activity and reported or behaviorally indicated conscious states covary in reproducible experimental settings." },
+            [ "Brain activity and reported or behaviorally indicated conscious states covary in reproducible experimental settings." ],
             "Certain neural processes are associated with conscious states; correlation alone does not settle metaphysical identity or causation.",
-            new[] { "Behavioral reports and experimental tasks are imperfect proxies for phenomenal experience." },
-            new[] { "Competing neural mechanisms and philosophical interpretations may fit the same correlational data." },
-            new[] { "Compare preregistered predictions across neural models using interventions and independent measurements." },
+            [ "Behavioral reports and experimental tasks are imperfect proxies for phenomenal experience." ],
+            [ "Competing neural mechanisms and philosophical interpretations may fit the same correlational data." ],
+            [ "Compare preregistered predictions across neural models using interventions and independent measurements." ],
             "Curated conceptual summary; primary studies and dataset provenance not yet attached.")
-    });
+    ]);
 
 }
