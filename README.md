@@ -132,6 +132,14 @@ The console includes an **illustrative proposed replication-style design** inspi
 
 Stable proposal and prediction IDs are constants; `ExperimentStatus` and `PredictionAssessment` are enums because they describe closed classifications. Open-ended conditions, controls, observations, methodological arguments and limitations remain descriptive text.
 
+## Milestone 4 — Interactive investigation console
+
+Run `dotnet run --project src/Reality.Console/Reality.Console.csproj -- --interactive` to start the text-based explorer. It works with normal terminal input or piped commands; end-of-input exits cleanly. When no arguments are provided from an actual interactive terminal, the explorer opens automatically. Redirected/no-argument runs and existing `all` or named-theory arguments retain the full noninteractive diagnostic summary; `--summary` explicitly requests that legacy output.
+
+The interactive menu offers `help`, `findings`, `finding <subject>`, `theories`, `theory <name>`, `evidence`, `trace <node-id>`, `experiments`, `report`, and `quit`. Inputs are case-insensitive; multiword subjects and theory names are supported. It presents **curated** findings, missing-source warnings, theory-specific debates, traceable reasoning, proposed conditional predictions, and a bounded investigation summary. It does not make network calls, run an experiment, or automatically decide which ontology is true.
+
+Command names are centralized as constants in `NavigationCommands`. The `InvestigationNavigator` lives in Investigation and returns deterministic `NavigationResult` values so it can be tested without terminal input. The thin Console `InteractiveSession` handles prompting, end-of-file, and output only. No external UI package or additional project was introduced.
+
 ## Run
 
 Requirements: .NET 8 SDK (C# 12), Visual Studio 2022 or another compatible editor. The solution uses no third-party NuGet packages.

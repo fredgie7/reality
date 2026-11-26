@@ -20,3 +20,12 @@ jobs:
         run: dotnet format style Reality.sln --verify-no-changes --diagnostics IDE0005 --severity info --no-restore
       - name: Run smoke checks
         run: dotnet run --no-build --project tests/Reality.Tests/Reality.Tests.csproj --configuration Release
+      - name: Exercise interactive console with redirected commands
+        run: |
+          printf 'help\nfinding Neural correlates\ntheory Physicalism\ntrace neural-content-inference\nexperiments\nreport\nquit\n' | dotnet run --no-build --project src/Reality.Console/Reality.Console.csproj --configuration Release -- --interactive > /tmp/reality-interactive.txt
+          grep -q 'FINDING: Neural correlates' /tmp/reality-interactive.txt
+          grep -q 'THEORY: Physicalism' /tmp/reality-interactive.txt
+          grep -q 'SOURCE: https://doi.org/' /tmp/reality-interactive.txt
+          grep -q 'ASSESSMENT: NotEvaluated' /tmp/reality-interactive.txt
+          grep -q 'INVESTIGATION:' /tmp/reality-interactive.txt
+          grep -q 'Investigation closed' /tmp/reality-interactive.txt
