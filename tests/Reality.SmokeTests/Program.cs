@@ -1,5 +1,6 @@
 using Reality.Consciousness.Interfaces;
 using Reality.Epistemology;
+using Reality.Epistemology.Reasoning;
 using Reality.Observation;
 using Reality.Observation.Interfaces;
 using Reality.Ontology.Interfaces;
@@ -48,6 +49,38 @@ for (var i = 1; i <= 12; i++)
 Check(new Reality.Emergence.EmergenceModel().Analyze([ true, true, false ]).HasConnectedCluster, "emergence");
 Check(new CulturalEvolution().Transmit([ new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) ], 2).FinalKnowledgeHolders == 3, "culture");
 Check(new NervousSystem().Learn("observation").Contains("Learned from observation"), "nervous system");
+
+var reasoning = ConsciousnessReasoningExample.Create();
+var inference = reasoning.GetNode(ConsciousnessReasoningExample.MainInferenceId);
+Check(inference.Kind == ReasoningNodeKind.Inference, "consciousness example has an explicit inference");
+Check(reasoning.Incoming(inference.Id).Count == 3, "inference links to observations and a stated assumption");
+var incomingReasons = reasoning.TraceReasons(inference.Id);
+Check(incomingReasons.Count == 5, "reasoning trace reaches two observation sources and the methodological assumption");
+Check(incomingReasons.Any(link => reasoning.GetNode(link.FromId).SourceUrl?.Contains("doi.org") == true), "reasoning trace exposes publication provenance");
+Check(reasoning.Connections.Count(link => link.Relation == ReasoningRelation.Challenges) == 2, "empirical challenges are distinguished from disproof");
+Check(reasoning.Connections.Count(link => link.Relation == ReasoningRelation.RaisesQuestion) == 2, "graph retains separate neural and metaphysical open questions");
+try
+{
+    _ = new ReasoningGraph([new ReasoningNode("a", ReasoningNodeKind.Inference, "claim")], [new ReasoningConnection("missing", "a", ReasoningRelation.Supports, "justification")]);
+    throw new Exception("FAIL: graph accepted missing endpoint");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: graph rejects missing endpoints");
+}
+try
+{
+    _ = new ReasoningGraph([new ReasoningNode("x", ReasoningNodeKind.Inference, "first"), new ReasoningNode("x", ReasoningNodeKind.Inference, "second")], []);
+    throw new Exception("FAIL: graph accepted duplicate node IDs");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: graph rejects duplicate IDs");
+}
+var cycle = new ReasoningGraph(
+    [new ReasoningNode("a", ReasoningNodeKind.Inference, "first"), new ReasoningNode("b", ReasoningNodeKind.Assumption, "second")],
+    [new ReasoningConnection("a", "b", ReasoningRelation.Supports, "first link"), new ReasoningConnection("b", "a", ReasoningRelation.RequiresAssumption, "second link")]);
+Check(cycle.TraceReasons("a").Count == 2, "trace terminates on cycles");
 
 var catalog = ScientificCatalog.Create();
 Check(catalog.Investigations.Count == 3, "catalog includes explicit epistemic investigations");
