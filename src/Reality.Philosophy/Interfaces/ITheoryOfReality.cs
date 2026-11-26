@@ -14,4 +14,5 @@ public interface ITheoryOfReality
     IReadOnlyList<Explanation> Explanations { get; }
     IReadOnlyList<OpenQuestion> OpenQuestions { get; }
     IReadOnlyList<Prediction> Predictions { get; }
+    IReadOnlyList<TheoryDebate> Debates { get; }
 }

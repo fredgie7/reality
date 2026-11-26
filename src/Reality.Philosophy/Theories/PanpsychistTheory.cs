@@ -24,5 +24,21 @@ public sealed class PanpsychistTheory : ITheoryOfReality
         new OpenQuestion("Can any version yield a genuinely distinguishing empirical test?")
     ];
     public IReadOnlyList<Prediction> Predictions { get; } = [];
+    /// <summary>Variant-specific objections and possible replies; neither is a verdict.</summary>
+    public IReadOnlyList<TheoryDebate> Debates { get; } = [
+        new TheoryDebate("subject-combination",
+            "Constitutive micropsychism",
+            "How could many micro-level subjects jointly constitute a single macro-level subject?",
+            "Non-constitutive forms of panpsychism need not posit that macro-subjects are constituted by micro-subjects; they face different explanatory demands.",
+            "What explains human unity on the selected panpsychist variant, without merely changing the location of the problem?",
+            "https://plato.stanford.edu/entries/panpsychism/"),
+        new TheoryDebate("cosmopsychism",
+            "Constitutive cosmopsychism",
+            "Beginning with one cosmic subject may reverse the traditional combination problem but raises the problem of individual subjects.",
+            "Cosmopsychist accounts propose that individual subjects are grounded in a cosmic subject rather than built by summing micro-subjects.",
+            "How do distinct individual perspectives arise from or depend on an encompassing cosmic subject?",
+            "https://plato.stanford.edu/entries/panpsychism/supplement.html")
+    ];
+
 
 }
