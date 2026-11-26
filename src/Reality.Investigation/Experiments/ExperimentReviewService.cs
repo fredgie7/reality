@@ -6,7 +6,7 @@ namespace Reality.Investigation.Experiments;
 /// </summary>
 public sealed class ExperimentReviewService
 {
-    public ExperimentReview Review(ExperimentPlan plan, IEnumerable<PredictionEvaluation>? evaluations = null)
+    public static ExperimentReview Review(ExperimentPlan plan, IEnumerable<PredictionEvaluation>? evaluations = null)
     {
         ArgumentNullException.ThrowIfNull(plan);
         if (string.IsNullOrWhiteSpace(plan.Id) || string.IsNullOrWhiteSpace(plan.Question) || string.IsNullOrWhiteSpace(plan.Procedure) || string.IsNullOrWhiteSpace(plan.ControlledFactors) || string.IsNullOrWhiteSpace(plan.Measurement) || string.IsNullOrWhiteSpace(plan.InterpretationLimits))

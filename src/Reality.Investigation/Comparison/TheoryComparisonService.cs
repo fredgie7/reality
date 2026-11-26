@@ -11,7 +11,7 @@ namespace Reality.Investigation.Comparison;
 /// </summary>
 public sealed class TheoryComparisonService
 {
-    public IReadOnlyList<TheoryAssessment> Compare(IEnumerable<ITheoryOfReality> theories, ScientificCatalog catalog)
+    public static IReadOnlyList<TheoryAssessment> Compare(IEnumerable<ITheoryOfReality> theories, ScientificCatalog catalog)
     {
         ArgumentNullException.ThrowIfNull(theories);
         ArgumentNullException.ThrowIfNull(catalog);
