@@ -64,8 +64,8 @@ catch (ArgumentException)
 {
     Console.WriteLine("PASS: orphaned investigation rejected");
 }
-IObservableUniverse universe = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
-IObservableUniverse second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
+var universe = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
+var second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
 Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same observable history regardless of theory");
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
@@ -99,7 +99,7 @@ Check(assessments.All(x => x.ProposedPredictions.Count == 0), "no invented exper
 try { CombinationProblem.Combine([ new FundamentalExperience("hypothetical") ]); throw new Exception("FAIL: combination solved"); }
 catch (NotSupportedException) { Console.WriteLine("PASS: combination remains unresolved"); }
 
-IHolographicDuality duality = new CelestialHolography();
+var duality = new CelestialHolography();
 Check(duality.CorrespondenceStatus == HolographicCorrespondenceStatus.PartialResults, "qualified holography status");
 Check(duality.Bulk is FourDimensionalScatteringDescription && duality.Boundary is CelestialConformalDescription, "physical descriptions kept");
 Check(Math.Abs(new CelestialHolography().DemonstrateEnergyMellinTransform([ new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) ], 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
