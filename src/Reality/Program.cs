@@ -80,3 +80,5 @@ for (var generation = 0; generation < 8; generation++)
 Console.WriteLine();
 Console.WriteLine($"FIRST PERSON: {observer.Experience()}");
 Console.WriteLine("The nature of reality is still under investigation.");
+
+Console.Read();
