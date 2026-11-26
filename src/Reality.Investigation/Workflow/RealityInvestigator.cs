@@ -1,3 +1,4 @@
+using Reality.Core.Epistemology;
 using Reality.Core.Observation;
 using Reality.Investigation.Comparison;
 using Reality.Investigation.Reasoning;
@@ -11,7 +12,7 @@ public sealed class RealityInvestigator(IObservableUniverse universe, IReadOnlyL
 {
     public InvestigationReport InvestigateConsciousness()
     {
-        var findings = universe.Findings.Where(finding => finding.Subject is "Neural correlates" or "Subjective experience").ToArray();
+        var findings = universe.Findings.Where(finding => finding.Subject == FindingSubjects.NeuralCorrelates || finding.Subject == FindingSubjects.SubjectiveExperience).ToArray();
         var comparisons = new TheoryComparisonService().Compare(theories, catalog);
         var debates = new TheoryDebateService().Review(theories);
         return new InvestigationReport("What can neural evidence tell us about consciousness?", findings, ConsciousnessReasoningExample.Create(), comparisons, debates);

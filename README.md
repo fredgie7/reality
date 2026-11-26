@@ -113,6 +113,12 @@ The arguments cover subject combination and cosmopsychism (panpsychism), phenome
 
 `Reality.Philosophy.Models.TheoryDebate` contains the arguments, while `Reality.Investigation.Comparison.TheoryDebateService` checks their structure and source URLs and assembles a readable review. The console presents objections alongside representative replies and unresolved questions, **without numeric rankings, win/loss judgments or purported probability updates**. This is philosophical mapping, not scientific corroboration. Empirical discriminating predictions and hypothesis testing belong to the next milestone.
 
+### Typed classifications and shared subjects
+
+The built-in catalog uses `FindingSubjects` constants to refer consistently to scientific topics from Science, Philosophy, and Investigation. These constants preserve the existing human-readable keys and do not imply that the set of all possible scientific subjects is closed.
+
+`Finding.Status` uses the existing `EvidenceStatus` enum, instead of calling it a confidence score. `ScientificInvestigation.SourceStatus` uses `SourceProvenanceStatus` for source availability, with optional free-text `SourceNotes`. All initial investigations are explicitly `NotAttached`; the enum **never certifies that the inference is true**. `Event.Domain` uses a small `EventDomain` enum for the illustrative chronology. Experimental and philosophical prose stays in plain text.
+
 ## Run
 
 Requirements: .NET 8 SDK (C# 12), Visual Studio 2022 or another compatible editor. The solution uses no third-party NuGet packages.

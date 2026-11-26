@@ -33,7 +33,7 @@ foreach (var stage in observable.DescribeHistory())
 Console.WriteLine();
 Console.WriteLine("SCIENTIFIC FINDINGS");
 foreach (var finding in observable.Knowledge.Findings)
-    Console.WriteLine($"[{finding.Confidence}] {finding.Subject}: {finding.Description}");
+    Console.WriteLine($"[{finding.Status}] {finding.Subject}: {finding.Description}");
 
 Console.WriteLine();
 Console.WriteLine("PHILOSOPHICAL THEORIES (not alternate scientific universes)");
@@ -82,6 +82,10 @@ foreach (var study in observable.Knowledge.Investigations)
     foreach (var test in study.PotentialTests)
         Console.WriteLine($"  FURTHER TEST: {test}");
     Console.WriteLine($"  SOURCE STATUS: {study.SourceStatus}");
+    if (study.SourceStatus == Reality.Core.Epistemology.SourceProvenanceStatus.NotAttached)
+        Console.WriteLine("  SOURCE NOTE: Primary study references and datasets have not been attached.");
+    if (!string.IsNullOrWhiteSpace(study.SourceNotes))
+        Console.WriteLine($"  SOURCE NOTE: {study.SourceNotes}");
 }
 
 Console.WriteLine();

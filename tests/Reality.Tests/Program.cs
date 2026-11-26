@@ -94,16 +94,21 @@ Check(cycle.TraceReasons("a").Count == 2, "trace terminates on cycles");
 var catalog = ScientificCatalog.Create();
 var report = new RealityInvestigator(new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog), TheoryCatalog.All, catalog).InvestigateConsciousness();
 Check(report.Reasoning.Nodes.Count > 5 && report.TheoryAssessments.Count == 4, "investigation composes science and philosophy without changing findings");
-Check(report.RelevantFindings.Count == 2 && report.RelevantFindings.Any(x => x.Subject == "Subjective experience"), "investigation preserves the epistemic gap");
+Check(report.RelevantFindings.Count == 2 && report.RelevantFindings.Any(x => x.Subject == FindingSubjects.SubjectiveExperience), "investigation preserves the epistemic gap");
 Check(report.TheoryDebates.Count == 4 && report.TheoryDebates.SelectMany(x => x.Debates).Count() == 8, "investigation includes eight sourced debates without inventing scores");
 Check(catalog.Investigations.Count == 3, "catalog includes explicit epistemic investigations");
-Check(catalog.GetInvestigation("dark MATTER")?.FindingSubject == "Dark matter", "investigation lookup is case-insensitive");
-Check(catalog.GetInvestigation("General relativity") is null, "missing evidence trail is not fabricated");
+Check(catalog.GetInvestigation("dark MATTER")?.FindingSubject == FindingSubjects.DarkMatter, "investigation lookup is case-insensitive");
+Check(catalog.GetInvestigation(FindingSubjects.GeneralRelativity) is null, "missing evidence trail is not fabricated");
 Check(catalog.Investigations.All(i => i.Observations.Count > 0 && i.Assumptions.Count > 0 && i.Alternatives.Count > 0 && i.PotentialTests.Count > 0), "investigations expose evidence, inference, assumptions, alternatives and tests");
-Check(catalog.Investigations.All(i => i.SourceStatus.Contains("not yet attached")), "unverified study provenance is explicitly disclosed");
+Check(catalog.Investigations.All(i => i.SourceStatus == SourceProvenanceStatus.NotAttached), "default investigations explicitly lack attached primary sources");
+Check(catalog.Investigations.All(i => i.SourceNotes is null), "source notes remain optional and do not duplicate status descriptions");
+Check(catalog.Findings.All(finding => !string.IsNullOrWhiteSpace(finding.Subject)), "all built-in scientific subjects retain usable keys");
+Check(catalog.GetInvestigation(FindingSubjects.CosmicExpansion)?.FindingSubject == FindingSubjects.CosmicExpansion, "shared subject keys connect catalog investigations");
+Check(new Event(EventDomain.Biology, "illustrative").Domain == EventDomain.Biology, "chronology domain is a typed classification");
+Check(typeof(Finding).GetProperty("Confidence") is null && typeof(Finding).GetProperty("Status")?.PropertyType == typeof(EvidenceStatus), "finding classification is a status, not a confidence score");
 try
 {
-    _ = new ScientificCatalog([ new Finding("Known", "A test", EvidenceStatus.Observed) ], [ new ScientificInvestigation("Unknown", [ "obs" ], "inference", [ "assumption" ], [ "alternative" ], [ "test" ], "no provenance") ]);
+    _ = new ScientificCatalog([ new Finding("Known", "A test", EvidenceStatus.Observed) ], [ new ScientificInvestigation("Unknown", [ "obs" ], "inference", [ "assumption" ], [ "alternative" ], [ "test" ], SourceProvenanceStatus.NotAttached) ]);
     throw new Exception("FAIL: orphaned investigation accepted");
 }
 catch (ArgumentException)
@@ -115,6 +120,7 @@ var second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new C
 Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same observable history regardless of theory");
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
+Check(universe.DescribeHistory().Select(x => x.Domain).Distinct().Count() == Enum.GetValues<EventDomain>().Length, "chronology includes every declared event domain");
 Check(typeof(IObservableUniverse).GetMethod("CreateObserver")?.ReturnType == typeof(IObserver), "Core observer contract does not depend on scientific implementation");
 Check(typeof(IReality).Assembly.GetTypes().All(type => type.Name is not "IExperience" and not "IUnifiedConsciousness"), "Core does not expose contracts that imply software instantiates experience");
 Check(typeof(HumanObserver).GetInterfaces().SequenceEqual([typeof(IObserver)]), "human observer models only the observer contract");
