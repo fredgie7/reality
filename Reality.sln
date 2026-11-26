@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37614.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reality.Core", "src\Reality.Core\Reality.Core.csproj", "{71D65EDC-0DF8-4B73-8147-74FDEDC0A101}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reality.Science", "src\Reality.Science\Reality.Science.csproj", "{FB553713-C70B-489D-9D8C-6AF56191A102}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reality.Philosophy", "src\Reality.Philosophy\Reality.Philosophy.csproj", "{DCDDC9D7-1C92-4E5F-81C3-BB0939F4A103}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reality.Investigation", "src\Reality.Investigation\Reality.Investigation.csproj", "{DA208D3F-19CF-4BC2-B11F-68B3C71BA104}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reality.Console", "src\Reality.Console\Reality.Console.csproj", "{8741461C-A15B-49E0-AF28-769644CDA105}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reality.Tests", "tests\Reality.Tests\Reality.Tests.csproj", "{A511BC04-BCB2-4FF4-BC74-EB810790A106}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71D65EDC-0DF8-4B73-8147-74FDEDC0A101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71D65EDC-0DF8-4B73-8147-74FDEDC0A101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71D65EDC-0DF8-4B73-8147-74FDEDC0A101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71D65EDC-0DF8-4B73-8147-74FDEDC0A101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB553713-C70B-489D-9D8C-6AF56191A102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB553713-C70B-489D-9D8C-6AF56191A102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB553713-C70B-489D-9D8C-6AF56191A102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB553713-C70B-489D-9D8C-6AF56191A102}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDDC9D7-1C92-4E5F-81C3-BB0939F4A103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDDC9D7-1C92-4E5F-81C3-BB0939F4A103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDDC9D7-1C92-4E5F-81C3-BB0939F4A103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDDC9D7-1C92-4E5F-81C3-BB0939F4A103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA208D3F-19CF-4BC2-B11F-68B3C71BA104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA208D3F-19CF-4BC2-B11F-68B3C71BA104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA208D3F-19CF-4BC2-B11F-68B3C71BA104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA208D3F-19CF-4BC2-B11F-68B3C71BA104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8741461C-A15B-49E0-AF28-769644CDA105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8741461C-A15B-49E0-AF28-769644CDA105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8741461C-A15B-49E0-AF28-769644CDA105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8741461C-A15B-49E0-AF28-769644CDA105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A511BC04-BCB2-4FF4-BC74-EB810790A106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A511BC04-BCB2-4FF4-BC74-EB810790A106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A511BC04-BCB2-4FF4-BC74-EB810790A106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A511BC04-BCB2-4FF4-BC74-EB810790A106}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
