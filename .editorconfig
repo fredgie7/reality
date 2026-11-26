@@ -6,6 +6,7 @@ root = true
 csharp_style_prefer_primary_constructors = true:warning
 dotnet_style_prefer_collection_expression = when_types_exactly_match:warning
 
+dotnet_diagnostic.CA1822.severity = warning
 dotnet_diagnostic.CA1859.severity = warning
 dotnet_diagnostic.CA1861.severity = warning
 dotnet_diagnostic.IDE0290.severity = warning
