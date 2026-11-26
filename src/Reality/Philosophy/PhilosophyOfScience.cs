@@ -1,3 +1,4 @@
+using Reality.Epistemology;
 namespace Reality.Philosophy;
 
 public sealed class PhilosophyOfScience

@@ -1,4 +1,6 @@
-using Reality;
+using Reality.Epistemology;
+using Reality.Observation;
+using Reality.Observation.Interfaces;
 using Reality.Biology;
 using Reality.Culture;
 using Reality.Philosophy;

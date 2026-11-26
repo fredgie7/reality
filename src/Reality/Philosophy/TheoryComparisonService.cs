@@ -1,3 +1,4 @@
+using Reality.Epistemology;
 using Reality.Philosophy.Interfaces;
 
 namespace Reality.Philosophy;

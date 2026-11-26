@@ -1,3 +1,5 @@
+using Reality.Consciousness.Interfaces;
+using Reality.Epistemology;
 using Reality.Physics;
 
 namespace Reality.Consciousness;

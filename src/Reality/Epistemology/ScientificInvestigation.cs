@@ -1,4 +1,4 @@
-namespace Reality;
+namespace Reality.Epistemology;
 
 /// <summary>
 /// A transparent, curated reasoning trail attached to one scientific finding.

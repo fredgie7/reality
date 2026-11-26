@@ -1,3 +1,4 @@
+using Reality.Physics.Interfaces;
 namespace Reality.Physics;
 
 public sealed class KnownPhysics : ILawsOfPhysics
