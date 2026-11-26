@@ -1,7 +1,7 @@
-name: .NET 8 build and smoke checks
+name: .NET 8 build and architecture checks
 on:
   push:
-    branches: [main, "feature/**"]
+    branches: [main, "feature/**", "refactor/**"]
   pull_request:
     branches: [main]
 jobs:
@@ -12,9 +12,9 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-      - name: Verify source file organization
+      - name: Verify project boundaries and source layout
         run: python3 .github/scripts/verify_source_layout.py
-      - name: Build
-        run: dotnet build src/Reality/Reality.csproj --configuration Release
+      - name: Build complete solution with enforced analyzers
+        run: dotnet build Reality.sln --configuration Release
       - name: Run smoke checks
-        run: dotnet run --project tests/Reality.SmokeTests/Reality.SmokeTests.csproj --configuration Release
+        run: dotnet run --no-build --project tests/Reality.Tests/Reality.Tests.csproj --configuration Release

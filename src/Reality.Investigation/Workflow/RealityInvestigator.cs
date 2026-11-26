@@ -4,7 +4,7 @@ using Reality.Investigation.Reasoning;
 using Reality.Philosophy.Interfaces;
 using Reality.Science.Epistemology;
 
-namespace Reality.Investigation;
+namespace Reality.Investigation.Workflow;
 
 /// <summary>Coordinates investigation without turning scientific reports into a metaphysical verdict.</summary>
 public sealed class RealityInvestigator(IObservableUniverse universe, IReadOnlyList<ITheoryOfReality> theories, ScientificCatalog catalog)

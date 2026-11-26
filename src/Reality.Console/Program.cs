@@ -1,4 +1,4 @@
-using Reality.Investigation;
+using Reality.Investigation.Workflow;
 using Reality.Investigation.Reasoning;
 using Reality.Philosophy.Catalog;
 using Reality.Philosophy.Interfaces;
@@ -8,7 +8,6 @@ using Reality.Science.Epistemology;
 using Reality.Science.Observation;
 using Reality.Science.Physics;
 using Reality.Science.Physics.Holography;
-
 
 var catalog = ScientificCatalog.Create();
 var observable = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), catalog);

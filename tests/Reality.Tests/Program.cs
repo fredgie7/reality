@@ -2,7 +2,7 @@ using Reality.Core.Consciousness.Interfaces;
 using Reality.Core.Epistemology;
 using Reality.Core.Observation.Interfaces;
 using Reality.Core.Ontology.Interfaces;
-using Reality.Investigation;
+using Reality.Investigation.Workflow;
 using Reality.Investigation.Comparison;
 using Reality.Investigation.Reasoning;
 using Reality.Philosophy.Catalog;
@@ -20,7 +20,6 @@ using Reality.Science.Physics;
 using Reality.Science.Physics.Holography;
 using Reality.Science.Physics.Holography.Interfaces;
 using Reality.Science.Physics.Interfaces;
-
 
 static void Check(bool value, string label)
 {
@@ -111,13 +110,14 @@ var second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new C
 Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same observable history regardless of theory");
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
-Check(typeof(IReality).Namespace == "Reality.Ontology.Interfaces", "reality interface follows ontology folder namespace");
-Check(typeof(IObservableUniverse).Namespace == "Reality.Observation.Interfaces", "observable interface follows observation interfaces namespace");
-Check(typeof(ObservedUniverse).Namespace == "Reality.Observation", "observable model follows observation folder namespace");
-Check(typeof(ScientificCatalog).Namespace == "Reality.Epistemology", "scientific catalog belongs to epistemology domain");
-Check(typeof(IExperience).Namespace == "Reality.Consciousness.Interfaces", "consciousness interface namespace aligns with folder");
-Check(typeof(ILawsOfPhysics).Namespace == "Reality.Physics.Interfaces", "physics interface namespace aligns with folder");
-Check(typeof(IHolographicDuality).Namespace == "Reality.Physics.Holography.Interfaces", "holography interface namespace aligns with folder");
+Check(typeof(IObservableUniverse).GetMethod("CreateObserver")?.ReturnType == typeof(IObserver), "Core observer contract does not depend on scientific implementation");
+Check(typeof(IReality).Namespace == "Reality.Core.Ontology.Interfaces", "reality interface follows ontology folder namespace");
+Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation.Interfaces", "observable interface follows observation interfaces namespace");
+Check(typeof(ObservedUniverse).Namespace == "Reality.Science.Observation", "observable model follows observation folder namespace");
+Check(typeof(ScientificCatalog).Namespace == "Reality.Science.Epistemology", "scientific catalog belongs to epistemology domain");
+Check(typeof(IExperience).Namespace == "Reality.Core.Consciousness.Interfaces", "consciousness interface namespace aligns with folder");
+Check(typeof(ILawsOfPhysics).Namespace == "Reality.Science.Physics.Interfaces", "physics interface namespace aligns with folder");
+Check(typeof(IHolographicDuality).Namespace == "Reality.Science.Physics.Holography.Interfaces", "holography interface namespace aligns with folder");
 Check(typeof(IReality).GetProperties().Select(p => p.Name).SequenceEqual([ "ObservableUniverse" ]), "IReality only exposes observable facet");
 Check(!typeof(IReality).IsAssignableFrom(typeof(ObservedUniverse)), "observed universe is not actual reality");
 Check(!typeof(IReality).IsAssignableFrom(typeof(ITheoryOfReality)), "a theory is not reality");

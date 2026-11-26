@@ -3,9 +3,9 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../Reality.Core/Reality.Core.csproj" />
-    <ProjectReference Include="../Reality.Science/Reality.Science.csproj" />
-    <ProjectReference Include="../Reality.Philosophy/Reality.Philosophy.csproj" />
-    <ProjectReference Include="../Reality.Investigation/Reality.Investigation.csproj" />
+    <ProjectReference Include="../../src/Reality.Core/Reality.Core.csproj" />
+    <ProjectReference Include="../../src/Reality.Science/Reality.Science.csproj" />
+    <ProjectReference Include="../../src/Reality.Philosophy/Reality.Philosophy.csproj" />
+    <ProjectReference Include="../../src/Reality.Investigation/Reality.Investigation.csproj" />
   </ItemGroup>
 </Project>
