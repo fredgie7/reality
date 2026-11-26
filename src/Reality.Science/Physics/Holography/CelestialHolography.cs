@@ -29,7 +29,7 @@ public sealed class CelestialHolography : IHolographicDuality
         "A complete 2D dual of flat-space quantum gravity has not been established.";
 
     // Specialized toy calculation: deliberately not required by IHolographicDuality.
-    public CelestialTransformResult DemonstrateEnergyMellinTransform(IReadOnlyList<EnergyAmplitudeSample> samples, double conformalDimension)
+    public static CelestialTransformResult DemonstrateEnergyMellinTransform(IReadOnlyList<EnergyAmplitudeSample> samples, double conformalDimension)
     {
         ArgumentNullException.ThrowIfNull(samples);
         if (samples.Count < 2) throw new ArgumentException("At least two samples required.", nameof(samples));

@@ -2,7 +2,7 @@ namespace Reality.Science.Emergence;
 
 public sealed class EmergenceModel
 {
-    public EmergentPattern Analyze(IReadOnlyList<bool> components)
+    public static EmergentPattern Analyze(IReadOnlyList<bool> components)
     {
         ArgumentNullException.ThrowIfNull(components);
         var active = components.Count(x => x);

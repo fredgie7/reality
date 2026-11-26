@@ -8,7 +8,7 @@ namespace Reality.Investigation.Comparison;
 /// </summary>
 public sealed class TheoryDebateService
 {
-    public IReadOnlyList<TheoryDebateReview> Review(IEnumerable<ITheoryOfReality> theories)
+    public static IReadOnlyList<TheoryDebateReview> Review(IEnumerable<ITheoryOfReality> theories)
     {
         ArgumentNullException.ThrowIfNull(theories);
         return theories.Select(theory =>

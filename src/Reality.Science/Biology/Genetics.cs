@@ -8,7 +8,7 @@ public sealed class Genetics
 {
     private const string Bases = "ACGT";
 
-    public string Replicate(string dna)
+    public static string Replicate(string dna)
     {
         ValidateDna(dna);
         // A daughter DNA molecule preserves sequence information; real replication
@@ -16,14 +16,14 @@ public sealed class Genetics
         return new string(dna.ToCharArray());
     }
 
-    public string Transcribe(string dna)
+    public static string Transcribe(string dna)
     {
         ValidateDna(dna);
         // Input denotes a coding strand, not the template strand.
         return dna.Replace('T', 'U');
     }
 
-    public string Translate(string rna)
+    public static string Translate(string rna)
     {
         ArgumentNullException.ThrowIfNull(rna);
         if (rna.Any(c => !"ACGU".Contains(c))) throw new ArgumentException("RNA may only contain A, C, G, U.", nameof(rna));
@@ -41,7 +41,7 @@ public sealed class Genetics
         return new string([.. aminoAcids]);
     }
 
-    public string Inherit(string maternalDna, string paternalDna, int crossoverIndex)
+    public static string Inherit(string maternalDna, string paternalDna, int crossoverIndex)
     {
         ValidateDna(maternalDna);
         ValidateDna(paternalDna);
@@ -51,7 +51,7 @@ public sealed class Genetics
         return maternalDna[..crossoverIndex] + paternalDna[crossoverIndex..];
     }
 
-    public string Mutate(string dna, int position, char replacement)
+    public static string Mutate(string dna, int position, char replacement)
     {
         ValidateDna(dna);
         if (position < 0 || position >= dna.Length) throw new ArgumentOutOfRangeException(nameof(position));

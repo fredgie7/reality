@@ -14,9 +14,9 @@ public sealed class RealityInvestigator(IObservableUniverse universe, IReadOnlyL
     public InvestigationReport InvestigateConsciousness()
     {
         var findings = universe.Findings.Where(finding => finding.Subject == FindingSubjects.NeuralCorrelates || finding.Subject == FindingSubjects.SubjectiveExperience).ToArray();
-        var comparisons = new TheoryComparisonService().Compare(theories, catalog);
-        var debates = new TheoryDebateService().Review(theories);
-        var experiment = new ExperimentReviewService().Review(ConsciousnessExperimentExample.Create());
+        var comparisons = TheoryComparisonService.Compare(theories, catalog);
+        var debates = TheoryDebateService.Review(theories);
+        var experiment = ExperimentReviewService.Review(ConsciousnessExperimentExample.Create());
         return new InvestigationReport("What can neural evidence tell us about consciousness?", findings, ConsciousnessReasoningExample.Create(), comparisons, debates, experiment);
     }
 }

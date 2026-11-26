@@ -7,13 +7,13 @@ namespace Reality.Science.Physics;
 /// </summary>
 public sealed class Spacetime
 {
-    public double LightTravelSeconds(double distanceMeters)
+    public static double LightTravelSeconds(double distanceMeters)
     {
         if (!double.IsFinite(distanceMeters) || distanceMeters < 0) throw new ArgumentOutOfRangeException(nameof(distanceMeters));
         return distanceMeters / KnownPhysics.SpeedOfLight;
     }
 
-    public double ProperTimeForMovingClock(double coordinateSeconds, double speedMetersPerSecond)
+    public static double ProperTimeForMovingClock(double coordinateSeconds, double speedMetersPerSecond)
     {
         if (!double.IsFinite(coordinateSeconds) || coordinateSeconds < 0) throw new ArgumentOutOfRangeException(nameof(coordinateSeconds));
         if (!double.IsFinite(speedMetersPerSecond) || speedMetersPerSecond < 0 || speedMetersPerSecond >= KnownPhysics.SpeedOfLight)
@@ -22,7 +22,7 @@ public sealed class Spacetime
         return coordinateSeconds * Math.Sqrt(1 - fraction * fraction);
     }
 
-    public double SchwarzschildRadiusMeters(double massKilograms)
+    public static double SchwarzschildRadiusMeters(double massKilograms)
     {
         if (!double.IsFinite(massKilograms) || massKilograms < 0) throw new ArgumentOutOfRangeException(nameof(massKilograms));
         return 2 * KnownPhysics.GravitationalConstant * massKilograms / (KnownPhysics.SpeedOfLight * KnownPhysics.SpeedOfLight);

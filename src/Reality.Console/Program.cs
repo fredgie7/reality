@@ -6,6 +6,7 @@ using Reality.Philosophy.Interfaces;
 using Reality.Science.Biology;
 using Reality.Science.Culture;
 using Reality.Science.Epistemology;
+using Reality.Science.Emergence;
 using Reality.Science.Observation;
 using Reality.Science.Physics;
 using Reality.Science.Physics.Holography;
@@ -61,13 +62,13 @@ foreach (var assessment in investigation.TheoryAssessments)
 
 Console.WriteLine();
 Console.WriteLine("ILLUSTRATIVE SCIENTIFIC MODELS (not evidence for any ontology)");
-Console.WriteLine($"GENETICS: ATGGGT -> {observable.Genetics.Transcribe("ATGGGT")} -> {observable.Genetics.Translate("AUGGGU")}");
-Console.WriteLine($"SPACETIME: {observable.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1}s per light-second.");
-Console.WriteLine($"EMERGENCE: {observable.Emergence.Analyze([true, true, false]).AdjacentActivePairs} connected active pair.");
-var spread = observable.Culture.Transmit([new CulturalLearner("A", true), new CulturalLearner("B", false)], 1);
+Console.WriteLine($"GENETICS: ATGGGT -> {Genetics.Transcribe("ATGGGT")} -> {Genetics.Translate("AUGGGU")}");
+Console.WriteLine($"SPACETIME: {Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1}s per light-second.");
+Console.WriteLine($"EMERGENCE: {EmergenceModel.Analyze([true, true, false]).AdjacentActivePairs} connected active pair.");
+var spread = CulturalEvolution.Transmit([new CulturalLearner("A", true), new CulturalLearner("B", false)], 1);
 Console.WriteLine($"CULTURE: {spread.InitialKnowledgeHolders} to {spread.FinalKnowledgeHolders} learners.");
 Console.WriteLine($"OBSERVER: {observable.CreateObserver().Reflect()}");
-Console.WriteLine($"HOLOGRAPHY: {new PhysicalDescriptionStudy().Summarize(new CelestialHolography())}");
+Console.WriteLine($"HOLOGRAPHY: {PhysicalDescriptionStudy.Summarize(new CelestialHolography())}");
 Console.WriteLine();
 Console.WriteLine("HOW WE KNOW (selected investigations)");
 foreach (var study in observable.Knowledge.Investigations)

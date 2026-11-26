@@ -27,22 +27,19 @@ static void Check(bool value, string label)
     Console.WriteLine($"PASS: {label}");
 }
 
-var physics = new KnownPhysics();
-Check(physics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight), "light-speed bound");
-Check(!physics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight + 1), "superluminal signal rejected");
-Check(!physics.IsLocallyCausalSignal(double.NaN), "invalid signal speed rejected");
+Check(KnownPhysics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight), "light-speed bound");
+Check(!KnownPhysics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight + 1), "superluminal signal rejected");
+Check(!KnownPhysics.IsLocallyCausalSignal(double.NaN), "invalid signal speed rejected");
 
-var genetics = new Genetics();
-Check(genetics.Replicate("ATGC") == "ATGC", "replication toy");
-Check(genetics.Transcribe("ATGGGT") == "AUGGGU", "transcription toy");
-Check(genetics.Translate("AUGGGUUAA") == "MG", "translation and stop codon toy");
-Check(genetics.Inherit("AAAA", "CCCC", 2) == "AACC", "inheritance toy");
-Check(genetics.Mutate("AAAA", 1, 'G') == "AGAA", "mutation toy");
+Check(Genetics.Replicate("ATGC") == "ATGC", "replication toy");
+Check(Genetics.Transcribe("ATGGGT") == "AUGGGU", "transcription toy");
+Check(Genetics.Translate("AUGGGUUAA") == "MG", "translation and stop codon toy");
+Check(Genetics.Inherit("AAAA", "CCCC", 2) == "AACC", "inheritance toy");
+Check(Genetics.Mutate("AAAA", 1, 'G') == "AGAA", "mutation toy");
 
-var spacetime = new Spacetime();
-Check(spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight) == 1, "light travel");
-Check(Math.Abs(spacetime.ProperTimeForMovingClock(10, KnownPhysics.SpeedOfLight * 0.6) - 8) < 1e-9, "time dilation");
-Check(spacetime.SchwarzschildRadiusMeters(1.989e30) > 2000, "Schwarzschild radius");
+Check(Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight) == 1, "light travel");
+Check(Math.Abs(Spacetime.ProperTimeForMovingClock(10, KnownPhysics.SpeedOfLight * 0.6) - 8) < 1e-9, "time dilation");
+Check(Spacetime.SchwarzschildRadiusMeters(1.989e30) > 2000, "Schwarzschild radius");
 
 var population = Population.Create(80, 99);
 var evolution = new DarwinianEvolution(42);
@@ -51,8 +48,8 @@ for (var i = 1; i <= 12; i++)
     var result = evolution.Advance(population, 0.75);
     Check(result.Generation == i && result.PopulationSize == 80 && result.MeanTrait is >= 0 and <= 1, $"evolution {i}");
 }
-Check(new Reality.Science.Emergence.EmergenceModel().Analyze([ true, true, false ]).HasConnectedCluster, "emergence");
-Check(new CulturalEvolution().Transmit([ new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) ], 2).FinalKnowledgeHolders == 3, "culture");
+Check(EmergenceModel.Analyze([ true, true, false ]).HasConnectedCluster, "emergence");
+Check(CulturalEvolution.Transmit([ new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) ], 2).FinalKnowledgeHolders == 3, "culture");
 Check(new NervousSystem().Learn("observation").Contains("Learned from observation"), "nervous system");
 
 var reasoning = ConsciousnessReasoningExample.Create();
@@ -98,8 +95,7 @@ Check(report.Reasoning.Nodes.Count > 5 && report.TheoryAssessments.Count == 4, "
 Check(report.RelevantFindings.Count == 2 && report.RelevantFindings.Any(x => x.Subject == FindingSubjects.SubjectiveExperience), "investigation preserves the epistemic gap");
 Check(report.TheoryDebates.Count == 4 && report.TheoryDebates.SelectMany(x => x.Debates).Count() == 8, "investigation includes eight sourced debates without inventing scores");
 var proposal = ConsciousnessExperimentExample.Create();
-var experimentService = new ExperimentReviewService();
-var proposedReview = experimentService.Review(proposal);
+var proposedReview = ExperimentReviewService.Review(proposal);
 Check(proposal.Status == ExperimentStatus.Proposed && proposedReview.Evaluations.Count == 0, "proposed study contains no fabricated observations or outcomes");
 Check(proposal.Predictions.Count == 2 && proposal.Predictions.Select(p => p.Id).Distinct().Count() == 2, "conditional predictions have stable distinct IDs");
 Check(proposal.Predictions.All(p => !string.IsNullOrWhiteSpace(p.PotentialCounterObservation)), "each conditional prediction specifies what could challenge it");
@@ -107,7 +103,7 @@ Check(proposedReview.Plan.InterpretationLimits.Contains("not automatically mutua
 Check(report.Experiment.Plan.Id == proposal.Id && report.Experiment.Evaluations.Count == 0, "investigation includes unevaluated design without changing theory predictions");
 try
 {
-    _ = experimentService.Review(proposal, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.ConsistentWithPrediction, "fabricated", new RecordedObservation(proposal.Id, "fabricated", "https://example.com"))]);
+    _ = ExperimentReviewService.Review(proposal, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.ConsistentWithPrediction, "fabricated", new RecordedObservation(proposal.Id, "fabricated", "https://example.com"))]);
     throw new Exception("FAIL: proposed study accepted observations");
 }
 catch (ArgumentException)
@@ -116,7 +112,7 @@ catch (ArgumentException)
 }
 try
 {
-    _ = experimentService.Review(proposal with { Predictions = [proposal.Predictions[0], proposal.Predictions[0]] });
+    _ = ExperimentReviewService.Review(proposal with { Predictions = [proposal.Predictions[0], proposal.Predictions[0]] });
     throw new Exception("FAIL: duplicate prediction IDs accepted");
 }
 catch (ArgumentException)
@@ -125,11 +121,11 @@ catch (ArgumentException)
 }
 var publishedFixture = proposal with { Status = ExperimentStatus.Published };
 var observationFixture = new RecordedObservation(proposal.Id, "Illustrative synthetic observation; not real research data", "https://example.com/research");
-var evaluatedFixture = experimentService.Review(publishedFixture, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.Inconclusive, "Synthetic fixture demonstrates an explicit interpretation with provenance, not a scientific conclusion.", observationFixture)]);
+var evaluatedFixture = ExperimentReviewService.Review(publishedFixture, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.Inconclusive, "Synthetic fixture demonstrates an explicit interpretation with provenance, not a scientific conclusion.", observationFixture)]);
 Check(evaluatedFixture.Evaluations.Count == 1 && evaluatedFixture.Evaluations[0].Assessment == PredictionAssessment.Inconclusive, "explicitly justified observation can be recorded without auto-ranking");
 try
 {
-    _ = experimentService.Review(publishedFixture, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.ConsistentWithPrediction, "", observationFixture)]);
+    _ = ExperimentReviewService.Review(publishedFixture, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.ConsistentWithPrediction, "", observationFixture)]);
     throw new Exception("FAIL: unreasoned assessment accepted");
 }
 catch (ArgumentException)
@@ -168,7 +164,7 @@ Check(typeof(HumanObserver).GetInterfaces().SequenceEqual([typeof(IObserver)]), 
 var humanObserver = universe.CreateObserver();
 Check(humanObserver is HumanObserver, "universe constructs the illustrative human observer");
 Check(humanObserver.Reflect().Contains("observer"), "human observer retains reflective behavior");
-Check(((HumanObserver)humanObserver).DescribeExperienceReports().Contains("Humans report"), "observer describes human experience reports without claiming to experience them");
+Check(HumanObserver.DescribeExperienceReports().Contains("Humans report"), "observer describes human experience reports without claiming to experience them");
 Check(typeof(IReality).Namespace == "Reality.Core.Ontology", "reality interface follows ontology folder namespace");
 Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation", "observable interface follows observation interfaces namespace");
 Check(typeof(ObservedUniverse).Namespace == "Reality.Science.Observation", "observable model follows observation folder namespace");
@@ -185,13 +181,13 @@ Check(theories.All(x => x.Assumptions.Count >= 2 && x.OpenQuestions.Count >= 2),
 Check(theories.All(x => x.Predictions.Count == 0), "no fabricated discriminating predictions");
 Check(theories.All(x => x.Debates.Count >= 2), "each broad ontology has multiple explicitly scoped arguments");
 Check(theories.SelectMany(x => x.Debates).All(x => !string.IsNullOrWhiteSpace(x.VariantScope) && !string.IsNullOrWhiteSpace(x.Objection) && !string.IsNullOrWhiteSpace(x.PossibleResponse) && !string.IsNullOrWhiteSpace(x.RemainingQuestion)), "debates distinguish variant, objection, possible reply and remaining question");
-var debateReviews = new TheoryDebateService().Review(theories);
+var debateReviews = TheoryDebateService.Review(theories);
 Check(debateReviews.Count == theories.Count && debateReviews.All(x => x.Debates.Count >= 2), "all competing accounts receive a debate review");
 Check(debateReviews.SelectMany(x => x.Debates).All(x => Uri.TryCreate(x.SourceUrl, UriKind.Absolute, out var url) && url.Scheme == Uri.UriSchemeHttps), "debates have traceable HTTPS philosophical sources");
-Check(new TheoryDebateService().Review([TheoryCatalog.Find("Physicalism")]).Count == 1, "selected theory debate remains independently inspectable");
+Check(TheoryDebateService.Review([TheoryCatalog.Find("Physicalism")]).Count == 1, "selected theory debate remains independently inspectable");
 try
 {
-    _ = new TheoryDebateService().Review([new PanpsychistTheory()]);
+    _ = TheoryDebateService.Review([new PanpsychistTheory()]);
     Console.WriteLine("PASS: theory debate source checking");
 }
 catch (ArgumentException)
@@ -205,7 +201,7 @@ Check(TheoryCatalog.Find("Substance dualism") is SubstanceDualistTheory, "dualis
 try { TheoryCatalog.Find("unknown"); throw new Exception("FAIL: unknown theory accepted"); }
 catch (ArgumentException) { Console.WriteLine("PASS: unknown theory rejected"); }
 
-var assessments = new TheoryComparisonService().Compare(theories, catalog);
+var assessments = TheoryComparisonService.Compare(theories, catalog);
 Check(assessments.Count == 4, "all theories assessed");
 Check(assessments.All(x => x.TopicMatchedExplanations.Count >= 1), "explanations match named topics without implying empirical support");
 Check(assessments.All(x => x.UnmatchedTopicExplanations.Count == 0), "no invalid topic references");
@@ -220,8 +216,8 @@ catch (NotSupportedException) { Console.WriteLine("PASS: combination remains unr
 var duality = new CelestialHolography();
 Check(duality.CorrespondenceStatus == HolographicCorrespondenceStatus.PartialResults, "qualified holography status");
 Check(duality.Bulk is FourDimensionalScatteringDescription && duality.Boundary is CelestialConformalDescription, "physical descriptions kept");
-Check(Math.Abs(new CelestialHolography().DemonstrateEnergyMellinTransform([ new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) ], 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
-Check(new PhysicalDescriptionStudy().Summarize(duality).Contains("PartialResults"), "study independent of metaphysics");
+Check(Math.Abs(CelestialHolography.DemonstrateEnergyMellinTransform([ new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) ], 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
+Check(PhysicalDescriptionStudy.Summarize(duality).Contains("PartialResults"), "study independent of metaphysics");
 try { new CelestialHolography().ReconstructFullBulk(); throw new Exception("FAIL: full reconstruction claimed"); }
 catch (NotSupportedException) { Console.WriteLine("PASS: full reconstruction unresolved"); }
 Console.WriteLine("All smoke checks passed.");

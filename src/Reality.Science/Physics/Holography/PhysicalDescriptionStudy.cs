@@ -7,7 +7,7 @@ namespace Reality.Science.Physics.Holography;
 /// </summary>
 public sealed class PhysicalDescriptionStudy
 {
-    public string Summarize(IHolographicDuality duality)
+    public static string Summarize(IHolographicDuality duality)
     {
         ArgumentNullException.ThrowIfNull(duality);
 
