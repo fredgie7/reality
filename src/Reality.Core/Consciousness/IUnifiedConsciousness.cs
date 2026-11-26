@@ -7,5 +7,5 @@ namespace Reality.Core.Consciousness;
 public interface IUnifiedConsciousness : IExperience
 {
     // TODO: Determine what constitutes unified experience.
-    // The combination problem remains unresolved.
+    // No particular account of phenomenal unity is assumed.
 }

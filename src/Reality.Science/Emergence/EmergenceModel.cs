@@ -13,5 +13,5 @@ public sealed class EmergenceModel
     }
 
     // TODO: Distinguish weak/strong emergence, explanation and reduction.
-    // TODO: Does emergence explain experience, or only observable behavior?
+    // TODO: Identify which collective properties this model can actually predict.
 }

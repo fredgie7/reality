@@ -8,7 +8,7 @@ public sealed class PhilosophyOfScience
         $"Recheck '{finding.Subject}' as evidence changes; status: {finding.Confidence}.";
 
     public string InvestigateEmergence() =>
-        "Complex organization may explain new system behavior, but subjective unity needs its own argument.";
+        "Complex organization can account for collective behavior; extending an explanation to other phenomena requires independent argument.";
 
     public string ExamineLimitsOfKnowledge() =>
         "An internal observer does not automatically have access to the implementation that generated it.";

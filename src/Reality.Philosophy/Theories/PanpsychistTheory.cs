@@ -25,5 +25,4 @@ public sealed class PanpsychistTheory : ITheoryOfReality
     ];
     public IReadOnlyList<Prediction> Predictions { get; } = [];
 
-    // TODO: Discover the actual implementation. Source code unavailable.
 }
