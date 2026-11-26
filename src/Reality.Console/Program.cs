@@ -1,3 +1,5 @@
+using Reality.Console.Interaction;
+using Reality.Investigation.Navigation;
 using Reality.Investigation.Workflow;
 using Reality.Investigation.Experiments;
 using Reality.Investigation.Reasoning;
@@ -14,18 +16,25 @@ using Reality.Science.Physics.Holography;
 var catalog = ScientificCatalog.Create();
 var observable = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), catalog);
 IReadOnlyList<ITheoryOfReality> selected;
+var interactiveRequested = args.Length == 1 && args[0].Equals("--interactive", StringComparison.OrdinalIgnoreCase);
+var summaryRequested = args.Length == 1 && args[0].Equals("--summary", StringComparison.OrdinalIgnoreCase);
 try
 {
-    selected = args.Length == 0 || args[0].Equals("all", StringComparison.OrdinalIgnoreCase) ? TheoryCatalog.All : [TheoryCatalog.Find(args[0])];
+    selected = args.Length == 0 || interactiveRequested || summaryRequested || args[0].Equals("all", StringComparison.OrdinalIgnoreCase) ? TheoryCatalog.All : [TheoryCatalog.Find(args[0])];
 }
 catch (ArgumentException ex)
 {
     Console.Error.WriteLine(ex.Message);
-    Console.Error.WriteLine("Usage: dotnet run --project src/Reality.Console/Reality.Console.csproj -- [all|Panpsychism|Physicalism|Idealism|\"Substance dualism\"]");
+    Console.Error.WriteLine("Usage: dotnet run --project src/Reality.Console/Reality.Console.csproj -- [--interactive|--summary|all|Panpsychism|Physicalism|Idealism|\"Substance dualism\"]");
     Environment.ExitCode = 1;
     return;
 }
 var investigation = new RealityInvestigator(observable, selected, catalog).InvestigateConsciousness();
+if (interactiveRequested || (args.Length == 0 && !Console.IsInputRedirected && !Console.IsOutputRedirected))
+{
+    InteractiveSession.Run(Console.In, Console.Out, new InvestigationNavigator(catalog, selected, investigation));
+    return;
+}
 Console.WriteLine("REALITY :: production diagnostics");
 Console.WriteLine("Implementation: unknown | Observable models: revisable | Observer: inside the system");
 Console.WriteLine();
