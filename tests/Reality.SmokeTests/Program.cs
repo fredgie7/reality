@@ -5,7 +5,7 @@ using Reality.Culture;
 using Reality.Philosophy;
 using Reality.Philosophy.Interfaces;
 using Reality.Philosophy.Theories;
-using Reality.Implementations.Panpsychism;
+using Reality.Philosophy.Theories.Panpsychism;
 using Reality.Physics;
 using Reality.Physics.Holography;
 

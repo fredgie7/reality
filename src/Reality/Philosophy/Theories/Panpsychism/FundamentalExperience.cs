@@ -1,6 +1,6 @@
 using Reality.Consciousness;
 
-namespace Reality.Implementations.Panpsychism;
+namespace Reality.Philosophy.Theories.Panpsychism;
 
 public sealed record FundamentalExperience(string FirstPersonDescription) : IExperience
 {
