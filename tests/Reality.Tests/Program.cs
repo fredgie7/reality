@@ -1,7 +1,7 @@
-using Reality.Core.Consciousness.Interfaces;
+using Reality.Core.Consciousness;
 using Reality.Core.Epistemology;
-using Reality.Core.Observation.Interfaces;
-using Reality.Core.Ontology.Interfaces;
+using Reality.Core.Observation;
+using Reality.Core.Ontology;
 using Reality.Investigation.Workflow;
 using Reality.Investigation.Comparison;
 using Reality.Investigation.Reasoning;
@@ -111,11 +111,11 @@ Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same 
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
 Check(typeof(IObservableUniverse).GetMethod("CreateObserver")?.ReturnType == typeof(IObserver), "Core observer contract does not depend on scientific implementation");
-Check(typeof(IReality).Namespace == "Reality.Core.Ontology.Interfaces", "reality interface follows ontology folder namespace");
-Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation.Interfaces", "observable interface follows observation interfaces namespace");
+Check(typeof(IReality).Namespace == "Reality.Core.Ontology", "reality interface follows ontology folder namespace");
+Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation", "observable interface follows observation interfaces namespace");
 Check(typeof(ObservedUniverse).Namespace == "Reality.Science.Observation", "observable model follows observation folder namespace");
 Check(typeof(ScientificCatalog).Namespace == "Reality.Science.Epistemology", "scientific catalog belongs to epistemology domain");
-Check(typeof(IExperience).Namespace == "Reality.Core.Consciousness.Interfaces", "consciousness interface namespace aligns with folder");
+Check(typeof(IExperience).Namespace == "Reality.Core.Consciousness", "consciousness interface namespace aligns with folder");
 Check(typeof(ILawsOfPhysics).Namespace == "Reality.Science.Physics.Interfaces", "physics interface namespace aligns with folder");
 Check(typeof(IHolographicDuality).Namespace == "Reality.Science.Physics.Holography.Interfaces", "holography interface namespace aligns with folder");
 Check(typeof(IReality).GetProperties().Select(p => p.Name).SequenceEqual([ "ObservableUniverse" ]), "IReality only exposes observable facet");

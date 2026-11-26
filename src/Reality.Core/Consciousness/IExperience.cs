@@ -1,5 +1,5 @@
 
-namespace Reality.Core.Consciousness.Interfaces;
+namespace Reality.Core.Consciousness;
 
 public interface IExperience
 {

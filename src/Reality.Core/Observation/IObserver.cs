@@ -1,6 +1,6 @@
 using Reality.Core.Epistemology;
 
-namespace Reality.Core.Observation.Interfaces;
+namespace Reality.Core.Observation;
 
 /// <summary>An observer's accessible operations, without assuming how consciousness is implemented.</summary>
 public interface IObserver

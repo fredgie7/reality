@@ -1,5 +1,4 @@
-using Reality.Core.Consciousness.Interfaces;
-using Reality.Core.Ontology.Interfaces;
+using Reality.Core.Consciousness;
 
 
 namespace Reality.Philosophy.Theories.Panpsychism;

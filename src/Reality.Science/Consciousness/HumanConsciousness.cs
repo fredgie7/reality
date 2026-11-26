@@ -1,6 +1,6 @@
-using Reality.Core.Consciousness.Interfaces;
+using Reality.Core.Consciousness;
 using Reality.Core.Epistemology;
-using Reality.Core.Observation.Interfaces;
+using Reality.Core.Observation;
 using Reality.Science.Epistemology;
 using Reality.Science.Physics;
 
