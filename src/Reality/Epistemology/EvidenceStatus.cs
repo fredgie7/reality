@@ -1,4 +1,4 @@
-namespace Reality;
+namespace Reality.Epistemology;
 
 public enum EvidenceStatus
 {

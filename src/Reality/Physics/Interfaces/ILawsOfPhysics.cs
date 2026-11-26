@@ -1,4 +1,4 @@
-namespace Reality.Physics;
+namespace Reality.Physics.Interfaces;
 
 public interface ILawsOfPhysics
 {

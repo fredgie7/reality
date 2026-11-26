@@ -1,6 +1,8 @@
+using Reality.Epistemology;
+using Reality.Observation;
 using Reality.Consciousness;
 
-namespace Reality;
+namespace Reality.Observation.Interfaces;
 
 /// <summary>
 /// A revisable description of observable phenomena, not the totality of existence.

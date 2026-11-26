@@ -1,4 +1,4 @@
-namespace Reality.Physics.Holography;
+namespace Reality.Physics.Holography.Interfaces;
 
 /// <summary>
 /// Shared metadata describing a proposed correspondence between two physical

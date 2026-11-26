@@ -1,3 +1,4 @@
+using Reality.Physics.Holography.Interfaces;
 namespace Reality.Physics.Holography;
 
 public sealed class FourDimensionalScatteringDescription : IPhysicalDescription

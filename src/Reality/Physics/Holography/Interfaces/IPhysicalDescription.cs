@@ -1,4 +1,4 @@
-namespace Reality.Physics.Holography;
+namespace Reality.Physics.Holography.Interfaces;
 
 // A mathematical description of observable physics, not an ontology.
 public interface IPhysicalDescription

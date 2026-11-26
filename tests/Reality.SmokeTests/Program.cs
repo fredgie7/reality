@@ -63,6 +63,13 @@ IObservableUniverse second = new ObservedUniverse(new KnownPhysics(), new Cosmic
 Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same observable history regardless of theory");
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
+Check(typeof(IReality).Namespace == "Reality.Ontology.Interfaces", "reality interface follows ontology folder namespace");
+Check(typeof(IObservableUniverse).Namespace == "Reality.Observation.Interfaces", "observable interface follows observation interfaces namespace");
+Check(typeof(ObservedUniverse).Namespace == "Reality.Observation", "observable model follows observation folder namespace");
+Check(typeof(ScientificCatalog).Namespace == "Reality.Epistemology", "scientific catalog belongs to epistemology domain");
+Check(typeof(IExperience).Namespace == "Reality.Consciousness.Interfaces", "consciousness interface namespace aligns with folder");
+Check(typeof(ILawsOfPhysics).Namespace == "Reality.Physics.Interfaces", "physics interface namespace aligns with folder");
+Check(typeof(IHolographicDuality).Namespace == "Reality.Physics.Holography.Interfaces", "holography interface namespace aligns with folder");
 Check(typeof(IReality).GetProperties().Select(p => p.Name).SequenceEqual(new[] { "ObservableUniverse" }), "IReality only exposes observable facet");
 Check(!typeof(IReality).IsAssignableFrom(typeof(ObservedUniverse)), "observed universe is not actual reality");
 Check(!typeof(IReality).IsAssignableFrom(typeof(ITheoryOfReality)), "a theory is not reality");

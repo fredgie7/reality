@@ -1,3 +1,4 @@
+using Reality.Observation;
 namespace Reality.Physics;
 
 public sealed class CosmicHistory

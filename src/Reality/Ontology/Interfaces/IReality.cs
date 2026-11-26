@@ -1,4 +1,5 @@
-namespace Reality;
+using Reality.Observation.Interfaces;
+namespace Reality.Ontology.Interfaces;
 
 /// <summary>
 /// The underlying reality, whose full implementation is not available to an observer.

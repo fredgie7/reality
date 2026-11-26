@@ -1,10 +1,12 @@
+using Reality.Epistemology;
+using Reality.Observation.Interfaces;
 using Reality.Biology;
 using Reality.Consciousness;
 using Reality.Culture;
 using Reality.Emergence;
 using Reality.Physics;
 
-namespace Reality;
+namespace Reality.Observation;
 
 /// <summary>
 /// A conceptual model of the universe we observe, not a necessary definition

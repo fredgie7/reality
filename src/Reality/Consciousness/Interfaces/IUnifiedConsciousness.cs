@@ -1,6 +1,6 @@
 using Reality.Physics;
 
-namespace Reality.Consciousness;
+namespace Reality.Consciousness.Interfaces;
 
 public interface IUnifiedConsciousness : IExperience
 {
