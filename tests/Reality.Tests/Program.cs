@@ -61,8 +61,13 @@ Check(reasoning.Incoming(inference.Id).Count == 3, "inference links to observati
 var incomingReasons = reasoning.TraceReasons(inference.Id);
 Check(incomingReasons.Count == 5, "reasoning trace reaches two observation sources and the methodological assumption");
 Check(incomingReasons.Any(link => reasoning.GetNode(link.FromId).SourceUrl?.Contains("doi.org") == true), "reasoning trace exposes publication provenance");
-Check(reasoning.Connections.Count(link => link.Relation == ReasoningRelation.Challenges) == 2, "empirical challenges are distinguished from disproof");
-Check(reasoning.Connections.Count(link => link.Relation == ReasoningRelation.RaisesQuestion) == 2, "graph retains separate neural and metaphysical open questions");
+Check(reasoning.Connections.Count(link => link.Relation == ReasoningRelation.Challenges) == 3, "three study-specific challenges represented without claiming disproof");
+Check(reasoning.Connections.Any(link => link.FromId == "offset-observation" && link.ToId == "gnwt" && link.Relation == ReasoningRelation.Challenges), "GNWT challenge traces to missing offset ignition");
+Check(reasoning.Connections.Any(link => link.FromId == "prefrontal-limitation" && link.ToId == "gnwt" && link.Relation == ReasoningRelation.Challenges), "GNWT challenge traces to limited prefrontal content representation");
+Check(reasoning.Connections.Any(link => link.FromId == "posterior-synchrony-observation" && link.ToId == "iit" && link.Relation == ReasoningRelation.Challenges), "IIT challenge traces to missing sustained posterior synchronization");
+Check(reasoning.Connections.All(link => link.Relation != ReasoningRelation.Challenges || link.FromId is not "neural-observation" and not "duration-observation"), "supportive observations are not mislabeled as theory challenges");
+Check(reasoning.Incoming("gnwt-offset-dispute").Any(link => reasoning.GetNode(link.FromId).SourceUrl?.Contains("10.1093/nc/niaf037") == true), "published GNWT objection remains visible");
+Check(reasoning.Connections.Count(link => link.Relation == ReasoningRelation.RaisesQuestion) == 3, "graph retains separate neural and metaphysical open questions");
 try
 {
     _ = new ReasoningGraph([new ReasoningNode("a", ReasoningNodeKind.Inference, "claim")], [new ReasoningConnection("missing", "a", ReasoningRelation.Supports, "justification")]);
@@ -138,9 +143,10 @@ catch (ArgumentException) { Console.WriteLine("PASS: unknown theory rejected"); 
 
 var assessments = new TheoryComparisonService().Compare(theories, catalog);
 Check(assessments.Count == 4, "all theories assessed");
-Check(assessments.All(x => x.CatalogLinkedExplanations.Count >= 1), "claims link to catalog topics");
-Check(assessments.All(x => x.UnmatchedExplanations.Count == 0), "no invalid topic references");
+Check(assessments.All(x => x.TopicMatchedExplanations.Count >= 1), "explanations match named topics without implying empirical support");
+Check(assessments.All(x => x.UnmatchedTopicExplanations.Count == 0), "no invalid topic references");
 Check(assessments.All(x => x.ProposedPredictions.Count == 0), "no invented experimental discriminators");
+Check(typeof(TheoryAssessment).GetProperty("CatalogLinkedExplanations") is null, "old evidentially ambiguous comparison property is absent");
 
 Check(typeof(FundamentalExperience).GetInterfaces().All(type => type != typeof(IObserver)), "hypothetical panpsychist entities do not implement observer contracts");
 Check(typeof(CombinationProblem).GetMethod("Combine")?.ReturnType == typeof(void), "combination problem does not promise a unified-consciousness object");

@@ -5,8 +5,9 @@ using Reality.Science.Epistemology;
 namespace Reality.Investigation.Comparison;
 
 /// <summary>
-/// Compares claims against catalog identifiers without treating interpretation
-/// as independent evidence. No scoring, truth ranking, or automatic validation.
+/// Matches philosophical interpretation subjects against catalog topic names only.
+/// A match means the theory addresses the topic, not that evidence supports it.
+/// No scoring, truth ranking, or validation of explanatory adequacy.
 /// </summary>
 public sealed class TheoryComparisonService
 {
