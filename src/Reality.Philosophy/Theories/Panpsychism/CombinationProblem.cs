@@ -1,5 +1,3 @@
-using Reality.Core.Consciousness;
-
 
 namespace Reality.Philosophy.Theories.Panpsychism;
 
@@ -8,10 +6,10 @@ namespace Reality.Philosophy.Theories.Panpsychism;
 /// </summary>
 public static class CombinationProblem
 {
-    public static IUnifiedConsciousness Combine(IEnumerable<IExperience> experiences)
+    public static void Combine(IEnumerable<FundamentalExperience> experiences)
     {
         ArgumentNullException.ThrowIfNull(experiences);
-        // TODO: Discover the implementation, if combination is possible.
+        // TODO: Investigate proposed accounts of combination, if any are viable.
         // Aggregating objects does not establish a unified subjective subject.
         throw new NotSupportedException("The panpsychist combination problem remains unresolved.");
     }

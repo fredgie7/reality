@@ -46,5 +46,5 @@ public sealed class ObservedUniverse(KnownPhysics physics, CosmicHistory cosmos,
             ]).ToArray();
     }
 
-    public IObserver CreateObserver() => new HumanConsciousness(Physics, Knowledge, NervousSystem);
+    public IObserver CreateObserver() => new HumanObserver(Physics, Knowledge, NervousSystem);
 }
