@@ -67,8 +67,9 @@ Core cannot depend on a scientific or philosophical implementation. Science cann
 - `Reality.Core.Observation.IObservableUniverse` describes what observers can investigate, without returning concrete scientific implementation types.
 - `Reality.Core.Observation.IObserver` is the minimal observer boundary.
 - `Reality.Science.Observation.ObservedUniverse` is an intentionally revisable educational model, **not** an `IReality` implementation.
-- `Reality.Science.Consciousness.HumanConsciousness` is one toy observer implementation.
-- `IExperience` describes first-person experience, while `IUnifiedConsciousness` is deliberately a hypothetical marker for phenomenal unity, **not** a requirement to reflect or report. `IObserver` separately owns reflective cognition and scientific inquiry. The illustrative `HumanConsciousness` implements both contracts, without claiming that reflection produces consciousness or that the model itself has subjective experience.
+- `Reality.Science.Observation.HumanObserver` models reflective and scientific reporting behavior without claiming to instantiate subjective experience.
+- Core deliberately has no `IExperience` or `IUnifiedConsciousness` contract: implementing an interface cannot demonstrate a first-person point of view or phenomenal unity.
+- The panpsychist `FundamentalExperience` is a hypothetical description inside Philosophy. `CombinationProblem.Combine` still throws and does not return any unified-consciousness object.
 - `Reality.Philosophy.Interfaces.ITheoryOfReality` describes interpretations; no theory pretends to instantiate reality.
 - `Reality.Investigation.Workflow.RealityInvestigator` assembles shared findings, an evidence graph and the philosophical inventories.
 
@@ -92,7 +93,7 @@ The six-project structure must not privilege one metaphysical theory through sha
 - **Science** records empirically grounded models and deliberately open questions without adopting physicalism, panpsychism, idealism, or dualism as a premise.
 - **Philosophy** holds each theory's particular assumptions and difficulties, including panpsychism's *combination problem*, solely in its relevant theory material.
 - **Investigation** distinguishes the observations from the interpretations and leaves questions unresolved when evidence does not discriminate among theories.
-- Implementing a conceptual interface such as `IExperience` or `IUnifiedConsciousness` in an educational C# example is **not evidence that the software itself experiences anything**.
+- The first-person character and unity of consciousness are subjects of inquiry, not implemented behaviors of our C# types. Strings describing reports are not subjective experience.
 
 A generic investigation should not inherit the explanatory tasks, terminology, or TODO comments of one of its candidate theories.
 

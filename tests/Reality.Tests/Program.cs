@@ -1,4 +1,3 @@
-using Reality.Core.Consciousness;
 using Reality.Core.Epistemology;
 using Reality.Core.Observation;
 using Reality.Core.Ontology;
@@ -111,17 +110,16 @@ Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same 
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
 Check(typeof(IObservableUniverse).GetMethod("CreateObserver")?.ReturnType == typeof(IObserver), "Core observer contract does not depend on scientific implementation");
-Check(typeof(IExperience).IsAssignableFrom(typeof(IUnifiedConsciousness)), "unified experience still derives from experience");
-Check(typeof(IUnifiedConsciousness).GetMethod("Reflect") is null, "unified experience does not require reflection");
-Check(typeof(IObserver).GetMethod("Reflect") is not null, "reflection belongs to the observer contract");
+Check(typeof(IReality).Assembly.GetTypes().All(type => type.Name is not "IExperience" and not "IUnifiedConsciousness"), "Core does not expose contracts that imply software instantiates experience");
+Check(typeof(HumanObserver).GetInterfaces().SequenceEqual([typeof(IObserver)]), "human observer models only the observer contract");
 var humanObserver = universe.CreateObserver();
-Check(humanObserver is IUnifiedConsciousness, "illustrative human observer may model unified experience");
+Check(humanObserver is HumanObserver, "universe constructs the illustrative human observer");
 Check(humanObserver.Reflect().Contains("observer"), "human observer retains reflective behavior");
+Check(((HumanObserver)humanObserver).DescribeExperienceReports().Contains("Humans report"), "observer describes human experience reports without claiming to experience them");
 Check(typeof(IReality).Namespace == "Reality.Core.Ontology", "reality interface follows ontology folder namespace");
 Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation", "observable interface follows observation interfaces namespace");
 Check(typeof(ObservedUniverse).Namespace == "Reality.Science.Observation", "observable model follows observation folder namespace");
 Check(typeof(ScientificCatalog).Namespace == "Reality.Science.Epistemology", "scientific catalog belongs to epistemology domain");
-Check(typeof(IExperience).Namespace == "Reality.Core.Consciousness", "consciousness interface namespace aligns with folder");
 Check(typeof(ILawsOfPhysics).Namespace == "Reality.Science.Physics.Interfaces", "physics interface namespace aligns with folder");
 Check(typeof(IHolographicDuality).Namespace == "Reality.Science.Physics.Holography.Interfaces", "holography interface namespace aligns with folder");
 Check(typeof(IReality).GetProperties().Select(p => p.Name).SequenceEqual([ "ObservableUniverse" ]), "IReality only exposes observable facet");
@@ -144,7 +142,9 @@ Check(assessments.All(x => x.CatalogLinkedExplanations.Count >= 1), "claims link
 Check(assessments.All(x => x.UnmatchedExplanations.Count == 0), "no invalid topic references");
 Check(assessments.All(x => x.ProposedPredictions.Count == 0), "no invented experimental discriminators");
 
-try { CombinationProblem.Combine([ new FundamentalExperience("hypothetical") ]); throw new Exception("FAIL: combination solved"); }
+Check(typeof(FundamentalExperience).GetInterfaces().All(type => type != typeof(IObserver)), "hypothetical panpsychist entities do not implement observer contracts");
+Check(typeof(CombinationProblem).GetMethod("Combine")?.ReturnType == typeof(void), "combination problem does not promise a unified-consciousness object");
+try { CombinationProblem.Combine([new FundamentalExperience("hypothetical")]); throw new Exception("FAIL: combination solved"); }
 catch (NotSupportedException) { Console.WriteLine("PASS: combination remains unresolved"); }
 
 var duality = new CelestialHolography();

@@ -1,9 +1,7 @@
-using Reality.Core.Consciousness;
-
-
 namespace Reality.Philosophy.Theories.Panpsychism;
 
-public sealed record FundamentalExperience(string FirstPersonDescription) : IExperience
-{
-    // Hypothetical under some versions of panpsychism; no such entity is empirically established.
-}
+/// <summary>
+/// A hypothetical experiential aspect postulated by some forms of panpsychism.
+/// A record describing a hypothesis is not an entity with demonstrated experience.
+/// </summary>
+public sealed record FundamentalExperience(string HypotheticalDescription);
