@@ -63,9 +63,9 @@ Core cannot depend on a scientific or philosophical implementation. Science cann
 
 ### Contracts versus concrete models
 
-- `Reality.Core.Ontology.Interfaces.IReality` represents an *unknown* underlying reality.
-- `Reality.Core.Observation.Interfaces.IObservableUniverse` describes what observers can investigate, without returning concrete scientific implementation types.
-- `Reality.Core.Observation.Interfaces.IObserver` is the minimal observer boundary.
+- `Reality.Core.Ontology.IReality` represents an *unknown* underlying reality.
+- `Reality.Core.Observation.IObservableUniverse` describes what observers can investigate, without returning concrete scientific implementation types.
+- `Reality.Core.Observation.IObserver` is the minimal observer boundary.
 - `Reality.Science.Observation.ObservedUniverse` is an intentionally revisable educational model, **not** an `IReality` implementation.
 - `Reality.Science.Consciousness.HumanConsciousness` is one toy observer implementation.
 - `Reality.Philosophy.Interfaces.ITheoryOfReality` describes interpretations; no theory pretends to instantiate reality.
@@ -101,7 +101,7 @@ By default, Console compares the available theories against **the same observabl
 ## Source conventions and clean builds
 
 - **One class, record, enum or interface per `.cs` file.**
-- Interfaces belong under a domain-specific `Interfaces/` folder.
+- Core contracts live directly under their meaningful domain folders (`Ontology/`, `Observation/`, `Consciousness/`); specialized interfaces in other projects use domain-specific `Interfaces/` folders.
 - Namespaces match the complete project-plus-folder hierarchy.
 - `Program.cs` is the only C# source file at the Console and Tests project roots; domain classes live in named folders.
 - `Directory.Build.props` standardizes .NET 8, C# 12, nullability, warnings as errors and code-style enforcement across all six projects.

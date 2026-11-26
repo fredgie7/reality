@@ -54,7 +54,7 @@ for name, (folder, required) in projects.items():
         if match is None or match.group(1) != expected_namespace:
             failures.append(f"{name}/{rel}: expected namespace {expected_namespace}")
         is_interface = bool(re.search(r"\binterface\s+" + re.escape(type_name) + r"\b", content))
-        if is_interface and rel.parent.name != "Interfaces":
+        if is_interface and name != "Reality.Core" and rel.parent.name != "Interfaces":
             failures.append(f"{name}/{rel}: interfaces must be in an Interfaces folder")
         if rel.parent.name == "Interfaces" and not is_interface:
             failures.append(f"{name}/{rel}: Interfaces folders must contain only interfaces")
@@ -65,4 +65,4 @@ if not (repo / "Reality.sln").is_file():
     failures.append("Missing repository-root Reality.sln")
 if failures:
     raise SystemExit("\n".join(failures))
-print("Verified six project boundaries, references, namespaces, and one type per file.")
+print("Verified six project boundaries, references, namespaces, and one type per file (Core contracts grouped by domain).")
