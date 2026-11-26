@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Reality.Core/Reality.Core.csproj" />
+    <ProjectReference Include="../Reality.Science/Reality.Science.csproj" />
+    <ProjectReference Include="../Reality.Philosophy/Reality.Philosophy.csproj" />
+  </ItemGroup>
+</Project>
