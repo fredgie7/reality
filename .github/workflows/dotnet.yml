@@ -16,5 +16,7 @@ jobs:
         run: python3 .github/scripts/verify_source_layout.py
       - name: Build complete solution with enforced analyzers
         run: dotnet build Reality.sln --configuration Release
+      - name: Verify unused using directives
+        run: dotnet format style Reality.sln --verify-no-changes --diagnostics IDE0005 --severity info --no-restore
       - name: Run smoke checks
         run: dotnet run --no-build --project tests/Reality.Tests/Reality.Tests.csproj --configuration Release

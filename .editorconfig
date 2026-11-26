@@ -11,6 +11,3 @@ dotnet_diagnostic.CA1861.severity = warning
 dotnet_diagnostic.IDE0290.severity = warning
 dotnet_diagnostic.IDE0300.severity = warning
 dotnet_diagnostic.IDE0305.severity = warning
-
-# Also enforce clean imports across the six projects.
-dotnet_diagnostic.IDE0005.severity = warning
