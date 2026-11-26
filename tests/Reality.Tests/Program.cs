@@ -27,22 +27,19 @@ static void Check(bool value, string label)
     Console.WriteLine($"PASS: {label}");
 }
 
-var physics = new KnownPhysics();
-Check(physics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight), "light-speed bound");
-Check(!physics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight + 1), "superluminal signal rejected");
-Check(!physics.IsLocallyCausalSignal(double.NaN), "invalid signal speed rejected");
+Check(KnownPhysics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight), "light-speed bound");
+Check(!KnownPhysics.IsLocallyCausalSignal(KnownPhysics.SpeedOfLight + 1), "superluminal signal rejected");
+Check(!KnownPhysics.IsLocallyCausalSignal(double.NaN), "invalid signal speed rejected");
 
-var genetics = new Genetics();
-Check(genetics.Replicate("ATGC") == "ATGC", "replication toy");
-Check(genetics.Transcribe("ATGGGT") == "AUGGGU", "transcription toy");
-Check(genetics.Translate("AUGGGUUAA") == "MG", "translation and stop codon toy");
-Check(genetics.Inherit("AAAA", "CCCC", 2) == "AACC", "inheritance toy");
-Check(genetics.Mutate("AAAA", 1, 'G') == "AGAA", "mutation toy");
+Check(Genetics.Replicate("ATGC") == "ATGC", "replication toy");
+Check(Genetics.Transcribe("ATGGGT") == "AUGGGU", "transcription toy");
+Check(Genetics.Translate("AUGGGUUAA") == "MG", "translation and stop codon toy");
+Check(Genetics.Inherit("AAAA", "CCCC", 2) == "AACC", "inheritance toy");
+Check(Genetics.Mutate("AAAA", 1, 'G') == "AGAA", "mutation toy");
 
-var spacetime = new Spacetime();
-Check(spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight) == 1, "light travel");
-Check(Math.Abs(spacetime.ProperTimeForMovingClock(10, KnownPhysics.SpeedOfLight * 0.6) - 8) < 1e-9, "time dilation");
-Check(spacetime.SchwarzschildRadiusMeters(1.989e30) > 2000, "Schwarzschild radius");
+Check(Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight) == 1, "light travel");
+Check(Math.Abs(Spacetime.ProperTimeForMovingClock(10, KnownPhysics.SpeedOfLight * 0.6) - 8) < 1e-9, "time dilation");
+Check(Spacetime.SchwarzschildRadiusMeters(1.989e30) > 2000, "Schwarzschild radius");
 
 var population = Population.Create(80, 99);
 var evolution = new DarwinianEvolution(42);
@@ -51,8 +48,8 @@ for (var i = 1; i <= 12; i++)
     var result = evolution.Advance(population, 0.75);
     Check(result.Generation == i && result.PopulationSize == 80 && result.MeanTrait is >= 0 and <= 1, $"evolution {i}");
 }
-Check(new Reality.Science.Emergence.EmergenceModel().Analyze([ true, true, false ]).HasConnectedCluster, "emergence");
-Check(new CulturalEvolution().Transmit([ new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) ], 2).FinalKnowledgeHolders == 3, "culture");
+Check(EmergenceModel.Analyze([ true, true, false ]).HasConnectedCluster, "emergence");
+Check(CulturalEvolution.Transmit([ new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) ], 2).FinalKnowledgeHolders == 3, "culture");
 Check(new NervousSystem().Learn("observation").Contains("Learned from observation"), "nervous system");
 
 var reasoning = ConsciousnessReasoningExample.Create();
@@ -168,7 +165,7 @@ Check(typeof(HumanObserver).GetInterfaces().SequenceEqual([typeof(IObserver)]), 
 var humanObserver = universe.CreateObserver();
 Check(humanObserver is HumanObserver, "universe constructs the illustrative human observer");
 Check(humanObserver.Reflect().Contains("observer"), "human observer retains reflective behavior");
-Check(((HumanObserver)humanObserver).DescribeExperienceReports().Contains("Humans report"), "observer describes human experience reports without claiming to experience them");
+Check(HumanObserver.DescribeExperienceReports().Contains("Humans report"), "observer describes human experience reports without claiming to experience them");
 Check(typeof(IReality).Namespace == "Reality.Core.Ontology", "reality interface follows ontology folder namespace");
 Check(typeof(IObservableUniverse).Namespace == "Reality.Core.Observation", "observable interface follows observation interfaces namespace");
 Check(typeof(ObservedUniverse).Namespace == "Reality.Science.Observation", "observable model follows observation folder namespace");
@@ -220,8 +217,8 @@ catch (NotSupportedException) { Console.WriteLine("PASS: combination remains unr
 var duality = new CelestialHolography();
 Check(duality.CorrespondenceStatus == HolographicCorrespondenceStatus.PartialResults, "qualified holography status");
 Check(duality.Bulk is FourDimensionalScatteringDescription && duality.Boundary is CelestialConformalDescription, "physical descriptions kept");
-Check(Math.Abs(new CelestialHolography().DemonstrateEnergyMellinTransform([ new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) ], 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
-Check(new PhysicalDescriptionStudy().Summarize(duality).Contains("PartialResults"), "study independent of metaphysics");
+Check(Math.Abs(CelestialHolography.DemonstrateEnergyMellinTransform([ new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) ], 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
+Check(PhysicalDescriptionStudy.Summarize(duality).Contains("PartialResults"), "study independent of metaphysics");
 try { new CelestialHolography().ReconstructFullBulk(); throw new Exception("FAIL: full reconstruction claimed"); }
 catch (NotSupportedException) { Console.WriteLine("PASS: full reconstruction unresolved"); }
 Console.WriteLine("All smoke checks passed.");

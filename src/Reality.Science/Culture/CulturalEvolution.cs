@@ -2,7 +2,7 @@ namespace Reality.Science.Culture;
 
 public sealed class CulturalEvolution
 {
-    public CulturalReport Transmit(IReadOnlyList<CulturalLearner> learners, int generations)
+    public static CulturalReport Transmit(IReadOnlyList<CulturalLearner> learners, int generations)
     {
         ArgumentNullException.ThrowIfNull(learners);
         ArgumentOutOfRangeException.ThrowIfNegative(generations);

@@ -16,6 +16,6 @@ public sealed class KnownPhysics : ILawsOfPhysics
         new PhysicalPrinciple("Second law", "Entropy overwhelmingly increases in isolated macroscopic systems.", "Low-entropy early universe")
     ];
 
-    public bool IsLocallyCausalSignal(double speedMetersPerSecond) =>
+    public static bool IsLocallyCausalSignal(double speedMetersPerSecond) =>
         double.IsFinite(speedMetersPerSecond) && speedMetersPerSecond >= 0 && speedMetersPerSecond <= SpeedOfLight;
 }
