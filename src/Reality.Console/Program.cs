@@ -1,4 +1,5 @@
 using Reality.Investigation.Workflow;
+using Reality.Investigation.Experiments;
 using Reality.Investigation.Reasoning;
 using Reality.Philosophy.Catalog;
 using Reality.Philosophy.Interfaces;
@@ -104,6 +105,26 @@ foreach (var link in reasoning.TraceReasons(conclusion.Id))
 }
 foreach (var question in reasoning.Connections.Where(link => link.FromId == conclusion.Id && link.Relation == ReasoningRelation.RaisesQuestion))
     Console.WriteLine($"  UNRESOLVED: {reasoning.GetNode(question.ToId).Description}");
+
+Console.WriteLine();
+Console.WriteLine("EXPERIMENT DESIGN: CONDITIONAL PREDICTIONS (NO NEW RESULTS CLAIMED)");
+var experiment = investigation.Experiment;
+Console.WriteLine($"> {experiment.Plan.Question}");
+Console.WriteLine($"  STATUS: {experiment.Plan.Status} | Evaluated observations: {experiment.Evaluations.Count}");
+Console.WriteLine($"  PROCEDURE: {experiment.Plan.Procedure}");
+Console.WriteLine($"  CONTROLS: {experiment.Plan.ControlledFactors}");
+Console.WriteLine($"  MEASURE: {experiment.Plan.Measurement}");
+foreach (var prediction in experiment.Plan.Predictions)
+{
+    Console.WriteLine($"  MODEL VARIANT: {prediction.ModelVariant}");
+    Console.WriteLine($"    IF: {prediction.Conditions}");
+    Console.WriteLine($"    EXPECTED: {prediction.ExpectedObservation}");
+    Console.WriteLine($"    POTENTIAL CHALLENGE: {prediction.PotentialCounterObservation}");
+    var assessment = experiment.Evaluations.FirstOrDefault(x => x.PredictionId == prediction.Id);
+    Console.WriteLine($"    ASSESSMENT: {assessment?.Assessment ?? PredictionAssessment.NotEvaluated}");
+}
+Console.WriteLine($"  LIMITS: {experiment.Plan.InterpretationLimits}");
+Console.WriteLine($"  REFERENCE (inspiration, not a new result): {experiment.Plan.SourceUrl}");
 
 Console.WriteLine("TODO: Discover the actual implementation. Source code unavailable.");
 

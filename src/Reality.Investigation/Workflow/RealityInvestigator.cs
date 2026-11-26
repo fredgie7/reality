@@ -1,6 +1,7 @@
 using Reality.Core.Epistemology;
 using Reality.Core.Observation;
 using Reality.Investigation.Comparison;
+using Reality.Investigation.Experiments;
 using Reality.Investigation.Reasoning;
 using Reality.Philosophy.Interfaces;
 using Reality.Science.Epistemology;
@@ -15,6 +16,7 @@ public sealed class RealityInvestigator(IObservableUniverse universe, IReadOnlyL
         var findings = universe.Findings.Where(finding => finding.Subject == FindingSubjects.NeuralCorrelates || finding.Subject == FindingSubjects.SubjectiveExperience).ToArray();
         var comparisons = new TheoryComparisonService().Compare(theories, catalog);
         var debates = new TheoryDebateService().Review(theories);
-        return new InvestigationReport("What can neural evidence tell us about consciousness?", findings, ConsciousnessReasoningExample.Create(), comparisons, debates);
+        var experiment = new ExperimentReviewService().Review(ConsciousnessExperimentExample.Create());
+        return new InvestigationReport("What can neural evidence tell us about consciousness?", findings, ConsciousnessReasoningExample.Create(), comparisons, debates, experiment);
     }
 }
