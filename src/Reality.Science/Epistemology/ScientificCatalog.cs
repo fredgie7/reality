@@ -1,5 +1,4 @@
 using Reality.Core.Epistemology;
-using Reality.Philosophy.Models;
 using Reality.Science.Biology;
 using Reality.Science.Physics;
 

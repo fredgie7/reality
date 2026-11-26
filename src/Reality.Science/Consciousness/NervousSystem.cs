@@ -1,4 +1,3 @@
-using Reality.Philosophy.Models;
 
 namespace Reality.Science.Consciousness;
 
