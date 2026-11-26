@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>12</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Reality/Reality.csproj" />
