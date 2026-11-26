@@ -1,5 +1,3 @@
-using Reality.Philosophy.Models;
-
 namespace Reality.Core.Epistemology;
 
 public enum EvidenceStatus
