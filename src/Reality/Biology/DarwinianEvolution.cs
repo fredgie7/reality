@@ -1,37 +1,5 @@
 namespace Reality.Biology;
 
-public sealed record EvolutionReport(int Generation, int PopulationSize, double MeanTrait);
-
-// A simple inherited quantitative trait is NOT a model of genomes, species or real ecosystems.
-public sealed class Organism
-{
-    public Organism(double trait) => Trait = Math.Clamp(trait, 0, 1);
-    public double Trait { get; }
-}
-
-public sealed class Population
-{
-    private readonly List<Organism> _organisms;
-    private Population(IEnumerable<Organism> organisms) => _organisms = organisms.ToList();
-
-    public IReadOnlyList<Organism> Organisms => _organisms;
-    public int Generation { get; private set; }
-
-    public static Population Create(int size, int seed)
-    {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(size);
-        var random = new Random(seed);
-        return new Population(Enumerable.Range(0, size).Select(_ => new Organism(random.NextDouble())));
-    }
-
-    internal void Replace(IEnumerable<Organism> next)
-    {
-        _organisms.Clear();
-        _organisms.AddRange(next);
-        Generation++;
-    }
-}
-
 public sealed class DarwinianEvolution
 {
     private readonly Random _random;
@@ -78,4 +46,3 @@ public sealed class DarwinianEvolution
         return new EvolutionReport(population.Generation, children.Count, children.Average(x => x.Trait));
     }
 }
-

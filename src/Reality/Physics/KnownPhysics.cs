@@ -1,12 +1,5 @@
 namespace Reality.Physics;
 
-public interface ILawsOfPhysics
-{
-    IReadOnlyList<PhysicalPrinciple> Principles { get; }
-}
-
-public sealed record PhysicalPrinciple(string Name, string Explanation, string OpenProblem);
-
 public sealed class KnownPhysics : ILawsOfPhysics
 {
     public const double SpeedOfLight = 299_792_458;
@@ -24,25 +17,4 @@ public sealed class KnownPhysics : ILawsOfPhysics
 
     public bool IsLocallyCausalSignal(double speedMetersPerSecond) =>
         double.IsFinite(speedMetersPerSecond) && speedMetersPerSecond >= 0 && speedMetersPerSecond <= SpeedOfLight;
-}
-
-public sealed class CosmicHistory
-{
-    public IReadOnlyList<Event> Events { get; } = new[]
-    {
-        new Event("Cosmology", "Early hot, dense universe and primordial nuclear reactions."),
-        new Event("Cosmology", "Expansion and cooling allow neutral atoms to form."),
-        new Event("Cosmology", "Gravity assembles galaxies and stars."),
-        new Event("Cosmology", "Stars and stellar deaths enrich matter with heavier elements."),
-        new Event("Cosmology", "Planetary systems form around some stars.")
-    };
-}
-
-public sealed class ChemistryModel
-{
-    public IReadOnlyList<Event> Events { get; } = new[]
-    {
-        new Event("Chemistry", "Electromagnetic interactions produce bonds and complex molecules."),
-        new Event("Chemistry", "Environmental conditions permit some complex prebiotic chemistry.")
-    };
 }

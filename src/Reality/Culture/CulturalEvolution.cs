@@ -1,12 +1,5 @@
 namespace Reality.Culture;
 
-public sealed record CulturalLearner(string Name, bool KnowsIdea);
-public sealed record CulturalReport(int Generations, int InitialKnowledgeHolders, int FinalKnowledgeHolders);
-
-/// <summary>
-/// Deterministic peer-to-peer diffusion of one idea. Cultural evolution also
-/// includes selection, transformation, forgetting and institutional processes.
-/// </summary>
 public sealed class CulturalEvolution
 {
     public CulturalReport Transmit(IReadOnlyList<CulturalLearner> learners, int generations)

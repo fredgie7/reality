@@ -1,7 +1,5 @@
 namespace Reality.Consciousness;
 
-public sealed record Perception(string Stimulus, string Representation);
-
 public sealed class NervousSystem
 {
     private readonly List<string> _memories = new();

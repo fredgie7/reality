@@ -1,84 +1,59 @@
 using Reality;
 using Reality.Biology;
 using Reality.Culture;
-using Reality.Implementations;
 using Reality.Philosophy;
+using Reality.Philosophy.Interfaces;
 using Reality.Physics;
 using Reality.Physics.Holography;
 
-var model = args.Length == 0 ? "panpsychism" : args[0];
-var knowledge = ScientificCatalog.Create();
-var observed = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), knowledge);
-
-IReality world;
+var catalog = ScientificCatalog.Create();
+IObservableUniverse observable = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), catalog);
+IReadOnlyList<ITheoryOfReality> selected;
 try
 {
-    world = RealityFactory.Create(model);
+    selected = args.Length == 0 || args[0].Equals("all", StringComparison.OrdinalIgnoreCase) ? TheoryCatalog.All : new[] { TheoryCatalog.Find(args[0]) };
 }
-catch (ArgumentException exception)
+catch (ArgumentException ex)
 {
-    Console.Error.WriteLine(exception.Message);
-    Console.Error.WriteLine($"Usage: dotnet run --project src/Reality/Reality.csproj -- [{string.Join("|", RealityFactory.AvailableModels)}]");
+    Console.Error.WriteLine(ex.Message);
+    Console.Error.WriteLine("Usage: dotnet run --project src/Reality/Reality.csproj -- [all|Panpsychism|Physicalism|Idealism|\"Substance dualism\"]");
     Environment.ExitCode = 1;
     return;
 }
-
 Console.WriteLine("REALITY :: production diagnostics");
-Console.WriteLine("Source code: unavailable | Observer: running inside observed system");
-Console.WriteLine($"Selected interpretation: {world.Name} (philosophical hypothesis)");
-foreach (var assumption in world.MetaphysicalAssumptions)
-    Console.WriteLine($"ASSUMPTION: {assumption}");
-
+Console.WriteLine("Implementation: unknown | Observable models: revisable | Observer: inside the system");
 Console.WriteLine();
-foreach (var stage in observed.DescribeHistory())
+foreach (var stage in observable.DescribeHistory())
     Console.WriteLine($"[{stage.Domain}] {stage.Description}");
 
 Console.WriteLine();
-Console.WriteLine($"GENETICS: DNA coding strand ATGGGT -> RNA {observed.Genetics.Transcribe("ATGGGT")} -> illustrative peptide {observed.Genetics.Translate("AUGGGU")}");
-Console.WriteLine($"SPACETIME: light takes {observed.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1} second to travel one light-second.");
-var pattern = observed.Emergence.Analyze(new[] { true, true, false, true });
-Console.WriteLine($"EMERGENCE: {pattern.ActiveComponents} active nodes, {pattern.AdjacentActivePairs} connected active pair(s).");
-var transmission = observed.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) }, 2);
-Console.WriteLine($"CULTURE: knowledge spreads from {transmission.InitialKnowledgeHolders} to {transmission.FinalKnowledgeHolders} learners.");
-Console.WriteLine($"NEUROSCIENCE: {observed.NervousSystem.Learn("a new observation")}");
+Console.WriteLine("SCIENTIFIC FINDINGS");
+foreach (var finding in observable.Knowledge.Findings)
+    Console.WriteLine($"[{finding.Confidence}] {finding.Subject}: {finding.Description}");
 
 Console.WriteLine();
-var celestial = new CelestialHolography();
-IHolographicDuality duality = celestial;
-Console.WriteLine($"CELESTIAL: {new PhysicalDescriptionStudy().Summarize(duality)}");
-Console.WriteLine($"RESEARCH: {duality.ExplainRelationship()}");
-var mellinDemo = celestial.DemonstrateEnergyMellinTransform(new[]
+Console.WriteLine("PHILOSOPHICAL THEORIES (not alternate scientific universes)");
+foreach (var assessment in new TheoryComparisonService().Compare(selected, observable.Knowledge))
 {
-    new EnergyAmplitudeSample(1, 1),
-    new EnergyAmplitudeSample(2, 1),
-    new EnergyAmplitudeSample(3, 1)
-}, conformalDimension: 1);
-Console.WriteLine($"TOY MELLIN INTEGRAL: {mellinDemo.ApproximateValue:F2} (not a full celestial correlator)");
-
-Console.WriteLine();
-var observer = observed.CreateObserver();
-foreach (var finding in observer.DoScience().Take(8))
-    Console.WriteLine($"SCIENCE [{finding.Confidence}]: {finding.Subject} — {finding.Description}");
-
-Console.WriteLine();
-foreach (var question in observer.DoPhilosophy())
-    Console.WriteLine($"PHILOSOPHY: {question}");
-
-Console.WriteLine();
-var comparison = new TheoryComparison();
-foreach (var theory in comparison.Theories)
-    Console.WriteLine($"THEORY: {theory.Name} — {theory.CoreClaim} [{theory.EvidenceStatus}]");
-
-Console.WriteLine();
-var population = Population.Create(size: 60, seed: 42);
-for (var generation = 0; generation < 8; generation++)
-{
-    var report = observed.Evolution.Advance(population, environmentOptimum: 0.7);
-    Console.WriteLine($"EVOLUTION: generation {report.Generation}, population {report.PopulationSize}, mean trait {report.MeanTrait:F3}");
+    var theory = selected.First(x => x.Name == assessment.TheoryName);
+    Console.WriteLine($"> {theory.Name}: {theory.CoreClaim}");
+    Console.WriteLine($"  Assumptions: {assessment.StatedAssumptions} | Catalog-linked interpretations: {assessment.CatalogLinkedExplanations.Count} | Proposed predictions: {assessment.ProposedPredictions.Count}");
+    foreach (var explanation in assessment.CatalogLinkedExplanations)
+        Console.WriteLine($"  INTERPRETATION [{explanation.FindingSubject}]: {explanation.Account}");
+    foreach (var question in assessment.OpenQuestions)
+        Console.WriteLine($"  OPEN: {question.Description}");
+    if (assessment.ProposedPredictions.Count == 0)
+        Console.WriteLine("  No distinguishing empirical prediction has been specified.");
 }
 
+var observed = (ObservedUniverse)observable;
 Console.WriteLine();
-Console.WriteLine($"FIRST PERSON: {observer.Experience()}");
-Console.WriteLine("The nature of reality is still under investigation.");
-
-Console.Read();
+Console.WriteLine("ILLUSTRATIVE SCIENTIFIC MODELS (not evidence for any ontology)");
+Console.WriteLine($"GENETICS: ATGGGT -> {observed.Genetics.Transcribe("ATGGGT")} -> {observed.Genetics.Translate("AUGGGU")}");
+Console.WriteLine($"SPACETIME: {observed.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1}s per light-second.");
+Console.WriteLine($"EMERGENCE: {observed.Emergence.Analyze(new[] { true, true, false }).AdjacentActivePairs} connected active pair.");
+var spread = observed.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false) }, 1);
+Console.WriteLine($"CULTURE: {spread.InitialKnowledgeHolders} to {spread.FinalKnowledgeHolders} learners.");
+Console.WriteLine($"OBSERVER: {observable.CreateObserver().Reflect()}");
+Console.WriteLine($"HOLOGRAPHY: {new PhysicalDescriptionStudy().Summarize(new CelestialHolography())}");
+Console.WriteLine("TODO: Discover the actual implementation. Source code unavailable.");

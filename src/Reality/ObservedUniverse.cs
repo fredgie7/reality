@@ -11,7 +11,7 @@ namespace Reality;
 /// of existence. Toy educational models remain concrete until a genuine
 /// common abstraction is needed.
 /// </summary>
-public sealed class ObservedUniverse
+public sealed class ObservedUniverse : IObservableUniverse
 {
     private readonly CosmicHistory _cosmos;
     private readonly ChemistryModel _chemistry;

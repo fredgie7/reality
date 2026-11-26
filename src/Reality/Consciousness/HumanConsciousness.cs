@@ -2,16 +2,6 @@ using Reality.Physics;
 
 namespace Reality.Consciousness;
 
-public interface IExperience
-{
-    string FirstPersonDescription { get; }
-}
-
-public interface IUnifiedConsciousness : IExperience
-{
-    string Reflect();
-}
-
 public sealed class HumanConsciousness : IUnifiedConsciousness
 {
     private readonly KnownPhysics _physics;
