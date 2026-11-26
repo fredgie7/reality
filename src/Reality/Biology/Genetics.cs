@@ -38,7 +38,7 @@ public sealed class Genetics
             if (aminoAcid == '*') break;
             aminoAcids.Add(aminoAcid);
         }
-        return new string(aminoAcids.ToArray());
+        return new string([.. aminoAcids]);
     }
 
     public string Inherit(string maternalDna, string paternalDna, int crossoverIndex)
