@@ -3,6 +3,7 @@ using Reality.Core.Observation;
 using Reality.Core.Ontology;
 using Reality.Investigation.Workflow;
 using Reality.Investigation.Comparison;
+using Reality.Investigation.Experiments;
 using Reality.Investigation.Reasoning;
 using Reality.Philosophy.Catalog;
 using Reality.Philosophy.Interfaces;
@@ -96,6 +97,46 @@ var report = new RealityInvestigator(new ObservedUniverse(new KnownPhysics(), ne
 Check(report.Reasoning.Nodes.Count > 5 && report.TheoryAssessments.Count == 4, "investigation composes science and philosophy without changing findings");
 Check(report.RelevantFindings.Count == 2 && report.RelevantFindings.Any(x => x.Subject == FindingSubjects.SubjectiveExperience), "investigation preserves the epistemic gap");
 Check(report.TheoryDebates.Count == 4 && report.TheoryDebates.SelectMany(x => x.Debates).Count() == 8, "investigation includes eight sourced debates without inventing scores");
+var proposal = ConsciousnessExperimentExample.Create();
+var experimentService = new ExperimentReviewService();
+var proposedReview = experimentService.Review(proposal);
+Check(proposal.Status == ExperimentStatus.Proposed && proposedReview.Evaluations.Count == 0, "proposed study contains no fabricated observations or outcomes");
+Check(proposal.Predictions.Count == 2 && proposal.Predictions.Select(p => p.Id).Distinct().Count() == 2, "conditional predictions have stable distinct IDs");
+Check(proposal.Predictions.All(p => !string.IsNullOrWhiteSpace(p.PotentialCounterObservation)), "each conditional prediction specifies what could challenge it");
+Check(proposedReview.Plan.InterpretationLimits.Contains("not automatically mutually exclusive"), "different neural signatures do not imply exhaustive alternatives");
+Check(report.Experiment.Plan.Id == proposal.Id && report.Experiment.Evaluations.Count == 0, "investigation includes unevaluated design without changing theory predictions");
+try
+{
+    _ = experimentService.Review(proposal, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.ConsistentWithPrediction, "fabricated", new RecordedObservation(proposal.Id, "fabricated", "https://example.com"))]);
+    throw new Exception("FAIL: proposed study accepted observations");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: proposed study rejects claimed results");
+}
+try
+{
+    _ = experimentService.Review(proposal with { Predictions = [proposal.Predictions[0], proposal.Predictions[0]] });
+    throw new Exception("FAIL: duplicate prediction IDs accepted");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: duplicate prediction IDs rejected");
+}
+var publishedFixture = proposal with { Status = ExperimentStatus.Published };
+var observationFixture = new RecordedObservation(proposal.Id, "Illustrative synthetic observation; not real research data", "https://example.com/research");
+var evaluatedFixture = experimentService.Review(publishedFixture, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.Inconclusive, "Synthetic fixture demonstrates an explicit interpretation with provenance, not a scientific conclusion.", observationFixture)]);
+Check(evaluatedFixture.Evaluations.Count == 1 && evaluatedFixture.Evaluations[0].Assessment == PredictionAssessment.Inconclusive, "explicitly justified observation can be recorded without auto-ranking");
+try
+{
+    _ = experimentService.Review(publishedFixture, [new PredictionEvaluation(proposal.Id, proposal.Predictions[0].Id, PredictionAssessment.ConsistentWithPrediction, "", observationFixture)]);
+    throw new Exception("FAIL: unreasoned assessment accepted");
+}
+catch (ArgumentException)
+{
+    Console.WriteLine("PASS: assessment requires rationale");
+}
+
 Check(catalog.Investigations.Count == 3, "catalog includes explicit epistemic investigations");
 Check(catalog.GetInvestigation("dark MATTER")?.FindingSubject == FindingSubjects.DarkMatter, "investigation lookup is case-insensitive");
 Check(catalog.GetInvestigation(FindingSubjects.GeneralRelativity) is null, "missing evidence trail is not fabricated");

@@ -119,6 +119,19 @@ The built-in catalog uses `FindingSubjects` constants to refer consistently to s
 
 `Finding.Status` uses the existing `EvidenceStatus` enum, instead of calling it a confidence score. `ScientificInvestigation.SourceStatus` uses `SourceProvenanceStatus` for source availability, with optional free-text `SourceNotes`. All initial investigations are explicitly `NotAttached`; the enum **never certifies that the inference is true**. `Event.Domain` uses a small `EventDomain` enum for the illustrative chronology. Experimental and philosophical prose stays in plain text.
 
+## Milestone 3 — Experiments and conditional predictions
+
+`Reality.Investigation.Experiments` distinguishes an **experimental design**, a **model-specific conditional prediction**, a **sourced observation**, and a **human-curated interpretation**. It does not infer an ontology from a neuroscience experiment.
+
+- `ExperimentPlan` states the question, procedures, controls, measurements, predictions, limits, lifecycle status and an optional source of inspiration.
+- `HypothesisPrediction` specifies the model variant, conditions, expected observation and what might challenge the prediction. This avoids treating GNWT or IIT as monolithic.
+- `RecordedObservation` requires an attributable source. `PredictionEvaluation` combines the observation with a stated interpretation and rationale; `PredictionAssessment` is a closed enum, **not** a probability or universal truth verdict.
+- `ExperimentReviewService` checks references and the completeness of a review. It refuses evaluated results on proposed or preregistered work, and refuses unsupported or unexplained assessments. It never generates interpretations automatically.
+
+The console includes an **illustrative proposed replication-style design** inspired by the [2025 Cogitate adversarial study](https://doi.org/10.1038/s41586-025-08888-1), comparing two *conditional* predictions about particular GNWT and IIT variants. It is not an actual preregistration and **contains no new data or measured outcomes**. Its predictions may both hold, neither hold, or remain inconclusive; they are not necessarily exclusive. The four broad metaphysical theories still have **no invented distinguishing empirical predictions**.
+
+Stable proposal and prediction IDs are constants; `ExperimentStatus` and `PredictionAssessment` are enums because they describe closed classifications. Open-ended conditions, controls, observations, methodological arguments and limitations remain descriptive text.
+
 ## Run
 
 Requirements: .NET 8 SDK (C# 12), Visual Studio 2022 or another compatible editor. The solution uses no third-party NuGet packages.
