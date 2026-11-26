@@ -1,4 +1,10 @@
-using Reality;
+using Reality.Consciousness.Interfaces;
+using Reality.Epistemology;
+using Reality.Observation;
+using Reality.Observation.Interfaces;
+using Reality.Ontology.Interfaces;
+using Reality.Physics.Interfaces;
+using Reality.Physics.Holography.Interfaces;
 using Reality.Biology;
 using Reality.Consciousness;
 using Reality.Culture;
