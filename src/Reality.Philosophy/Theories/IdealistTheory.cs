@@ -1,3 +1,4 @@
+using Reality.Core.Epistemology;
 using Reality.Philosophy.Interfaces;
 using Reality.Philosophy.Models;
 

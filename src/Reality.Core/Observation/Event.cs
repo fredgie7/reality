@@ -1,3 +1,3 @@
 namespace Reality.Core.Observation;
 
-public sealed record Event(string Domain, string Description);
+public sealed record Event(EventDomain Domain, string Description);

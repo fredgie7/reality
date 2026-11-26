@@ -11,4 +11,5 @@ public sealed record ScientificInvestigation(
     IReadOnlyList<string> Assumptions,
     IReadOnlyList<string> Alternatives,
     IReadOnlyList<string> PotentialTests,
-    string SourceStatus);
+    SourceProvenanceStatus SourceStatus,
+    string? SourceNotes = null);

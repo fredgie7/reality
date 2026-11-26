@@ -35,48 +35,48 @@ public sealed class ScientificCatalog
 
     private static readonly Finding[] DefaultFindings =
     [
-        new Finding("General relativity", "Describes gravity through spacetime geometry.", EvidenceStatus.EstablishedModel),
-        new Finding("Quantum mechanics", "Highly predictive framework for microscopic phenomena.", EvidenceStatus.EstablishedModel),
-        new Finding("Standard Model", "Describes known elementary particles and electromagnetic, weak and strong interactions.", EvidenceStatus.EstablishedModel),
-        new Finding("Thermodynamics", "Isolated macroscopic systems overwhelmingly tend toward higher entropy.", EvidenceStatus.EstablishedModel),
-        new Finding("Cosmic expansion", "Cosmological observations support an expanding universe.", EvidenceStatus.Observed),
-        new Finding("Dark matter", "Multiple gravitational observations point to unexplained mass or a missing account of gravity.", EvidenceStatus.ActiveResearch),
-        new Finding("Dark energy", "Expansion accelerates; the responsible physics is unsettled.", EvidenceStatus.ActiveResearch),
-        new Finding("Origin of life", "Abiogenesis pathways remain active research.", EvidenceStatus.ActiveResearch),
-        new Finding("Evolution", "Mutation, selection, drift and gene flow change populations over generations.", EvidenceStatus.EstablishedModel),
-        new Finding("Genetics", "DNA replication, transcription and inheritance transmit genetic information.", EvidenceStatus.EstablishedModel),
-        new Finding("Spacetime", "Relativity describes physical intervals, causal structure and time dilation.", EvidenceStatus.EstablishedModel),
-        new Finding("Cultural transmission", "Humans can pass on learned information socially.", EvidenceStatus.Observed),
-        new Finding("Neural correlates", "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
-        new Finding("Subjective experience", "How first-person experience relates to measurable processes remains debated.", EvidenceStatus.OpenQuestion)
+        new Finding(FindingSubjects.GeneralRelativity, "Describes gravity through spacetime geometry.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.QuantumMechanics, "Highly predictive framework for microscopic phenomena.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.StandardModel, "Describes known elementary particles and electromagnetic, weak and strong interactions.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.Thermodynamics, "Isolated macroscopic systems overwhelmingly tend toward higher entropy.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.CosmicExpansion, "Cosmological observations support an expanding universe.", EvidenceStatus.Observed),
+        new Finding(FindingSubjects.DarkMatter, "Multiple gravitational observations point to unexplained mass or a missing account of gravity.", EvidenceStatus.ActiveResearch),
+        new Finding(FindingSubjects.DarkEnergy, "Expansion accelerates; the responsible physics is unsettled.", EvidenceStatus.ActiveResearch),
+        new Finding(FindingSubjects.OriginOfLife, "Abiogenesis pathways remain active research.", EvidenceStatus.ActiveResearch),
+        new Finding(FindingSubjects.Evolution, "Mutation, selection, drift and gene flow change populations over generations.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.Genetics, "DNA replication, transcription and inheritance transmit genetic information.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.Spacetime, "Relativity describes physical intervals, causal structure and time dilation.", EvidenceStatus.EstablishedModel),
+        new Finding(FindingSubjects.CulturalTransmission, "Humans can pass on learned information socially.", EvidenceStatus.Observed),
+        new Finding(FindingSubjects.NeuralCorrelates, "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
+        new Finding(FindingSubjects.SubjectiveExperience, "How first-person experience relates to measurable processes remains debated.", EvidenceStatus.OpenQuestion)
     ];
 
     private static readonly ScientificInvestigation[] DefaultInvestigations =
     [
         new ScientificInvestigation(
-            "Cosmic expansion",
+            FindingSubjects.CosmicExpansion,
             [ "Light from distant galaxies often displays systematic redshift correlated with distance.", "Multiple cosmological observations provide independent constraints on expansion history." ],
             "An expanding-universe model quantitatively accounts for these patterns.",
             [ "The chosen physical model connects measured redshift to cosmological scale and distance estimates." ],
             [ "Alternative explanations of redshift and different cosmological models must be compared against the full body of observations." ],
             [ "Test predictions against independent distance measurements and the cosmic microwave background." ],
-            "Curated conceptual summary; primary studies and dataset provenance not yet attached."),
+            SourceProvenanceStatus.NotAttached),
         new ScientificInvestigation(
-            "Dark matter",
+            FindingSubjects.DarkMatter,
             [ "Galactic rotation, gravitational lensing, and structure formation exhibit gravitational effects not explained by visible matter alone under standard models." ],
             "Additional nonluminous mass is one leading explanation within current cosmological models.",
             [ "Gravitational dynamics are interpreted using a specified theory of gravity and estimated distributions of ordinary matter." ],
             [ "Modified-gravity approaches are investigated, though they face constraints across multiple observational scales." ],
             [ "Compare predicted lensing, structure formation, laboratory searches, and cosmological data across competing models." ],
-            "Curated conceptual summary; primary studies and dataset provenance not yet attached."),
+            SourceProvenanceStatus.NotAttached),
         new ScientificInvestigation(
-            "Neural correlates",
+            FindingSubjects.NeuralCorrelates,
             [ "Brain activity and reported or behaviorally indicated conscious states covary in reproducible experimental settings." ],
             "Certain neural processes are associated with conscious states; correlation alone does not settle metaphysical identity or causation.",
             [ "Behavioral reports and experimental tasks are imperfect proxies for phenomenal experience." ],
             [ "Competing neural mechanisms and philosophical interpretations may fit the same correlational data." ],
             [ "Compare preregistered predictions across neural models using interventions and independent measurements." ],
-            "Curated conceptual summary; primary studies and dataset provenance not yet attached.")
+            SourceProvenanceStatus.NotAttached)
     ];
 
     public static ScientificCatalog Create() => new(DefaultFindings, DefaultInvestigations);

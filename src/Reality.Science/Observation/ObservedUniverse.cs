@@ -36,13 +36,13 @@ public sealed class ObservedUniverse(KnownPhysics physics, CosmicHistory cosmos,
         return _cosmos.Events.Concat(_chemistry.Events)
             .Concat(
             [
-                new Event("Biology", "Origin of replicating life: unresolved history; evolution requires heredity."),
-                new Event("Genetics", "Heritable genetic information propagates through cellular machinery, with variation."),
-                new Event("Evolution", "Populations diversify through mutation, selection, drift and gene flow."),
-                new Event("Emergence", "Interactions among components give rise to collective properties."),
-                new Event("Neuroscience", "Some lineages evolve nervous systems supporting learning and cognition."),
-                new Event("Culture", "Social learning transmits knowledge beyond genetic inheritance."),
-                new Event("Consciousness", "Human observers begin modeling the system that produced them.")
+                new Event(EventDomain.Biology, "Origin of replicating life: unresolved history; evolution requires heredity."),
+                new Event(EventDomain.Genetics, "Heritable genetic information propagates through cellular machinery, with variation."),
+                new Event(EventDomain.Evolution, "Populations diversify through mutation, selection, drift and gene flow."),
+                new Event(EventDomain.Emergence, "Interactions among components give rise to collective properties."),
+                new Event(EventDomain.Neuroscience, "Some lineages evolve nervous systems supporting learning and cognition."),
+                new Event(EventDomain.Culture, "Social learning transmits knowledge beyond genetic inheritance."),
+                new Event(EventDomain.Consciousness, "Human observers begin modeling the system that produced them.")
             ]).ToArray();
     }
 
