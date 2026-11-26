@@ -1,4 +1,5 @@
 using Reality.Epistemology;
+using Reality.Epistemology.Reasoning;
 using Reality.Observation;
 using Reality.Observation.Interfaces;
 using Reality.Biology;
@@ -75,6 +76,22 @@ foreach (var study in observable.Knowledge.Investigations)
 }
 
 Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine("REASONING GRAPH: WHY CLAIMS ABOUT CONSCIOUSNESS ARE LIMITED");
+var reasoning = ConsciousnessReasoningExample.Create();
+var conclusion = reasoning.GetNode(ConsciousnessReasoningExample.MainInferenceId);
+Console.WriteLine($"INFERENCE: {conclusion.Description}");
+foreach (var link in reasoning.TraceReasons(conclusion.Id))
+{
+    var premise = reasoning.GetNode(link.FromId);
+    Console.WriteLine($"  {link.Relation} [{premise.Kind}]: {premise.Description}");
+    Console.WriteLine($"    WHY: {link.Justification}");
+    if (premise.SourceUrl is not null)
+        Console.WriteLine($"    SOURCE: {premise.SourceUrl}");
+}
+foreach (var question in reasoning.Connections.Where(link => link.FromId == conclusion.Id && link.Relation == ReasoningRelation.RaisesQuestion))
+    Console.WriteLine($"  UNRESOLVED: {reasoning.GetNode(question.ToId).Description}");
+
 Console.WriteLine("TODO: Discover the actual implementation. Source code unavailable.");
 
 // A double-clicked console window should remain readable, but automation and

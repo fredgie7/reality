@@ -121,6 +121,14 @@ A scientific investigation asks:
 
 `ScientificCatalog` captures scientific findings and their `EvidenceStatus`. `ScientificInvestigation` begins connecting selected findings to these reasoning steps.
 
+### An evidence and reasoning graph
+
+Milestone 1 adds `Epistemology/Reasoning/`: a directed graph of **publications, reported observations, methodological assumptions, inferences, scientific models, and open questions**. Each typed connection explains why one claim documents, supports, challenges, requires an assumption for, or raises a question about another. The `TraceReasons` operation follows upstream links from a conclusion toward its reported observations and provenance; it terminates even if the graph contains cycles.
+
+The first worked example is a **2025 preregistered adversarial comparison of Global Neuronal Workspace Theory and Integrated Information Theory** ([Nature, doi:10.1038/s41586-025-08888-1](https://doi.org/10.1038/s41586-025-08888-1)). We identify *reported* neural measurements, an intentionally limited inference about conscious content, a measurement assumption, challenges to specific model predictions, and questions the findings do **not** resolve. The record links to a published article; it is not a replacement for independently examining the full methods and data.
+
+**The graph describes claimed evidential relationships, not proofs.** Its links do not imply causal identification, theory falsification, confidence probabilities, or an inference to a preferred ontology. Metaphysical theories remain separate from the empirical graph; comparing detailed neural mechanisms is distinct from comparing physicalism, panpsychism, idealism and dualism.
+
 The initial conceptual investigations concern **cosmic expansion**, **dark matter**, and **neural correlates of consciousness**. Their observations and inferences are illustrative summaries: primary studies, datasets, and detailed provenance are **not yet attached**. We explicitly mark that gap rather than invent citations or implying a completed literature review.
 
 The aim is a disciplined distinction:
