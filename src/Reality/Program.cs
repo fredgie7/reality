@@ -56,4 +56,31 @@ var spread = observed.Culture.Transmit(new[] { new CulturalLearner("A", true), n
 Console.WriteLine($"CULTURE: {spread.InitialKnowledgeHolders} to {spread.FinalKnowledgeHolders} learners.");
 Console.WriteLine($"OBSERVER: {observable.CreateObserver().Reflect()}");
 Console.WriteLine($"HOLOGRAPHY: {new PhysicalDescriptionStudy().Summarize(new CelestialHolography())}");
+Console.WriteLine();
+Console.WriteLine("HOW WE KNOW (selected investigations)");
+foreach (var study in observable.Knowledge.Investigations)
+{
+    Console.WriteLine($"> {study.FindingSubject}");
+    foreach (var observation in study.Observations)
+        Console.WriteLine($"  OBSERVED: {observation}");
+    Console.WriteLine($"  INFERRED: {study.Inference}");
+    foreach (var assumption in study.Assumptions)
+        Console.WriteLine($"  ASSUMPTION: {assumption}");
+    foreach (var alternative in study.Alternatives)
+        Console.WriteLine($"  ALTERNATIVE: {alternative}");
+    foreach (var test in study.PotentialTests)
+        Console.WriteLine($"  FURTHER TEST: {test}");
+    Console.WriteLine($"  SOURCE STATUS: {study.SourceStatus}");
+}
+
+Console.WriteLine();
 Console.WriteLine("TODO: Discover the actual implementation. Source code unavailable.");
+
+// A double-clicked console window should remain readable, but automation and
+// redirected output must never block waiting for user input.
+if (!Console.IsInputRedirected && !Console.IsOutputRedirected)
+{
+    Console.WriteLine();
+    Console.Write("Press Enter to exit...");
+    Console.ReadLine();
+}
