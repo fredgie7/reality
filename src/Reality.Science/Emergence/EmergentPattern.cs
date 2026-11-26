@@ -1,8 +1,7 @@
 namespace Reality.Science.Emergence;
 
-public sealed record EmergentPattern(int ActiveComponents, int AdjacentActivePairs, bool HasConnectedCluster);
-
 /// <summary>
 /// Demonstrates a collective property (adjacent connected activation) absent
-/// from any isolated boolean. No claim about phenomenal consciousness follows.
+/// from any isolated boolean; it makes no claim about other phenomena.
 /// </summary>
+public sealed record EmergentPattern(int ActiveComponents, int AdjacentActivePairs, bool HasConnectedCluster);

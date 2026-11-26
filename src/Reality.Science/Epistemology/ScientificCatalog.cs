@@ -48,7 +48,7 @@ public sealed class ScientificCatalog
         new Finding("Spacetime", "Relativity describes physical intervals, causal structure and time dilation.", EvidenceStatus.EstablishedModel),
         new Finding("Cultural transmission", "Humans can pass on learned information socially.", EvidenceStatus.Observed),
         new Finding("Neural correlates", "Neural activity systematically relates to reported conscious states.", EvidenceStatus.Observed),
-        new Finding("Subjective experience", "Why experience accompanies physical processes remains debated.", EvidenceStatus.OpenQuestion)
+        new Finding("Subjective experience", "How first-person experience relates to measurable processes remains debated.", EvidenceStatus.OpenQuestion)
     ];
 
     private static readonly ScientificInvestigation[] DefaultInvestigations =

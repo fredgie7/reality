@@ -68,7 +68,7 @@ Core cannot depend on a scientific or philosophical implementation. Science cann
 - `Reality.Core.Observation.IObserver` is the minimal observer boundary.
 - `Reality.Science.Observation.ObservedUniverse` is an intentionally revisable educational model, **not** an `IReality` implementation.
 - `Reality.Science.Consciousness.HumanConsciousness` is one toy observer implementation.
-- `IExperience` describes first-person experience, while `IUnifiedConsciousness` is deliberately a hypothetical marker for phenomenal unity, **not** a requirement to reflect or report. `IObserver` separately owns reflective cognition and scientific inquiry. The illustrative `HumanConsciousness` implements both contracts, without claiming that reflection produces consciousness or solves the combination problem.
+- `IExperience` describes first-person experience, while `IUnifiedConsciousness` is deliberately a hypothetical marker for phenomenal unity, **not** a requirement to reflect or report. `IObserver` separately owns reflective cognition and scientific inquiry. The illustrative `HumanConsciousness` implements both contracts, without claiming that reflection produces consciousness or that the model itself has subjective experience.
 - `Reality.Philosophy.Interfaces.ITheoryOfReality` describes interpretations; no theory pretends to instantiate reality.
 - `Reality.Investigation.Workflow.RealityInvestigator` assembles shared findings, an evidence graph and the philosophical inventories.
 
@@ -83,6 +83,18 @@ The first graph example uses a [2025 *Nature* preregistered comparison of GNWT a
 The four current philosophical perspectives are **panpsychism, physicalism, idealism and substance dualism**. These are broad ontological accounts, distinct from more specific neural theories such as Global Neuronal Workspace Theory and Integrated Information Theory.
 
 **An observation is not automatically an inference. An inference is not automatically a complete explanation. An explanation is not automatically a proof of ultimate ontology.**
+
+### Ontological neutrality
+
+The six-project structure must not privilege one metaphysical theory through shared contracts, scientific claims, documentation, or code examples. In particular:
+
+- **Core** describes investigable concepts without importing any theory-specific objections or mechanisms.
+- **Science** records empirically grounded models and deliberately open questions without adopting physicalism, panpsychism, idealism, or dualism as a premise.
+- **Philosophy** holds each theory's particular assumptions and difficulties, including panpsychism's *combination problem*, solely in its relevant theory material.
+- **Investigation** distinguishes the observations from the interpretations and leaves questions unresolved when evidence does not discriminate among theories.
+- Implementing a conceptual interface such as `IExperience` or `IUnifiedConsciousness` in an educational C# example is **not evidence that the software itself experiences anything**.
+
+A generic investigation should not inherit the explanatory tasks, terminology, or TODO comments of one of its candidate theories.
 
 ## Run
 
