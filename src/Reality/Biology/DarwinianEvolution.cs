@@ -1,10 +1,8 @@
 namespace Reality.Biology;
 
-public sealed class DarwinianEvolution
+public sealed class DarwinianEvolution(int seed)
 {
-    private readonly Random _random;
-
-    public DarwinianEvolution(int seed) => _random = new Random(seed);
+    private readonly Random _random = new(seed);
 
     public EvolutionReport Advance(Population population, double environmentOptimum)
     {

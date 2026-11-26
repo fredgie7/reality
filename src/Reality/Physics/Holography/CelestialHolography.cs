@@ -17,12 +17,11 @@ public sealed class CelestialHolography : IHolographicDuality
 
     public string Name => "Celestial holography";
 
-    public IReadOnlyList<string> OpenQuestions { get; } = new[]
-    {
+    public IReadOnlyList<string> OpenQuestions { get; } = [
         "Can a complete holographic dictionary for asymptotically flat quantum gravity be constructed?",
         "Under what assumptions, if any, can the 4D bulk be fully reconstructed from celestial data?",
         "How are infrared, distributional and nonperturbative questions resolved?"
-    };
+    ];
 
     public string ExplainRelationship() =>
         "Scattering data in a 4D momentum basis may be recast in a celestial conformal basis. " +

@@ -1,7 +1,6 @@
 namespace Reality.Biology;
 
-public sealed class Organism
+public sealed class Organism(double trait)
 {
-    public Organism(double trait) => Trait = Math.Clamp(trait, 0, 1);
-    public double Trait { get; }
+    public double Trait { get; } = Math.Clamp(trait, 0, 1);
 }

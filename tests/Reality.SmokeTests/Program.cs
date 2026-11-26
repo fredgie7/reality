@@ -45,8 +45,8 @@ for (var i = 1; i <= 12; i++)
     var result = evolution.Advance(population, 0.75);
     Check(result.Generation == i && result.PopulationSize == 80 && result.MeanTrait is >= 0 and <= 1, $"evolution {i}");
 }
-Check(new Reality.Emergence.EmergenceModel().Analyze(new[] { true, true, false }).HasConnectedCluster, "emergence");
-Check(new CulturalEvolution().Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) }, 2).FinalKnowledgeHolders == 3, "culture");
+Check(new Reality.Emergence.EmergenceModel().Analyze([ true, true, false ]).HasConnectedCluster, "emergence");
+Check(new CulturalEvolution().Transmit([ new CulturalLearner("A", true), new CulturalLearner("B", false), new CulturalLearner("C", false) ], 2).FinalKnowledgeHolders == 3, "culture");
 Check(new NervousSystem().Learn("observation").Contains("Learned from observation"), "nervous system");
 
 var catalog = ScientificCatalog.Create();
@@ -57,15 +57,15 @@ Check(catalog.Investigations.All(i => i.Observations.Count > 0 && i.Assumptions.
 Check(catalog.Investigations.All(i => i.SourceStatus.Contains("not yet attached")), "unverified study provenance is explicitly disclosed");
 try
 {
-    _ = new ScientificCatalog(new[] { new Finding("Known", "A test", EvidenceStatus.Observed) }, new[] { new ScientificInvestigation("Unknown", new[] { "obs" }, "inference", new[] { "assumption" }, new[] { "alternative" }, new[] { "test" }, "no provenance") });
+    _ = new ScientificCatalog([ new Finding("Known", "A test", EvidenceStatus.Observed) ], [ new ScientificInvestigation("Unknown", [ "obs" ], "inference", [ "assumption" ], [ "alternative" ], [ "test" ], "no provenance") ]);
     throw new Exception("FAIL: orphaned investigation accepted");
 }
 catch (ArgumentException)
 {
     Console.WriteLine("PASS: orphaned investigation rejected");
 }
-IObservableUniverse universe = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
-IObservableUniverse second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
+var universe = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
+var second = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog);
 Check(universe.DescribeHistory().SequenceEqual(second.DescribeHistory()), "same observable history regardless of theory");
 Check(universe.CreateObserver().DoScience().SequenceEqual(second.CreateObserver().DoScience()), "same observable findings");
 Check(universe.DescribeHistory().Count >= 14, "shared chronology");
@@ -76,7 +76,7 @@ Check(typeof(ScientificCatalog).Namespace == "Reality.Epistemology", "scientific
 Check(typeof(IExperience).Namespace == "Reality.Consciousness.Interfaces", "consciousness interface namespace aligns with folder");
 Check(typeof(ILawsOfPhysics).Namespace == "Reality.Physics.Interfaces", "physics interface namespace aligns with folder");
 Check(typeof(IHolographicDuality).Namespace == "Reality.Physics.Holography.Interfaces", "holography interface namespace aligns with folder");
-Check(typeof(IReality).GetProperties().Select(p => p.Name).SequenceEqual(new[] { "ObservableUniverse" }), "IReality only exposes observable facet");
+Check(typeof(IReality).GetProperties().Select(p => p.Name).SequenceEqual([ "ObservableUniverse" ]), "IReality only exposes observable facet");
 Check(!typeof(IReality).IsAssignableFrom(typeof(ObservedUniverse)), "observed universe is not actual reality");
 Check(!typeof(IReality).IsAssignableFrom(typeof(ITheoryOfReality)), "a theory is not reality");
 
@@ -96,13 +96,13 @@ Check(assessments.All(x => x.CatalogLinkedExplanations.Count >= 1), "claims link
 Check(assessments.All(x => x.UnmatchedExplanations.Count == 0), "no invalid topic references");
 Check(assessments.All(x => x.ProposedPredictions.Count == 0), "no invented experimental discriminators");
 
-try { CombinationProblem.Combine(new IExperience[] { new FundamentalExperience("hypothetical") }); throw new Exception("FAIL: combination solved"); }
+try { CombinationProblem.Combine([ new FundamentalExperience("hypothetical") ]); throw new Exception("FAIL: combination solved"); }
 catch (NotSupportedException) { Console.WriteLine("PASS: combination remains unresolved"); }
 
-IHolographicDuality duality = new CelestialHolography();
+var duality = new CelestialHolography();
 Check(duality.CorrespondenceStatus == HolographicCorrespondenceStatus.PartialResults, "qualified holography status");
 Check(duality.Bulk is FourDimensionalScatteringDescription && duality.Boundary is CelestialConformalDescription, "physical descriptions kept");
-Check(Math.Abs(new CelestialHolography().DemonstrateEnergyMellinTransform(new[] { new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) }, 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
+Check(Math.Abs(new CelestialHolography().DemonstrateEnergyMellinTransform([ new EnergyAmplitudeSample(1, 1), new EnergyAmplitudeSample(2, 1), new EnergyAmplitudeSample(3, 1) ], 1).ApproximateValue - 2) < 1e-10, "Mellin demo");
 Check(new PhysicalDescriptionStudy().Summarize(duality).Contains("PartialResults"), "study independent of metaphysics");
 try { new CelestialHolography().ReconstructFullBulk(); throw new Exception("FAIL: full reconstruction claimed"); }
 catch (NotSupportedException) { Console.WriteLine("PASS: full reconstruction unresolved"); }

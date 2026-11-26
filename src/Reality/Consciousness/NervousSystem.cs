@@ -2,7 +2,7 @@ namespace Reality.Consciousness;
 
 public sealed class NervousSystem
 {
-    private readonly List<string> _memories = new();
+    private readonly List<string> _memories = [];
 
     public Perception Perceive(string stimulus) => new(stimulus, $"Neural representation of: {stimulus}");
 

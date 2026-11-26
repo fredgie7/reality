@@ -3,7 +3,7 @@ namespace Reality.Biology;
 public sealed class Population
 {
     private readonly List<Organism> _organisms;
-    private Population(IEnumerable<Organism> organisms) => _organisms = organisms.ToList();
+    private Population(IEnumerable<Organism> organisms) => _organisms = [.. organisms];
 
     public IReadOnlyList<Organism> Organisms => _organisms;
     public int Generation { get; private set; }

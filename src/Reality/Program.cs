@@ -9,11 +9,11 @@ using Reality.Physics;
 using Reality.Physics.Holography;
 
 var catalog = ScientificCatalog.Create();
-IObservableUniverse observable = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), catalog);
+var observable = new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(seed: 42), catalog);
 IReadOnlyList<ITheoryOfReality> selected;
 try
 {
-    selected = args.Length == 0 || args[0].Equals("all", StringComparison.OrdinalIgnoreCase) ? TheoryCatalog.All : new[] { TheoryCatalog.Find(args[0]) };
+    selected = args.Length == 0 || args[0].Equals("all", StringComparison.OrdinalIgnoreCase) ? TheoryCatalog.All : [TheoryCatalog.Find(args[0])];
 }
 catch (ArgumentException ex)
 {
@@ -48,13 +48,12 @@ foreach (var assessment in new TheoryComparisonService().Compare(selected, obser
         Console.WriteLine("  No distinguishing empirical prediction has been specified.");
 }
 
-var observed = (ObservedUniverse)observable;
 Console.WriteLine();
 Console.WriteLine("ILLUSTRATIVE SCIENTIFIC MODELS (not evidence for any ontology)");
-Console.WriteLine($"GENETICS: ATGGGT -> {observed.Genetics.Transcribe("ATGGGT")} -> {observed.Genetics.Translate("AUGGGU")}");
-Console.WriteLine($"SPACETIME: {observed.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1}s per light-second.");
-Console.WriteLine($"EMERGENCE: {observed.Emergence.Analyze(new[] { true, true, false }).AdjacentActivePairs} connected active pair.");
-var spread = observed.Culture.Transmit(new[] { new CulturalLearner("A", true), new CulturalLearner("B", false) }, 1);
+Console.WriteLine($"GENETICS: ATGGGT -> {observable.Genetics.Transcribe("ATGGGT")} -> {observable.Genetics.Translate("AUGGGU")}");
+Console.WriteLine($"SPACETIME: {observable.Spacetime.LightTravelSeconds(KnownPhysics.SpeedOfLight):F1}s per light-second.");
+Console.WriteLine($"EMERGENCE: {observable.Emergence.Analyze([true, true, false]).AdjacentActivePairs} connected active pair.");
+var spread = observable.Culture.Transmit([new CulturalLearner("A", true), new CulturalLearner("B", false)], 1);
 Console.WriteLine($"CULTURE: {spread.InitialKnowledgeHolders} to {spread.FinalKnowledgeHolders} learners.");
 Console.WriteLine($"OBSERVER: {observable.CreateObserver().Reflect()}");
 Console.WriteLine($"HOLOGRAPHY: {new PhysicalDescriptionStudy().Summarize(new CelestialHolography())}");

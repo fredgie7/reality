@@ -1,0 +1,13 @@
+root = true
+
+[*.cs]
+# Prefer modern C# 12 syntax. These analyzers are enforced during builds,
+# not hidden or downgraded when Visual Studio reports style suggestions.
+csharp_style_prefer_primary_constructors = true:warning
+dotnet_style_prefer_collection_expression = when_types_exactly_match:warning
+
+dotnet_diagnostic.CA1859.severity = warning
+dotnet_diagnostic.CA1861.severity = warning
+dotnet_diagnostic.IDE0290.severity = warning
+dotnet_diagnostic.IDE0300.severity = warning
+dotnet_diagnostic.IDE0305.severity = warning
