@@ -23,4 +23,20 @@ public sealed class PhysicalistTheory : ITheoryOfReality
         new OpenQuestion("What evidence could discriminate physicalist variants from alternatives?")
     ];
     public IReadOnlyList<Prediction> Predictions { get; } = [];
+    /// <summary>Variant-specific objections and possible replies; neither is a verdict.</summary>
+    public IReadOnlyList<TheoryDebate> Debates { get; } = [
+        new TheoryDebate("knowledge-argument",
+            "Physicalism; especially reductive accounts",
+            "The knowledge argument asks whether complete physical information can leave out knowledge of what an experience is like.",
+            "Some physicalists distinguish learning a new phenomenal concept or ability from discovering an additional nonphysical fact.",
+            "Can that response explain the apparent epistemic gap without assuming the metaphysical conclusion?",
+            "https://plato.stanford.edu/entries/qualia-knowledge/"),
+        new TheoryDebate("phenomenal-explanation",
+            "Physicalist accounts of phenomenal character",
+            "Descriptions of neural or functional mechanisms may not by themselves explain why those mechanisms have a first-person character.",
+            "Nonreductive and a posteriori physicalists dispute whether explanatory derivability is required for physical determination.",
+            "Which specific physicalist account explains the relationship and what would distinguish it from rival interpretations?",
+            "https://plato.stanford.edu/entries/physicalism/")
+    ];
+
 }

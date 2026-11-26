@@ -23,4 +23,20 @@ public sealed class IdealistTheory : ITheoryOfReality
         new OpenQuestion("Which version of idealism, if any, generates distinctive observations?")
     ];
     public IReadOnlyList<Prediction> Predictions { get; } = [];
+    /// <summary>Variant-specific objections and possible replies; neither is a verdict.</summary>
+    public IReadOnlyList<TheoryDebate> Debates { get; } = [
+        new TheoryDebate("shared-world",
+            "Metaphysical idealism; not every version makes the same commitments",
+            "How does a fundamentally mental reality explain a stable, shared empirical world that is not controlled by any one observer?",
+            "Some idealist accounts distinguish individual minds from an order or structure that is not dependent on an individual person's choices.",
+            "What constitutes that common order, and why do different observers encounter consistent regularities?",
+            "https://plato.stanford.edu/entries/idealism/"),
+        new TheoryDebate("objective-regularities",
+            "Metaphysical idealism",
+            "The objective success of mathematical physics calls for an account of regularities that persist independently of individual observations.",
+            "An idealist may treat those regularities as features of an underlying mental order rather than inventions of finite human minds.",
+            "Can a specified idealist variant explain the detailed regularities without merely restating them?",
+            "https://plato.stanford.edu/entries/idealism/")
+    ];
+
 }

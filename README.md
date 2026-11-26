@@ -99,6 +99,20 @@ The six-project structure must not privilege one metaphysical theory through sha
 
 A generic investigation should not inherit the explanatory tasks, terminology, or TODO comments of one of its candidate theories.
 
+## Milestone 2 — Competing explanations
+
+Each of the four ontological families now includes **two curated philosophical debates**. Each debate explicitly records:
+
+- **Variant scope:** which formulation faces the objection (not necessarily every version of that ontology)
+- **Objection:** the specific explanatory or logical challenge
+- **Possible response:** a representative reply that is **not** presented as an established solution
+- **Remaining question:** what still has to be accounted for
+- **Source:** a link to a philosophical reference for assessing the discussion
+
+The arguments cover subject combination and cosmopsychism (panpsychism), phenomenal knowledge and explanatory gaps (physicalism), shared reality and objective laws (idealism), and mental causation and physical causal closure (substance dualism). The model uses [Stanford Encyclopedia of Philosophy](https://plato.stanford.edu/) entries as initial orientation sources. Entries summarize debates and do not independently verify the validity of any reply.
+
+`Reality.Philosophy.Models.TheoryDebate` contains the arguments, while `Reality.Investigation.Comparison.TheoryDebateService` checks their structure and source URLs and assembles a readable review. The console presents objections alongside representative replies and unresolved questions, **without numeric rankings, win/loss judgments or purported probability updates**. This is philosophical mapping, not scientific corroboration. Empirical discriminating predictions and hypothesis testing belong to the next milestone.
+
 ## Run
 
 Requirements: .NET 8 SDK (C# 12), Visual Studio 2022 or another compatible editor. The solution uses no third-party NuGet packages.

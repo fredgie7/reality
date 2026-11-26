@@ -95,6 +95,7 @@ var catalog = ScientificCatalog.Create();
 var report = new RealityInvestigator(new ObservedUniverse(new KnownPhysics(), new CosmicHistory(), new ChemistryModel(), new DarwinianEvolution(42), catalog), TheoryCatalog.All, catalog).InvestigateConsciousness();
 Check(report.Reasoning.Nodes.Count > 5 && report.TheoryAssessments.Count == 4, "investigation composes science and philosophy without changing findings");
 Check(report.RelevantFindings.Count == 2 && report.RelevantFindings.Any(x => x.Subject == "Subjective experience"), "investigation preserves the epistemic gap");
+Check(report.TheoryDebates.Count == 4 && report.TheoryDebates.SelectMany(x => x.Debates).Count() == 8, "investigation includes eight sourced debates without inventing scores");
 Check(catalog.Investigations.Count == 3, "catalog includes explicit epistemic investigations");
 Check(catalog.GetInvestigation("dark MATTER")?.FindingSubject == "Dark matter", "investigation lookup is case-insensitive");
 Check(catalog.GetInvestigation("General relativity") is null, "missing evidence trail is not fabricated");
@@ -135,6 +136,22 @@ var theories = TheoryCatalog.All;
 Check(theories.Count == 4 && theories.Select(x => x.Name).Distinct().Count() == 4, "four distinct theories");
 Check(theories.All(x => x.Assumptions.Count >= 2 && x.OpenQuestions.Count >= 2), "explicit assumptions and problems");
 Check(theories.All(x => x.Predictions.Count == 0), "no fabricated discriminating predictions");
+Check(theories.All(x => x.Debates.Count >= 2), "each broad ontology has multiple explicitly scoped arguments");
+Check(theories.SelectMany(x => x.Debates).All(x => !string.IsNullOrWhiteSpace(x.VariantScope) && !string.IsNullOrWhiteSpace(x.Objection) && !string.IsNullOrWhiteSpace(x.PossibleResponse) && !string.IsNullOrWhiteSpace(x.RemainingQuestion)), "debates distinguish variant, objection, possible reply and remaining question");
+var debateReviews = new TheoryDebateService().Review(theories);
+Check(debateReviews.Count == theories.Count && debateReviews.All(x => x.Debates.Count >= 2), "all competing accounts receive a debate review");
+Check(debateReviews.SelectMany(x => x.Debates).All(x => Uri.TryCreate(x.SourceUrl, UriKind.Absolute, out var url) && url.Scheme == Uri.UriSchemeHttps), "debates have traceable HTTPS philosophical sources");
+Check(new TheoryDebateService().Review([TheoryCatalog.Find("Physicalism")]).Count == 1, "selected theory debate remains independently inspectable");
+try
+{
+    _ = new TheoryDebateService().Review([new PanpsychistTheory()]);
+    Console.WriteLine("PASS: theory debate source checking");
+}
+catch (ArgumentException)
+{
+    throw new Exception("FAIL: valid philosophical debate rejected");
+}
+
 Check(TheoryCatalog.Find("pHySiCaLiSm") is PhysicalistTheory, "case-insensitive lookup");
 Check(TheoryCatalog.Find("Idealism") is IdealistTheory, "idealist lookup");
 Check(TheoryCatalog.Find("Substance dualism") is SubstanceDualistTheory, "dualist lookup");

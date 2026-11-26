@@ -13,6 +13,7 @@ public sealed class RealityInvestigator(IObservableUniverse universe, IReadOnlyL
     {
         var findings = universe.Findings.Where(finding => finding.Subject is "Neural correlates" or "Subjective experience").ToArray();
         var comparisons = new TheoryComparisonService().Compare(theories, catalog);
-        return new InvestigationReport("What can neural evidence tell us about consciousness?", findings, ConsciousnessReasoningExample.Create(), comparisons);
+        var debates = new TheoryDebateService().Review(theories);
+        return new InvestigationReport("What can neural evidence tell us about consciousness?", findings, ConsciousnessReasoningExample.Create(), comparisons, debates);
     }
 }

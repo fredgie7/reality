@@ -46,6 +46,14 @@ foreach (var assessment in investigation.TheoryAssessments)
         Console.WriteLine($"  INTERPRETATION [{explanation.FindingSubject}]: {explanation.Account}");
     foreach (var question in assessment.OpenQuestions)
         Console.WriteLine($"  OPEN: {question.Description}");
+    foreach (var debate in investigation.TheoryDebates.First(x => x.TheoryName == theory.Name).Debates)
+    {
+        Console.WriteLine($"  DEBATE [{debate.VariantScope}] {debate.Id}");
+        Console.WriteLine($"    OBJECTION: {debate.Objection}");
+        Console.WriteLine($"    POSSIBLE RESPONSE (not settled): {debate.PossibleResponse}");
+        Console.WriteLine($"    STILL OPEN: {debate.RemainingQuestion}");
+        Console.WriteLine($"    PHILOSOPHICAL SOURCE: {debate.SourceUrl}");
+    }
     if (assessment.ProposedPredictions.Count == 0)
         Console.WriteLine("  No distinguishing empirical prediction has been specified.");
 }
