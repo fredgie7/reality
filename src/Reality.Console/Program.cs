@@ -41,8 +41,8 @@ foreach (var assessment in investigation.TheoryAssessments)
 {
     var theory = selected.First(x => x.Name == assessment.TheoryName);
     Console.WriteLine($"> {theory.Name}: {theory.CoreClaim}");
-    Console.WriteLine($"  Assumptions: {assessment.StatedAssumptions} | Catalog-linked interpretations: {assessment.CatalogLinkedExplanations.Count} | Proposed predictions: {assessment.ProposedPredictions.Count}");
-    foreach (var explanation in assessment.CatalogLinkedExplanations)
+    Console.WriteLine($"  Assumptions: {assessment.StatedAssumptions} | Topic-matched interpretations (not evidential support): {assessment.TopicMatchedExplanations.Count} | Proposed predictions: {assessment.ProposedPredictions.Count}");
+    foreach (var explanation in assessment.TopicMatchedExplanations)
         Console.WriteLine($"  INTERPRETATION [{explanation.FindingSubject}]: {explanation.Account}");
     foreach (var question in assessment.OpenQuestions)
         Console.WriteLine($"  OPEN: {question.Description}");

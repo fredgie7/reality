@@ -79,11 +79,13 @@ Our investigations distinguish **reported observations**, **methodological assum
 
 The scientific catalog includes findings and illustrative reasoning trails about cosmic expansion, dark matter, and neural correlates. Most do not yet include independent primary-source provenance; that gap is explicit.
 
-The first graph example uses a [2025 *Nature* preregistered comparison of GNWT and IIT](https://doi.org/10.1038/s41586-025-08888-1). It traces a deliberately limited neural inference back to its reported observations, source, and assumptions, and marks challenges and unresolved questions. Neither this study nor our graph determines the fundamental nature of consciousness.
+The first graph example uses a [2025 *Nature* preregistered comparison of GNWT and IIT](https://doi.org/10.1038/s41586-025-08888-1). It traces a deliberately limited neural inference back to reported observations, source, and assumptions. Challenges are attached to the specific preregistered findings (GNWT offset ignition and prefrontal content limitations; IIT posterior synchronization), not to unrelated supportive observations. The graph includes a [published GNWT-proponent response](https://doi.org/10.1093/nc/niaf037) disputing the interpretation of the offset-ignition result. Neither this study nor our graph determines the fundamental nature of consciousness.
 
 The four current philosophical perspectives are **panpsychism, physicalism, idealism and substance dualism**. These are broad ontological accounts, distinct from more specific neural theories such as Global Neuronal Workspace Theory and Integrated Information Theory.
 
 **An observation is not automatically an inference. An inference is not automatically a complete explanation. An explanation is not automatically a proof of ultimate ontology.**
+
+The comparison service performs **topic-name matching**, not verification of explanatory success: `TopicMatchedExplanations` means a theory discusses a scientific catalog topic. It does **not** mean the evidence supports that theory. Unmatched subjects are reported as `UnmatchedTopicExplanations`.
 
 ### Ontological neutrality
 

@@ -3,12 +3,12 @@ using Reality.Philosophy.Models;
 namespace Reality.Investigation.Comparison;
 
 /// <summary>
-/// Descriptive comparison only; no objective score or posterior probability.
+/// Topic-name matching only; not evidential support, explanatory success, an objective score, or a posterior probability.
 /// </summary>
 public sealed record TheoryAssessment(
     string TheoryName,
     int StatedAssumptions,
-    IReadOnlyList<Explanation> CatalogLinkedExplanations,
-    IReadOnlyList<Explanation> UnmatchedExplanations,
+    IReadOnlyList<Explanation> TopicMatchedExplanations,
+    IReadOnlyList<Explanation> UnmatchedTopicExplanations,
     IReadOnlyList<Prediction> ProposedPredictions,
     IReadOnlyList<OpenQuestion> OpenQuestions);
